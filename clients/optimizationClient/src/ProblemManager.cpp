@@ -167,7 +167,10 @@ void ProblemManager::createObjects() {
 			int in,out;
 			sstream2>>in;
 			sstream2>>out;
-			symDOF.insert(std::make_pair<int,int>(in,out));
+			// old version working with gcc 4.8
+			// symDOF.insert(std::make_pair<int,int>(in,out));
+			// new version for gcc > 8 (not tested but compiled)
+			symDOF.insert(std::make_pair(in,out));
 			double factor=0;
 			sstream2>>factor;
 			if(factor)

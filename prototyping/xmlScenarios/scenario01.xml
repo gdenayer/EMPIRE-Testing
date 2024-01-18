@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EMPIRE>
+	<codes>
+		<code name="Code#1_CFD">
+			<type>field</type>
+		</code>
+		<code name="Code#2_CSM">
+			<type>field</type>
+		</code>
+	</codes>
+	<connections>
+		<connection name="tractionVector">
+			<input code="Code#2_CSM" slot="U_CSM">
+			</input>
+			<output code="Code#1_CFD" slot="Y_CFD">
+			</output>
+		</connection>
+		<connection name="displacementVector">
+			<input code="Code#1_CFD" slot="U_CFD">
+			</input>
+			<output code="Code#2_CSM" slot="Y_CSM">
+			</output>
+		</connection>
+	</connections>
+	<coSimulation>
+		<couplingLogic name="FSI">
+			<connections>
+				<member>tractionVector</member>
+				<member>displacementVector</member>
+			</connections>
+			<couplingAlgorithm name="Gauss-Seidel" type="loose">
+				<lead>Code#1_CFD</lead>
+				<couplingTimeStep>Max</couplingTimeStep>
+			</couplingAlgorithm>
+			<spacialMapper name="Mortar">
+				<consistent>true</consistent>
+				<pair>
+					<member>tractionVector</member>
+					<member>displacementVector</member>
+				</pair>
+			</spacialMapper>
+		</couplingLogic>
+	</coSimulation>
+	<settings>
+		<verbosity>DEBUG</verbosity>
+	</settings>
+
+</EMPIRE>

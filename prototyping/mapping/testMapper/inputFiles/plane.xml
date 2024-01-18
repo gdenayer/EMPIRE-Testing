@@ -1,0 +1,15 @@
+<settings>
+	<meshes>
+		<master path="../meshes/plane40x40.msh"/>
+		<slave path="../meshes/plane20x20.msh"/>
+	</meshes>
+	
+	<mapper type="quad">
+		<triangleMapper symmetric="true"/> 
+	</mapper>
+	
+	<data>
+		<field function="sine"/>
+		<flux function="sine" perpendicularToSurface="false"/>
+	</data>
+</settings>

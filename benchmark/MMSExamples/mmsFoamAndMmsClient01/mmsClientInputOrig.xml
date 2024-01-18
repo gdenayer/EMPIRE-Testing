@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="mmsFsiClient">
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<GiDMeshFile>mesh/meshFileDummy.msh</GiDMeshFile>
+		<GiDProbeFile>mesh/probes0008.msh</GiDProbeFile>
+		
+		<couplingType>iterativeCoupling</couplingType>
+		
+		<numTimeSteps>nTimeStepsDummy</numTimeSteps>				
+		<timeStep>TimeStepDummy</timeStep>				
+		<loadIncrement>-1.0</loadIncrement>
+		
+		<mmsFunction>mmsFunctionDummy</mmsFunction>
+	</userDefined>
+</EMPIRE>

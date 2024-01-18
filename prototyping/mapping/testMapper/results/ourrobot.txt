@@ -1,0 +1,45 @@
+*** Variables ***
+${reference_case}=  template.gnuplot
+
+
+*** Settings ***
+Library    OperatingSystem
+Library    librarys/shahreza.py
+
+
+*** Testcases ***
+Set up
+    File Should Exist  ${reference_case}
+    publish file     ${reference_case}
+    plot datafile    ${reference_case}
+    run command     cp ../meshes/*.png .
+	
+Test case 1
+	publish image    sphere160x160.png
+	publish image    sphere80x80.png
+    publish image    sphere160x160_error.png
+    publish image    sphere80x80_error.png
+
+Test case 2
+    publish image    diffBoundMaster.png
+    publish image    diffBoundSlave.png
+    publish image    diffBoundMaster_error.png
+    publish image    diffBoundSlave_error.png
+
+Test case 3
+    publish image    matchingDistortQuadMaster.png
+    publish image    matchingDistortQuadSlave.png
+    publish image    matchingDistortQuadMaster_error.png
+    publish image    matchingDistortQuadSlave_error.png
+
+Test case 4
+    publish image    patchTestMaster.png
+    publish image    patchTestSlave.png
+    publish image    patchTestMaster_error.png
+    publish image    patchTestSlave_error.png
+
+Test case 5
+    publish image    sameBoundTriMaster.png
+    publish image    sameBoundTriSlave.png
+    publish image    sameBoundTriMaster_error.png
+    publish image    sameBoundTriSlave_error.png

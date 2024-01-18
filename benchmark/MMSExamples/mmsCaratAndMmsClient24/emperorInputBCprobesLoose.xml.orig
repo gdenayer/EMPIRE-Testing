@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="http://www.example.org/emperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/emperorInput ../../../xmlSchema/emperorInput.xsd">
+	<clientCode name="carat">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="meshClientC">
+		<mesh name="myMesh2">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="dispDeviation" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+
+
+		</mesh>
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="traction" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+			<dataField name="dispDeviation" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+
+	<dataOutput name="output1" interval="1">
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+			dataFieldName="dispDeviation" />
+		<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+			dataFieldName="traction" />
+		<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+			dataFieldName="dispDeviation" />
+	</dataOutput>
+
+	<mapper name="mortar1" type="mortarMapper">
+		<meshA>
+			<meshRef clientCodeName="carat" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="meshClientC" meshName="myMesh1" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="true" dual="false"
+			enforceConsistency="false" />
+	</mapper>
+	<mapper name="mortar2" type="mortarMapper">
+		<meshA>
+			<meshRef clientCodeName="meshClientC" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="meshClientC" meshName="myMesh2" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+	</mapper>
+
+
+
+	<connection name="transfer forces">
+		<input>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+				dataFieldName="traction" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+						dataFieldName="traction" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="transfer displacements">
+		<input>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="map displacements">
+		<input>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar2" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="map deviations">
+		<input>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+				dataFieldName="dispDeviation" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+				dataFieldName="dispDeviation" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+			<input>
+				<dataFieldRef clientCodeName="meshClientC" meshName="myMesh1"
+					dataFieldName="dispDeviation" />
+					</input>
+					<output>
+				<dataFieldRef clientCodeName="meshClientC" meshName="myMesh2"
+					dataFieldName="dispDeviation" />
+					</output>
+					<mappingFilter>
+				<mapperRef mapperName="mortar2"/>
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="timeStepLoop">
+				<timeStepLoop numTimeSteps="10">
+					<dataOutputRef dataOutputName="output1" />
+				</timeStepLoop>
+				<sequence>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="transfer forces" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="transfer displacements" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="map displacements" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="map deviations" />
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>dummy</verbosity>
+	</general>
+</EMPEROR>

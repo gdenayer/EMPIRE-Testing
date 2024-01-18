@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="http://www.example.org/emperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/emperorInput ../../../xmlSchema/emperorInput.xsd">
+	<clientCode name="carat">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="mmsFsiClient">
+		<mesh name="myMesh2">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="dispDeviation" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="traction" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+			<dataField name="dispDeviation" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+	<clientCode name="OpenFOAM">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsElem" location="atElemCentroid"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsNode" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+
+
+	<dataOutput name="output1" interval="1">
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+			dataFieldName="dispDeviation" />
+		<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+			dataFieldName="traction" />
+		<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+			dataFieldName="dispDeviation" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="tractionsElem" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="tractionsNode" />
+	</dataOutput>
+
+	<mapper name="mortar1" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="carat" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="mmsFsiClient" meshName="myMesh1" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="true" dual="false"
+			enforceConsistency="false" />
+	</mapper>
+	<mapper name="mortar2" type="mortarMapper">
+		<meshA>
+			<meshRef clientCodeName="mmsFsiClient" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="mmsFsiClient" meshName="myMesh2" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+	</mapper>
+	<mapper name="mortar3" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="mmsFsiClient" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="myMesh1" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="false" dual="true"
+			enforceConsistency="false" />
+	</mapper>
+
+
+	<couplingAlgorithm type="aitken" name="aitken">
+		<aitken initialAitkenFactor="0.3" />
+	</couplingAlgorithm>
+
+	<connection name="transfer forces from foam">
+		<input>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="tractionsElem" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="traction" />
+		</output>
+		<sequence>
+			<filter type="locationFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsElem" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsNode" />
+				</output>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsNode" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="traction" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar3" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="transfer forces to carat">
+		<input>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="traction" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="traction" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="transfer displacements from carat">
+		<input>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="transfer displacements to foam">
+		<input>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar3" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="map displacements">
+		<input>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar2" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="map deviations">
+		<input>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+				dataFieldName="dispDeviation" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+				dataFieldName="dispDeviation" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh1"
+						dataFieldName="dispDeviation" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="mmsFsiClient" meshName="myMesh2"
+						dataFieldName="dispDeviation" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar2" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="timeStepLoop">
+				<timeStepLoop numTimeSteps="nTimeStepsDummy">
+					<dataOutputRef dataOutputName="output1" />
+				</timeStepLoop>
+				<sequence>
+					<couplingLogic type="iterativeCouplingLoop">
+						<iterativeCouplingLoop>
+							<convergenceChecker absoluteTolerance="1e-09"
+								maxNumOfIterations="0032">
+								<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+									dataFieldName="tractionsNode" />
+							</convergenceChecker>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="OpenFOAM" />
+							</convergenceObserver>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="mmsFsiClient" />
+							</convergenceObserver>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="carat" />
+							</convergenceObserver>
+							<couplingAlgorithmRef couplingAlgorithmName="aitken" />
+						</iterativeCouplingLoop>
+						<sequence>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer displacements to foam" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer forces from foam" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer forces to carat" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer displacements from carat" />
+							</couplingLogic>
+						</sequence>
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="map displacements" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="map deviations" />
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>dummy</verbosity>
+	</general>
+</EMPEROR>

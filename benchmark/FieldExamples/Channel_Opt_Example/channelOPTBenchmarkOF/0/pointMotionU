@@ -1,0 +1,105 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.3                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version 2.0;
+    format ascii;
+
+    root "..";
+    case "rotatingCylinder";
+    instance ""5"";
+    local "";
+
+    class pointVectorField;
+    object pointMotionU;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+
+    inlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    outlet
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    top_left
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    top_center
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    top_right
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    down
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    front
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+    back
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+}
+
+/*
+boundaryField
+{
+    top
+    {
+        type            slip;
+    }
+    bottom
+    {
+        type            slip;
+    }
+    frontback
+    {
+        type            empty;
+    }
+    inlet
+    {
+        type            slip;
+    }
+    outlet
+    {
+        type            slip;
+    }
+    cylinder
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+}
+*/
+
+// ************************************************************************* //

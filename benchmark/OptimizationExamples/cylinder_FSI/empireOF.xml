@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="OpenFOAM">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+ 		<optimizationType>FSIOptimization</optimizationType>
+ 		<couplingType>iterativeCoupling</couplingType>
+ 		<sendDataField>traction</sendDataField> 		
+		<forceSignalNames>liftDragForce</forceSignalNames>
+	</userDefined>
+</EMPIRE>

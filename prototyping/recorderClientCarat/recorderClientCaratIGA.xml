@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="recorderClientCarat">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+            <couplingType>iterativeCoupling</couplingType>
+			<resName>Eigenvector</resName>
+			<resStep>9</resStep>
+			<noTimeSteps>1</noTimeSteps>
+			<noTimeStepsScaling>1</noTimeStepsScaling>
+			<geomFile>./dataRecorderClient/out.georhino.txt</geomFile>
+			<resFile>./dataRecorderClient/out.post.res</resFile>
+			<rotation>15</rotation>
+			<nameCaratInput>semisphere</nameCaratInput>
+			<caratDirectory>./Carat/</caratDirectory>
+	</userDefined>
+</EMPIRE>

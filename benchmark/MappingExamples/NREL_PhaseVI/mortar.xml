@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<testMapper>
+	<mapper name="mortar" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="s.msh" />
+		<meshB GiDMesh="f.msh" />
+		<mortarMapper oppositeSurfaceNormal="true" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="s.res" resultName="displacements" analysisName="EMPIRE_CoSimulation" stepNum="1"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="GiDResult">
+				<GiDResult file="f.res" resultName="tractions" analysisName="EMPIRE_CoSimulation" stepNum="1"/>
+			</dataFieldB>	
+		</conservativeMapping>
+	</mapper>
+</testMapper>
+
+

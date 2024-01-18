@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<clientCode name="dummyCSM">
+		<mesh name="topMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+		<mesh name="bottomMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="OpenFOAM">
+		<mesh name="topMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsElem" location="atElemCentroid"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsNode" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+		<mesh name="bottomMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsElem" location="atElemCentroid"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsNode" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+
+	<dataOutput name="output1" interval="1">
+		<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+			dataFieldName="tractionsElem" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+			dataFieldName="tractionsNode" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+			dataFieldName="tractionsElem" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+			dataFieldName="tractionsNode" />
+	</dataOutput>
+
+	<mapper name="mortarBottom" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="dummyCSM" meshName="bottomMesh" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="bottomMesh" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="false" dual="true"
+			enforceConsistency="false" />
+	</mapper>
+	<mapper name="mortarTop" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="dummyCSM" meshName="topMesh" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="topMesh" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="false" dual="true"
+			enforceConsistency="false" />
+	</mapper>
+
+	<connection name="transfer displacements bottom">
+		<input>
+			<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="scalingFilter">
+				<inputAndOutput>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+						dataFieldName="displacements" />
+				</inputAndOutput>
+				<scalingFilter factor="0.0" />
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarBottom" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="transfer displacements top">
+		<input>
+			<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="scalingFilter">
+				<inputAndOutput>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+						dataFieldName="displacements" />
+				</inputAndOutput>
+				<scalingFilter factor="0.0" />
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarTop" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="transfer forces bottom">
+		<input>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+				dataFieldName="tractionsElem" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="locationFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+						dataFieldName="tractionsElem" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+						dataFieldName="tractionsNode" />
+				</output>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="bottomMesh"
+						dataFieldName="tractionsNode" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="bottomMesh"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarBottom" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+	<connection name="transfer forces top">
+		<input>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+				dataFieldName="tractionsElem" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="locationFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+						dataFieldName="tractionsElem" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+						dataFieldName="tractionsNode" />
+				</output>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="topMesh"
+						dataFieldName="tractionsNode" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="dummyCSM" meshName="topMesh"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarTop" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="timeStepLoop">
+				<timeStepLoop numTimeSteps="100">
+					<dataOutputRef dataOutputName="output1" />
+				</timeStepLoop>
+				<sequence>
+					<couplingLogic type="iterativeCouplingLoop">
+						<iterativeCouplingLoop>
+							<convergenceChecker maxNumOfIterations="1">
+							</convergenceChecker>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="dummyCSM" />
+							</convergenceObserver>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="OpenFOAM" />
+							</convergenceObserver>
+						</iterativeCouplingLoop>
+						<sequence>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer displacements bottom" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer displacements top" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer forces bottom" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer forces top" />
+							</couplingLogic>
+						</sequence>
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>INFO</verbosity>
+	</general>
+</EMPEROR>

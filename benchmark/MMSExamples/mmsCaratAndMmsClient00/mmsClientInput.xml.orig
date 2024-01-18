@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="meshClientC">
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<GiDMeshFile>mesh/rectFlat0008.msh</GiDMeshFile>
+		<GiDProbeFile>mesh/probes0008.msh</GiDProbeFile>
+		<nElemBC>0008</nElemBC>
+		<numTimeSteps>1</numTimeSteps>
+		<loadIncrement>1.0</loadIncrement>
+		<timeStep>1.0</timeStep>
+		<couplingType>looseCoupling</couplingType>
+		<mmsFunction>mmsStructureC</mmsFunction>		
+	</userDefined>
+</EMPIRE>

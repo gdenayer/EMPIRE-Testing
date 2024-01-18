@@ -1,0 +1,80 @@
+BeginZE /home/andreas/software/empire/EMPIRE-Testing/benchmark/FieldExamples/cavityIGAFSIBenchmark/output1_1_carat_myMesh1.gid/output1_1_carat_myMesh1.post.vv
+   x 0.0318976044654846191 0.968102455139160156
+   y 0.552770793437957764 -0.552770793437957764
+   z -1.7083122730255127 1.60831236839294434
+   e 0.552770793437957764
+   v -0.239594237532255228 -0.0869890491656791914 -0.0564760421939696985
+   r 0.965317545331427662
+   m 0.978486716747283936 0.150718778371810913 -0.140881448984146118 0 -0.0673504769802093506 0.878810107707977295 0.472394645214080811 0 0.195006772875785828 -0.452743440866470337 0.870055019855499268 0 0 0 0 1
+   c 0.5 0 0.0500000007450580597
+   pd 0
+   pno 0
+   pfo 0
+   pf 4
+   pv 0
+   NowUse 2
+   DrawingType 3
+   LightVector 0 0 150 0
+   OGLShadow(UseShadows) 0
+   OGLShadow(RenderMode) RenderNice
+   OGLShadow(ShadowBias) -0.002
+   OGLShadow(AmbientShadows) 1
+   OGLShadow(UseFBO) 0
+   OGLShadow(FBOSize) 2048
+   OGLShadow(DimmedLightFactor) 0.02
+   OGLStereo(UseStereo) 0
+   OGLStereo(RelativeEyeDistance) 1
+   OGLStereo(FlipEyes) 0
+   OGLStereo(StereoMode) AnaglyphColors
+   OGLStereo(EyeDistance) 0.075
+   OGLStereo(LeftEyeDistance) 1 0 0 1
+   OGLStereo(RightEyeDistance) 0 1 1 1
+EndZE /home/andreas/software/empire/EMPIRE-Testing/benchmark/FieldExamples/cavityIGAFSIBenchmark/output1_1_carat_myMesh1.gid/output1_1_carat_myMesh1.post.vv
+
+BeginMirror
+   Mirror 0 Angle 0.0 AngleFake -15.0 SizeFactor 2.0 HeightOffset 0.25 Color #d9e5f24d Backlight Off EdgeStyle No Type Scene DrawMode Mirror
+EndMirror
+
+
+BeginPostState
+BeginSingleMesh
+  Num meshes: 0
+  Num sets: 2
+  Num cuts: 0
+  Set: 0
+  State: On
+    Name: "0//s_1"
+    IdSet: 0
+    Color Type: 1
+    Color Ambient: 0 0 0.2 1
+    Color Diffuse: 0 0 1 1
+    Color Specular: 0.8 0.8 0.8 1
+    Color Shininess: 0.3
+    Property Massive: 0
+    Property Transparent: 0
+    Property Style: 3145789
+    Property Edge Width: 1
+    Property Vector Filter Factor: 0
+    Property Stream Arrow: 0
+  EndSet: 0
+  Set: 1
+  State: On
+    Name: "0//s_2"
+    IdSet: 0
+    Color Type: 1
+    Color Ambient: 0 0 0.2 1
+    Color Diffuse: 0 0 1 1
+    Color Specular: 0.8 0.8 0.8 1
+    Color Shininess: 0.3
+    Property Massive: 0
+    Property Transparent: 0
+    Property Style: 3145789
+    Property Edge Width: 1
+    Property Vector Filter Factor: 0
+    Property Stream Arrow: 0
+  EndSet: 1
+EndSingleMesh
+  Post_Prefs_Vector_Size: 0 32 32 32
+  ResultView: {Id 28} {No results} {} {} {} {} 4 4
+EndPostState
+

@@ -1,0 +1,16 @@
+<settings>
+	<meshes>
+		<master path="../meshes/sphere160x160.msh"/>
+		<slave path="../meshes/sphere80x80.msh"/>
+	</meshes>
+		<geometry surfaceNormalOpposite="false"/>
+	
+	<mapper type="quad dual">
+		<triangleMapper symmetric="false"/> 
+	</mapper>
+	
+	<data>
+		<field function="sine"/>
+		<flux function="constant" perpendicularToSurface="false"/>
+	</data>
+</settings>

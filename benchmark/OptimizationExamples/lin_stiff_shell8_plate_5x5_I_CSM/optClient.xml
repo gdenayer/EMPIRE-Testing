@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="optClient">
+		<type>signal</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+            <Library>NLOpt</Library>
+            <Objective>min Strain</Objective>
+            <Sensitivity>FiniteDifference</Sensitivity>
+            <StopCriteria>f rel 1e-4</StopCriteria>
+            <DesignVariableIndex>24 27 30 33 42 45 48 51 60 63 66 69 78 81 84 87</DesignVariableIndex>
+            <LowerBound>-0.1</LowerBound>
+            <UpperBound>2</UpperBound>
+            <Algorithm>LD_MMA</Algorithm>
+	</userDefined>
+</EMPIRE>

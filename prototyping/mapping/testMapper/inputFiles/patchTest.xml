@@ -1,0 +1,7 @@
+<settings>
+	<meshes>
+		<master path="../meshes/patchTestMaster.msh"/>
+		<slave path="../meshes/patchTestSlave.msh"/>
+	</meshes>
+	<mapper type="quad"></mapper>
+</settings>

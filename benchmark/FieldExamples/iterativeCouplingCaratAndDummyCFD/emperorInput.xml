@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<clientCode name="carat">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="dummyCFD">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+
+	<dataOutput name="timestep" interval="1">
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+			dataFieldName="forces" />
+	</dataOutput>
+	
+	<mapper name="mortar1" type="mortarMapper">
+		<!-- consistent mapping is performed from meshA to meshB, and conservative 
+			mapping is performed from meshB to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="carat" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="dummyCFD" meshName="myMesh1" />
+		</meshB>
+
+		<mortarMapper oppositeSurfaceNormal="false" dual="true"
+			enforceConsistency="false" />
+	</mapper>
+	
+	<connection name="transfer displacements">
+		<input>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>				
+		</sequence>
+	</connection>
+	<connection name="transfer forces">
+		<input>
+			<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+				dataFieldName="forces" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="dummyCFD" meshName="myMesh1"
+						dataFieldName="forces" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="timeStepLoop">
+				<timeStepLoop numTimeSteps="500">
+					<dataOutputRef dataOutputName="timestep" />
+				</timeStepLoop>
+				<sequence>
+					<couplingLogic type="iterativeCouplingLoop">
+						<iterativeCouplingLoop>
+							<convergenceChecker maxNumOfIterations="5">
+							</convergenceChecker>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="carat" />
+							</convergenceObserver>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="dummyCFD" />
+							</convergenceObserver>
+						</iterativeCouplingLoop>
+						<sequence>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer forces" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="transfer displacements" />
+							</couplingLogic>
+						</sequence>
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>dummy</verbosity>
+	</general>
+</EMPEROR>

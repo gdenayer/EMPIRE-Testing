@@ -1,0 +1,37 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.0.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      dynamicMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dynamicFvMesh   dynamicMotionSolverFvMesh;
+
+motionSolverLibs ( "libfvMotionSolvers.so" );
+
+solver          displacementLaplacian;
+//solver          displacementSBRStress;
+
+//diffusivity     directional (1 1 1);
+
+//frozenPointsZone    dyMFrozenPointsZone;
+
+//diffusivity   quadratic inverseVolumn;
+//diffusivity   quadratic inverseDistance (memTop);
+//diffusivity     exponential 1 inverseDistance ( memTop memBottom );
+//diffusivity     uniform;
+//diffusivity     directional (0.1 10 0);
+diffusivity     exponential 5 inverseDistance ( memTop memBottom );
+
+
+// ************************************************************************* //

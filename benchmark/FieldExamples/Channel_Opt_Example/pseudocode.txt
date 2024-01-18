@@ -1,0 +1,83 @@
+/*
+ * ================================================
+ * Pseudo code of the server (EMPEROR)
+ * ================================================
+ */
+int main() {
+	// Stage 1: receive meshes ...
+	receiveMeshFrom("carat", "myMesh1");
+	receiveMeshFrom("OpenFOAM", "myMesh1");
+	// Stage 2: do co-simulation ...
+	for (int i=0; i<numberOfTimeSteps; i++) {// time step loop
+		//  ...
+		while (!isConvergent) { // iterative coupling loop
+			//  ...
+			receiveDataFieldFrom("OpenFOAM", "myMesh1", "sensitivities");
+			sendDataFieldTo("carat", "myMesh1", "sensitivities");
+			//  ...
+			//  ...
+			receiveDataFieldFrom("carat", "myMesh1", "shapeUpdate");
+			sendDataFieldTo("OpenFOAM", "myMesh1", "shapeUpdate");
+			//  ...
+		}
+	}
+	//  ...
+	return;
+}
+
+
+
+/*
+ * ================================================
+ * Pseudo code of the client code (carat)
+ * ================================================
+ */
+int main() {
+	// Stage 1: send meshes ...
+	sendMeshToServer("myMesh1")
+	// Stage 2: do co-simulation ...
+	for (int i=0; i<numberOfTimeSteps; i++) {// time step loop
+		//  ...
+		while (!isConvergent) { // iterative coupling loop
+			//  ...
+			receiveDataFieldFromServer("myMesh1", "sensitivities");
+			//  ...
+			//  ...
+			sendDataFieldToServer("myMesh1", "shapeUpdate");
+			//  ...
+		}
+	}
+	//  ...
+	return;
+}
+
+
+
+/*
+ * ================================================
+ * Pseudo code of the client code (OpenFOAM)
+ * ================================================
+ */
+int main() {
+	// Stage 1: send meshes ...
+	sendMeshToServer("myMesh1")
+	// Stage 2: do co-simulation ...
+	for (int i=0; i<numberOfTimeSteps; i++) {// time step loop
+		//  ...
+		while (!isConvergent) { // iterative coupling loop
+			//  ...
+			sendDataFieldToServer("myMesh1", "sensitivities");
+			//  ...
+			//  ...
+			receiveDataFieldFromServer("myMesh1", "shapeUpdate");
+			//  ...
+		}
+	}
+	//  ...
+	return;
+}
+
+
+
+
+

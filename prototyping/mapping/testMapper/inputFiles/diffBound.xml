@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<settings>
+	<meshes>
+		<master path="../meshes/diffBoundMaster.msh"/>
+		<slave path="../meshes/diffBoundSlave.msh"/>
+	</meshes>
+	
+	<mapper type="quad">
+	</mapper>
+</settings>

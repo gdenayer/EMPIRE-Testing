@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="recorderClientEmpire">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+            <couplingType>iterativeCoupling</couplingType>
+			<resName>displacements</resName>
+			<resStep>1000</resStep>
+			<noTimeSteps>10</noTimeSteps>
+			<geomFile>./dataRecorderClient.gid/dataRecorderClient.geo</geomFile>
+			<resFile>./dataRecorderClient.gid/dataRecorderClient.post.res</resFile>
+	</userDefined>
+</EMPIRE>

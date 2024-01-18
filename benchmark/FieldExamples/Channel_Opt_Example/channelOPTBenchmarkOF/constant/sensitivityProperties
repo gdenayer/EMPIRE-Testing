@@ -1,0 +1,62 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.3                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+// FoamX Case Dictionary.
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          optimizationProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//data required for FD
+
+sensitivityPatchName  top_center; //purturbation is done on this patch
+
+ObjectivePatches (inlet outlet); //objective function is measured in this patch
+
+FD_steps ( 0.0000001 );
+
+inlet_velocity (1 0 0);
+
+FD_type some_points; // 1. one_point 2. one_face 3. patch_points 4. patch_faces
+
+cost_func_type power_lost; // 1. power_lost 2. drag_force 3. ... 4. ...
+
+local_pointIDs (419 440); 
+
+global_pointIDs (3364    3490);
+
+convergenceToler 1e-10;
+
+// nodePosition         (25.501110077 -6.9333333969 -1);
+// FDstep                 0.001;
+// smallNumber            1e-6;
+// nodeFD                 1; //true = 1, false = 0;
+// convergenceToler       1e-1;
+// 
+// solvePrimal yes;
+//     
+// FDSensivity yes;
+//     
+// pressureReportPatches (inlet outlet blade circularWall); // patches on which objective function should be calculated  
+
+
+// ************************************************************************* //
+ 
+

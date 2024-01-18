@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Loose coupling with Ping Pong for 10 time steps. -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<!-- ================ define clientCodes ======================================== -->
+	<clientCode name="optClient">
+		<mesh name="morphingMesh" type="IGAMesh">
+			<dataField name="shapeUpdate" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+		</mesh>
+		<signal name="liftDragForce" size="3" />
+                <signal name="volume" size="1" />
+	</clientCode>
+        <!-- new-->
+        <clientCode name="carat">
+            <mesh name="myMesh1">
+                <dataField name="shapeUpdate" location="atNode" dimension="vector"
+                    typeOfQuantity="field" />
+                <dataField name="displacements" location="atNode"
+                    dimension="vector" typeOfQuantity="field" />
+                <dataField name="forces" location="atNode" dimension="vector"
+                        typeOfQuantity="fieldIntegral" />
+            </mesh>
+            <signal name="volume" size="1" />
+        </clientCode>
+	<clientCode name="OpenFOAM">
+		<mesh name="myMesh1">
+			<dataField name="shapeUpdate" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+                        <!-- new-->
+                        <dataField name="tractionsElem" location="atElemCentroid"
+                            dimension="vector" typeOfQuantity="field" />
+                        <dataField name="tractionsNode" location="atNode"
+                            dimension="vector" typeOfQuantity="field" />
+		</mesh>
+		<signal name="liftDragForce" size="3" />
+	</clientCode>
+	<!-- ================ define dataOutputs ======================================== -->
+	<dataOutput name="optimizationOutput" interval="1">
+		<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+			dataFieldName="shapeUpdate" />
+<!-- 		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1" -->
+<!-- 			dataFieldName="shapeUpdate" /> -->
+                <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                        dataFieldName="shapeUpdate" />
+<!-- 		<signalRef clientCodeName="optClient" signalName="liftDragForce" /> -->
+		<signalRef clientCodeName="OpenFOAM" signalName="liftDragForce" />
+                <signalRef clientCodeName="carat" signalName="volume" />
+	</dataOutput>
+<!--	<dataOutput name="timeStepOutput" interval="1">
+                <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                        dataFieldName="displacements" />
+                <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                        dataFieldName="forces" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="displacements" />
+                <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+                            dataFieldName="tractionsElem" />
+                <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+                                dataFieldName="tractionsNode" />
+	</dataOutput>-->
+	<!-- ================ define mappers ======================================== -->
+	<mapper name="mortarShape" type="IGAMortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="optClient" meshName="morphingMesh" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="myMesh1" />
+		</meshB>
+		<IGAMortarMapper tolProjectionDistance="2e-1"
+			numGPsTriangle="16" numGPsQuad="25" />
+	</mapper>
+        <mapper name="mortarShape2" type="IGAMortarMapper">
+            <!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+                to meshA. -->
+                    <meshA>
+                        <meshRef clientCodeName="optClient" meshName="morphingMesh" />
+                    </meshA>
+                    <meshB>
+                        <meshRef clientCodeName="carat" meshName="myMesh1" />
+                    </meshB>
+                    <IGAMortarMapper tolProjectionDistance="2e-1"
+                        numGPsTriangle="16" numGPsQuad="25" />
+        </mapper>            
+	<mapper name="mortarState" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="carat" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="myMesh1" />
+		</meshB>
+		<mortarMapper oppositeSurfaceNormal="true" dual="true"
+			enforceConsistency="false" />
+	</mapper>
+	<!-- ================ define coupling algorithms ======================================== -->
+	<couplingAlgorithm type="aitken" name="aitken">
+		<residual index="1">
+			<component coefficient="-1" timeToUpdate="iterationBeginning">
+				<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+					dataFieldName="displacements" />
+			</component>
+			<component coefficient="1" timeToUpdate="iterationEnd">
+				<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+					dataFieldName="displacements" />
+			</component>
+		</residual>
+		<output index="1">
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<aitken initialRelaxationFactor="0.05" />
+	</couplingAlgorithm>
+	<!-- ================ define connections ======================================== -->
+	<connection name="update shape">
+		<input>
+			<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+				dataFieldName="shapeUpdate" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="shapeUpdate" />
+		</output>
+                <output>
+                    <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                        dataFieldName="shapeUpdate" />
+                </output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+						dataFieldName="shapeUpdate" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="shapeUpdate" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarShape" />
+				</mappingFilter>
+			</filter>
+                        <filter type="mappingFilter">
+                            <input>
+                                <dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+                                    dataFieldName="shapeUpdate" />
+                                </input>
+                                <output>
+                                    <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                                        dataFieldName="shapeUpdate" />
+                                    </output>
+                                    <mappingFilter>
+                                        <mapperRef mapperName="mortarShape2" />
+                                    </mappingFilter>
+                                </filter>
+		</sequence>
+	</connection>
+	<connection name="transfer objective">
+		<input>
+			<signalRef clientCodeName="OpenFOAM" signalName="liftDragForce" />
+		</input>
+		<output>
+			<signalRef clientCodeName="optClient" signalName="liftDragForce" />
+		</output>
+		<sequence>
+			<filter type="copyFilter">
+				<input>
+					<signalRef clientCodeName="OpenFOAM" signalName="liftDragForce" />
+				</input>
+				<output>
+					<signalRef clientCodeName="optClient" signalName="liftDragForce" />
+				</output>
+			</filter>
+		</sequence>
+	</connection>
+        <connection name="transfer constraint">
+            <input>
+                <signalRef clientCodeName="carat" signalName="volume" />
+            </input>
+            <output>
+                <signalRef clientCodeName="optClient" signalName="volume" />
+            </output>
+            <sequence>
+                <filter type="copyFilter">
+                    <input>
+                        <signalRef clientCodeName="carat" signalName="volume" />
+                    </input>
+                    <output>
+                        <signalRef clientCodeName="optClient" signalName="volume" />
+                    </output>
+                </filter>
+            </sequence>
+        </connection>
+        <extrapolator name="extrapolator1" type="linearExtrapolator">
+            <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                dataFieldName="displacements" />
+        </extrapolator>
+	
+	<connection name="set initial value">
+		<sequence>
+			<filter type="scalingFilter">
+				<inputAndOutput>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</inputAndOutput>
+				<scalingFilter factor="0.0" />
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="GS step 1: send displacements">
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortarState" />
+				</mappingFilter>
+			</filter>
+			<filter type="additionFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="shapeUpdate" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<additionFilter a="1" b="1"/>
+			</filter>
+		</sequence>
+	</connection>
+
+   <connection name="GS step 2: transfer forces">
+       <input>
+           <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+               dataFieldName="tractionsElem" />
+           </input>
+           <output>
+               <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                   dataFieldName="forces" />
+               </output>
+               <sequence>
+                   <filter type="locationFilter">
+                       <input>
+                           <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+                               dataFieldName="tractionsElem" />
+                           </input>
+                           <output>
+                               <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+                                   dataFieldName="tractionsNode" />
+                               </output>
+                           </filter>
+                           <filter type="mappingFilter">
+                               <input>
+                                   <dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+                                       dataFieldName="tractionsNode" />
+                                   </input>
+                                   <output>
+                                       <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                                           dataFieldName="forces" />
+                                       </output>
+                                       <mappingFilter>
+                                           <mapperRef mapperName="mortarState" />
+                                       </mappingFilter>
+                                   </filter>
+                               </sequence>
+                           </connection>
+
+	<connection name="GS step 3: receive displacements">
+		<input>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+<!--                <sequence>
+                <filter type="additionFilter">
+                    <input>
+                        <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                            dataFieldName="displacements" />
+                        </input>
+                        <input>
+                            <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                                dataFieldName="shapeUpdate" />
+                            </input>
+                            <output>
+                                <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                                    dataFieldName="displacements" />
+                                </output>
+                                <additionFilter a="1" b="1"/>
+                            </filter>
+                        </sequence>-->
+	</connection>
+
+
+	<!-- ================ define coSimulation process ================================ -->
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="optimizationLoop">
+				<optimizationLoop maxNumOfIterations="500">
+					<convergenceSignalSender>
+						<clientCodeRef clientCodeName="optClient" />
+					</convergenceSignalSender>
+					<convergenceSignalReceiver>
+						<clientCodeRef clientCodeName="OpenFOAM" />
+					</convergenceSignalReceiver>
+					<convergenceSignalReceiver>
+						<clientCodeRef clientCodeName="carat" />
+					</convergenceSignalReceiver>
+					<dataOutputRef dataOutputName="optimizationOutput" />
+				</optimizationLoop>
+				<sequence>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="update shape" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="set initial value" />
+					</couplingLogic>
+					<couplingLogic type="timeStepLoop">
+						<timeStepLoop numTimeSteps="200">
+<!--							<dataOutputRef dataOutputName="timeStepOutput" />-->
+                                                        <extrapolatorRef extrapolatorName="extrapolator1"/>
+						</timeStepLoop>
+						<sequence>
+							<couplingLogic type="iterativeCouplingLoop">
+								<iterativeCouplingLoop>
+									<convergenceChecker maxNumOfIterations="1">
+                                                                            <checkResidual relativeTolerance="1E-6"
+											absoluteTolerance="0">
+											<residualRef couplingAlgorithmName="aitken"
+												index="1" />
+										</checkResidual>
+									</convergenceChecker>
+									<convergenceObserver>
+										<clientCodeRef clientCodeName="carat" />
+									</convergenceObserver>
+									<convergenceObserver>
+										<clientCodeRef clientCodeName="OpenFOAM" />
+									</convergenceObserver>
+									<couplingAlgorithmRef
+										couplingAlgorithmName="aitken" />
+<!-- 									<dataOutputRef dataOutputName="iterativeCoupling" /> -->
+								</iterativeCouplingLoop>
+								<sequence>
+									<couplingLogic type="connection">
+										<connectionRef connectionName="GS step 1: send displacements" />
+									</couplingLogic>
+									<couplingLogic type="connection">
+										<connectionRef connectionName="GS step 2: transfer forces" />
+									</couplingLogic>
+									<couplingLogic type="connection">
+										<connectionRef connectionName="GS step 3: receive displacements" />
+									</couplingLogic>
+								</sequence>
+							</couplingLogic>
+						</sequence>
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="transfer objective" />
+					</couplingLogic>
+                                        <couplingLogic type="connection">
+                                            <connectionRef connectionName="transfer constraint" />
+                                        </couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity> info </verbosity>
+	</general>
+</EMPEROR>

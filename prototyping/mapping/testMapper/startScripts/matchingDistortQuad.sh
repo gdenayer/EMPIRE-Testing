@@ -1,0 +1,1 @@
+./../binICC/testMapper ../inputFiles/matchingDistortQuad.xml

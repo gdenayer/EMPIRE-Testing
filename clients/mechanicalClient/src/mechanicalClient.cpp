@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
                 << endl;
 
         double time = 0.0;
-        cout << "time" << "\t" << "q" << endl;
+        cout << "time" << "\t" << "f" << "\t" << "q" << endl;
         // time loop
         for (int i = 1; i <= numTimeSteps; i++) {
             time += h;
@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
 
                 double q, dq, ddq;
                 mechanicalSystem.get_q(q, dq, ddq);
-                cout << time << "\t" << q << endl;
+                cout << time << "\t" << liftDrag[direction] << '\t' << q << endl;
                 for (int j = 0; j < numNodes; j++)
                     dofsSend[j * 3 + direction] = q;
 

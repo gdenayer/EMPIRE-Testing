@@ -1,0 +1,1 @@
+./../binICC/testMapper ../inputFiles/sameBoundTri.xml

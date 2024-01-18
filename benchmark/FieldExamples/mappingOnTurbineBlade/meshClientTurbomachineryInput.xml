@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="meshClientTurbomachinery">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<GiDMeshFile>mesh/output1_meshClientTurbomachinery_myMesh1.msh</GiDMeshFile>
+		<numTimeSteps>10</numTimeSteps>
+		<couplingType>looseCoupling</couplingType>
+	</userDefined>
+</EMPIRE>

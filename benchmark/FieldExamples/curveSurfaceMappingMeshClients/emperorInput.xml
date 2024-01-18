@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<!-- ================ define clientCodes ======================================== -->
+	<clientCode name="meshClientA">
+		<mesh name="myMesh1">
+            <dataField name="displacements" location="atNode"
+                dimension="doubleVector" typeOfQuantity="field" />
+            <dataField name="forces" location="atNode"
+                dimension="doubleVector" typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="meshClientB">
+		<mesh name="myMesh1" type="sectionMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+            <dataField name="forces" location="atNode"
+                dimension="vector" typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<!-- ================ define dataOutputs ======================================== -->
+	<dataOutput name="timeStep" interval="1">
+        <dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+            dataFieldName="displacements" />
+        <dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+            dataFieldName="displacements" />
+        <dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+            dataFieldName="forces" />
+        <dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+            dataFieldName="forces" />
+	</dataOutput>
+	<!-- ================ define mappers ============================================ -->
+	<mapper name="cs1" type="curveSurfaceMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="meshClientA" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="meshClientB" meshName="myMesh1" />
+		</meshB>
+		<curveSurfaceMapper type="corotate3D" />
+	</mapper>
+	<!-- ================ define couplingAlgorithms ================================= -->
+
+	<!-- ================ define extrapolators ================================= -->
+
+	<!-- ================ define connections ======================================== -->
+	<connection name="transfer displacements">
+		<input>
+			<dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="cs1" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+    <connection name="transfer forces">
+        <input>
+            <dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+                dataFieldName="forces" />
+        </input>
+        <output>
+            <dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+                dataFieldName="forces" />
+        </output>
+        <sequence>
+            <filter type="mappingFilter">
+                <input>
+                    <dataFieldRef clientCodeName="meshClientB" meshName="myMesh1"
+                        dataFieldName="forces" />
+                </input>
+                <output>
+                    <dataFieldRef clientCodeName="meshClientA" meshName="myMesh1"
+                        dataFieldName="forces" />
+                </output>
+                <mappingFilter>
+                    <mapperRef mapperName="cs1" />
+                </mappingFilter>
+            </filter>
+        </sequence>
+    </connection>
+	<!-- ================ define coSimulation process ================================ -->
+    <coSimulation>
+        <sequence>
+            <couplingLogic type="timeStepLoop">
+                <timeStepLoop numTimeSteps="5">
+                    <dataOutputRef dataOutputName="timeStep" />
+                </timeStepLoop>
+                <sequence>
+                    <couplingLogic type="iterativeCouplingLoop">
+                        <iterativeCouplingLoop>
+                            <convergenceChecker maxNumOfIterations="1">
+                            </convergenceChecker>
+                            <convergenceObserver>
+                                <clientCodeRef clientCodeName="meshClientA" />
+                            </convergenceObserver>
+                            <convergenceObserver>
+                                <clientCodeRef clientCodeName="meshClientB" />
+                            </convergenceObserver>
+                        </iterativeCouplingLoop>
+                        <sequence>
+                            <couplingLogic type="connection">
+                                <connectionRef connectionName="transfer displacements" />
+                            </couplingLogic>
+                            <couplingLogic type="connection">
+                                <connectionRef connectionName="transfer forces" />
+                            </couplingLogic>
+                        </sequence>
+                    </couplingLogic>
+                </sequence>
+            </couplingLogic>
+        </sequence>
+    </coSimulation>
+	<!-- ================ general block ============================================== -->
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>a</verbosity>
+	</general>
+</EMPEROR>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="transfer forces" />
+					</couplingLogic>

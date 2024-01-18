@@ -1,0 +1,7 @@
+<settings>
+	<meshes>
+		<master path="../meshes/sameBoundTriMaster.msh"/>
+		<slave path="../meshes/sameBoundTriSlave.msh"/>
+	</meshes>
+	<mapper type="triangle"></mapper>
+</settings>

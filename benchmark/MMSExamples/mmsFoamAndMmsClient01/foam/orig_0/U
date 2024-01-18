@@ -1,0 +1,68 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    location    "12";
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+#include        "../initialConditions"
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform $flowVelocity;
+
+boundaryField
+{
+
+
+    inlet
+    {
+        type                groovyBC;
+        value               uniform $flowVelocity; 
+	valueExpression     "vector(0,0,0)";
+	gradientExpression  "vector(0,0,0)";
+	fractionExpression  "0";//"(time() % 2 == 1) ? 0 : 1"; // 1: Dirichlet 0: Neumann*/
+    }
+    outlet
+    {
+        type                groovyBC;
+        value               uniform $flowVelocity; 
+	valueExpression     "vector(1,0,0)*(sin(50.*pi*time())*cos(pi*sqr(pos().y))*sin(pi*sqr(pos().y))) + vector(0,1,0)*(-pos().y*sin(50.*pi*time())*cos(pi*sqr(pos().y))*sin(pi*sqr(pos().y)))";
+	gradientExpression  "vector(1,0,0)*(sin(0.50e2 * pi * time()) * cos(pi * pos().y * pos().y) * sin(pi * pos().y * pos().y) - 0.2e1 * sin(0.50e2 * pi * time()) * pow(sin(pi * pos().y * pos().y), 0.2e1) * pi * pos().y * pos().y + 0.2e1 * sin(0.50e2 * pi * time()) * pow(cos(pi * pos().y * pos().y), 0.2e1) * pi * pos().y * pos().y) + vector(0,1,0)*(0.2e1 * pow(pos().y, 0.3e1) * sin(0.50e2 * pi * time()) * pow(sin(pi * pos().y * pos().y), 0.2e1) * pi - 0.2e1 * pow(pos().y, 0.3e1) * sin(0.50e2 * pi * time()) * pow(cos(pi * pos().y * pos().y), 0.2e1) * pi)";
+	fractionExpression  "1";//"(time() % 2 == 1) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+    }
+    top
+    {
+	type                groovyBC;
+        value               uniform $flowVelocity; 
+	valueExpression     "vector(1,0,0)*(pos().x*sin(50.*pi*time())*cos(pi*sqr(pos().x))*sin(pi*sqr(pos().x))) + vector(0,1,0)*(-sin(50.*pi*time())*cos(pi*sqr(pos().x))*sin(pi*sqr(pos().x)))";
+	gradientExpression  "vector(1,0,0)*(-0.2e1 * pow(pos().x, 0.3e1) * sin(0.50e2 * pi * time()) * pow(sin(pi * pos().x * pos().x), 0.2e1) * pi + 0.2e1 * pow(pos().x, 0.3e1) * sin(0.50e2 * pi * time()) * pow(cos(pi * pos().x * pos().x), 0.2e1) * pi) + vector(0,1,0)*(-sin(0.50e2 * pi * time()) * cos(pi * pos().x * pos().x) * sin(pi * pos().x * pos().x) + 0.2e1 * pos().x * pos().x * sin(0.50e2 * pi * time()) * pow(sin(pi * pos().x * pos().x), 0.2e1) * pi - 0.2e1 * pos().x * pos().x * sin(0.50e2 * pi * time()) * pow(cos(pi * pos().x * pos().x), 0.2e1) * pi)";
+	fractionExpression  "1";//"(time() % 2 == 1) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+    }
+
+    bottom              
+    {
+        type                groovyBC;
+        value               uniform $flowVelocity; 
+	valueExpression     "vector(0,0,0)";
+	gradientExpression  "vector(0,0,0)";
+	fractionExpression  "0";//"(time() % 2 == 1) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+
+    }
+    frontback
+    {
+    type  empty;
+    }
+}
+
+
+// ************************************************************************* //

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="optClient">
+		<type>signal</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+            <Library>NLOpt</Library>
+            <MeshType>IGA</MeshType>
+            <Objective>min Drag</Objective>
+            <Sensitivity>FiniteDifference 0.1</Sensitivity>
+            <StopCriteria>f rel 1e-4</StopCriteria>
+            <DesignVariableIndex>32 35 38</DesignVariableIndex>
+            <Symmetry>41 32;44 35;47 38</Symmetry>
+            <LowerBound>-0.1</LowerBound>
+            <UpperBound>0.6</UpperBound>
+            <Algorithm>LD_MMA</Algorithm>
+            <MinMax>min</MinMax>
+	</userDefined>
+</EMPIRE>

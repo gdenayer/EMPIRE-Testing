@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Loose coupling with Ping Pong for 10 time steps. -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<clientCode name="client2sendMesh">
+		<mesh name="Mesh">
+		  <dataField name="data" location="atNode" dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+	
+	<clientCode name="client2recvMesh">
+		<mesh name="Mesh" type = "copyFEMesh" fromClient = "client2sendMesh" fromMesh="Mesh" sendMeshToClient="true">
+		    <dataField name="data" location="atNode" dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+	
+	<dataOutput name="output" interval="1">
+		<dataFieldRef clientCodeName="client2recvMesh" meshName="Mesh" dataFieldName="data" />
+	</dataOutput>
+	
+	<connection name="set value 1">
+		<sequence>
+			<filter type="scalingFilter">
+				<inputAndOutput>
+					<dataFieldRef clientCodeName="client2sendMesh" meshName="Mesh"
+						dataFieldName="data" />
+				</inputAndOutput>
+				<scalingFilter factor="0.0" />
+			</filter>
+		</sequence>
+	</connection>
+	
+	<connection name="set value 2">
+		<sequence>
+			<filter type="copyFilter">
+				<input>
+					<dataFieldRef clientCodeName="client2sendMesh" meshName="Mesh"
+						dataFieldName="data" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="client2recvMesh" meshName="Mesh"
+						dataFieldName="data" />
+				</output>
+			</filter>
+		</sequence>
+	</connection>
+	
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="connection">
+				<connectionRef connectionName="set value 1" />
+			</couplingLogic>
+			<couplingLogic type="connection">
+				<connectionRef connectionName="set value 2" />
+			</couplingLogic>
+			<dataOutputRef dataOutputName="output" />
+		</sequence>
+	</coSimulation>
+	
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>INFO</verbosity>
+	</general>
+</EMPEROR>
+	

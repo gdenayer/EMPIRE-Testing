@@ -1,0 +1,57 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    dyMFrozenPoints;
+        type    pointSet;
+        action  new;
+        source  boxToPoint;
+        sourceInfo
+        {
+            box (-100 -100 -100) (0.0000001 100 100);   
+        }
+    }
+    {
+        name    dyMFrozenPoints;
+        type    pointSet;
+        action  add;
+        source  boxToPoint;
+        sourceInfo
+        {
+            box (0.999999999 -100 -100) (100 100 100);      
+        }
+    }
+
+   
+
+    {
+        name    dyMFrozenPointsZone;
+        type    pointZoneSet;
+        action  new;
+        source  setToPointZone;
+        sourceInfo
+        {
+            set dyMFrozenPoints;
+        }
+    }
+
+    
+);
+
+// ************************************************************************* //

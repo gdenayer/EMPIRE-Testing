@@ -1,0 +1,124 @@
+#!/bin/bash
+#doAllScript
+#created by rupert on 08/18/2011
+
+# run startFoam17 before!!!
+case=$(pwd)
+
+mesh='blockMeshDict'
+dict='controlDict'
+probes='probeset'
+
+#array=("_008" "_016")
+#array=("_008" "_016" "_032" "_064" "_128" "_192" "_256" "_320" "_384")
+#array_s=("_0008" "_0016" "_0032" "_0064" "_0128" "_0256" "_0512" "_1024" "_2048" "_4096")
+#array_t=("_001" "_002" "_004" "_008" "_016" "_032" "_064" "_128" "_256" "_512")
+array_s=("_0008" "_0016" "_0032" "_0064" "_0128")
+array_t=("_001" "_002" "_004" "_008" "_016")
+
+#array=("_008" "_016" "_032" "_064" "_128" "_192")
+
+echo "The array for spacial disretization contains ${#array_s[*]} entries"
+echo "The array for temporal disretization contains ${#array_t[*]} entries"
+
+
+if [ "${#array_s[*]}" != "${#array_t[*]}" ]
+then
+echo "DANGER! WRONG NUMBER OF ENTRIES IN THE ARRAYS FOR SPACE AND TIME"
+exit -1
+fi
+
+rm -rf $case/probeset_*
+rm -rf $case/VTK_*
+rm -f out_*
+#rm -f *.pdf
+
+i=0
+
+while [ $i -lt ${#array_s[*]} ]  
+do
+  #echo "$i"
+
+  if [ -f $case/controls/$dict${array_t[$i]} ]
+  then
+
+  if [ -f $case/meshes/$mesh${array_s[$i]} ]
+  then
+
+
+    rm $case/system/controlDict
+    rm $case/constant/polyMesh/blockMeshDict
+
+
+    cp $case/controls/$dict${array_t[$i]} $case/system/
+    mv $case/system/$dict${array_t[$i]} $case/system/$dict
+
+    cp $case/meshes/$mesh${array_s[$i]} $case/constant/polyMesh/
+    mv $case/constant/polyMesh/$mesh${array_s[$i]} $case/constant/polyMesh/$mesh
+
+    echo "--------------------------------------------------------------------------------"
+    echo "Create Mesh for run case ${array_t[$i]}"
+    echo "--------------------------------------------------------------------------------"
+    
+    rm -r 0
+    cp -r orig_0 0
+
+    blockMesh &> delete_me
+
+    #funkySetFields -time 0 &> delete_me
+    #checkMesh &> delete_me
+    echo "--------------------------------------------------------------------------------"
+    echo "Calculating run case ${array_t[$i]}"
+    echo "--------------------------------------------------------------------------------"
+    #mmsPimpleFoam &> out${array_t[$i]}
+    mmsPimpleFoam &> out${array_t[$i]}
+    #mmsLaplacianFoam >> out${array_t[$i]}
+    echo "--------------------------------------------------------------------------------"
+    echo "Build VTK files for run case ${array_t[$i]}"
+    echo "--------------------------------------------------------------------------------"
+    foamToVTK &> delete_me
+
+    mv $case/probeset $case/probeset${array_t[$i]}
+    
+    cd $case/probeset${array_t[$i]}/0/
+    if [ -f UDeviation ]
+      then
+      sed 's/(/ /g' UDeviation >UDev
+      sed 's/)/ /g' UDev >UDeviation
+      rm UDev
+    fi
+    cd $case
+
+    mv $case/VTK $case/VTK${array_t[$i]}
+
+    rm -rf 0.* 1* 2* 3* 4* 5* 6* 7* 8* 9*
+    rm delete_me
+
+
+
+  else
+    echo "--------------------------------------------------------------------------------"
+    echo "The folder $case contains no file called $mesh${array[$i]} "
+    echo "Execution terminated"
+    echo "--------------------------------------------------------------------------------"
+    exit -1
+  fi
+
+  else
+    echo "--------------------------------------------------------------------------------"
+    echo "The folder $case/controls contains no file called $dict${array[$i]} "
+    echo "Execution terminated"
+    echo "--------------------------------------------------------------------------------"
+    exit -1
+  fi
+
+
+
+  i=$[$i+1]
+  done
+echo "--------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
+echo "Calculations finished for the ${#array_t[*]} run cases: ${array_t[@]}"
+echo "--------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
+

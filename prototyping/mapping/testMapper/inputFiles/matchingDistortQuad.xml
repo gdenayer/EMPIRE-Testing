@@ -1,0 +1,7 @@
+<settings>
+	<meshes>
+		<master path="../meshes/matchingDistortQuadMaster.msh"/>
+		<slave path="../meshes/matchingDistortQuadSlave.msh"/>
+	</meshes>
+	<mapper type="quad"></mapper>
+</settings>

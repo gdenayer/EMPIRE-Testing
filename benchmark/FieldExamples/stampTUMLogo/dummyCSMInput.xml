@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="dummyCSM">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<testCase>TUM</testCase>
+		<GiDMeshFile>mesh/dummyCSM_TUM.msh</GiDMeshFile>
+		<numTimeSteps>8</numTimeSteps>
+		<couplingType>looseCoupling</couplingType>
+	</userDefined>
+</EMPIRE>

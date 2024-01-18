@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="recorderClient">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<couplingType>iterativeCoupling</couplingType>
+		<GiDMeshFile>recorded.msh</GiDMeshFile>
+		<numTimeSteps>10000</numTimeSteps>
+		<readInterval>1</readInterval>
+		<readStart>1</readStart>
+		<GiDResultFile>recorded.res</GiDResultFile>
+		<GiDResultFile_resultName>"displacements"</GiDResultFile_resultName>
+		<GiDResultFile_analysisName>"EMPIRE_CoSimulation"</GiDResultFile_analysisName>
+		<GiDResultFile_dataFieldLocation>onNodes</GiDResultFile_dataFieldLocation>
+	</userDefined>
+</EMPIRE>

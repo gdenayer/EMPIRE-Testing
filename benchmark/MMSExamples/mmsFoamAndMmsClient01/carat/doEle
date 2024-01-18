@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "SURFACE 1 : ELEMENT"
+for i in $(seq 1 $1)
+do
+   echo "$i	, S2"
+done
+

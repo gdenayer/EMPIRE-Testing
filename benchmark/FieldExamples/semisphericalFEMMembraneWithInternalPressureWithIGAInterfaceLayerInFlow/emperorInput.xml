@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<clientCode name="caratFEM">
+		<mesh name="myMesh1" type = "FEMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="caratIGA">
+		<mesh name="myMesh1" type = "IGAMesh">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="forces" location="atNode" dimension="vector"
+				typeOfQuantity="fieldIntegral" />
+		</mesh>
+	</clientCode>
+	<clientCode name="OpenFOAM">
+		<mesh name="myMesh1">
+			<dataField name="displacements" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsElem" location="atElemCentroid"
+				dimension="vector" typeOfQuantity="field" />
+			<dataField name="tractionsNode" location="atNode"
+				dimension="vector" typeOfQuantity="field" />
+		</mesh>
+	</clientCode>
+
+	<dataOutput name="output1" interval="5">
+		<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+			dataFieldName="forces" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="displacements" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="tractionsElem" />
+		<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+			dataFieldName="tractionsNode" />
+	</dataOutput>
+
+	<mapper name="IGAMortar1" type="IGAMortarMapper">
+            <IGAMortarMapper>                     
+	        <!--<projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="60" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-6"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+	      <integration numGPTriangle="15" numGPQuad="25"/>-->
+	        <!--<projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="60" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-6"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-5"/>
+	      <integration numGPTriangle="15" numGPQuad="25"/>-->
+		<projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="30" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-7"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+		<integration numGPTriangle="16" numGPQuad="25"/>
+		<IgaPatchCoupling dispPenalty="1" rotPenalty="0" isAutomaticPenaltyFactors = "1"/>
+		<dirichletBCs isDirichletBCs="1"/>
+            </IGAMortarMapper>
+            <!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="caratFEM" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="caratIGA" meshName="myMesh1" />
+		</meshB>
+		<!-- <mortarMapper oppositeSurfaceNormal="true" dual="true"
+		enforceConsistency="false" /> -->
+	</mapper>
+	
+	<mapper name="IGAMortar2" type="IGAMortarMapper">
+            <IGAMortarMapper>                     
+                <!--<projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="60" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-6"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+	      <integration numGPTriangle="15" numGPQuad="25"/>-->
+	        <!--<projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="60" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-6"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-5"/>
+	      <integration numGPTriangle="15" numGPQuad="25"/>-->
+	        <projectionProperties maxProjectionDistance="15e-2" numRefinementForIntialGuess="30" maxDistanceForProjectedPointsOnDifferentPatches="1e-2"/>
+                <newtonRaphson maxNumOfIterations="40" tolerance="1e-7"/>
+                <newtonRaphsonBoundary maxNumOfIterations="0" tolerance="1e-7"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+		<integration numGPTriangle="16" numGPQuad="25"/>
+            </IGAMortarMapper>
+            <!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="caratIGA" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="caratFEM" meshName="myMesh1" />
+		</meshB>
+		<!-- <mortarMapper oppositeSurfaceNormal="true" dual="true"
+		enforceConsistency="false" /> -->
+	</mapper>
+	
+	<mapper name="IGAMortar3" type="IGAMortarMapper">
+            <IGAMortarMapper>                     
+                <projectionProperties maxProjectionDistance="10e-2" numRefinementForIntialGuess="15" maxDistanceForProjectedPointsOnDifferentPatches="1e-3"/>
+                <newtonRaphson maxNumOfIterations="20" tolerance="1e-8"/>
+                <newtonRaphsonBoundary maxNumOfIterations="20" tolerance="1e-8"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+	      <integration numGPTriangle="16" numGPQuad="25"/>
+            </IGAMortarMapper>
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="caratIGA" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="OpenFOAM" meshName="myMesh1" />
+		</meshB>
+		<!-- <mortarMapper oppositeSurfaceNormal="true" dual="true"
+		enforceConsistency="false" /> -->
+	</mapper>
+	
+	<mapper name="IGAMortar4" type="IGAMortarMapper">
+            <IGAMortarMapper>                     
+	        <projectionProperties maxProjectionDistance="10e-2" numRefinementForIntialGuess="15" maxDistanceForProjectedPointsOnDifferentPatches="1e-3"/>
+                <newtonRaphson maxNumOfIterations="20" tolerance="1e-8"/>
+                <newtonRaphsonBoundary maxNumOfIterations="20" tolerance="1e-8"/>
+                <bisection maxNumOfIterations="40" tolerance="1e-6"/>
+	        <integration numGPTriangle="16" numGPQuad="25"/>
+		<IgaPatchCoupling dispPenalty="1" rotPenalty="0" isAutomaticPenaltyFactors = "1"/>
+            </IGAMortarMapper>
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA>
+			<meshRef clientCodeName="OpenFOAM" meshName="myMesh1" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="caratIGA" meshName="myMesh1" />
+		</meshB>
+		<!-- <mortarMapper oppositeSurfaceNormal="true" dual="true"
+		enforceConsistency="false" /> -->
+	</mapper>
+	
+	<couplingAlgorithm type="aitken" name="AitkenRelaxation">
+		<residual index="1">
+			<component coefficient="-1" timeToUpdate="iterationBeginning">
+				<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+					dataFieldName="displacements" />
+			</component>
+			<component coefficient="1" timeToUpdate="iterationEnd">
+				<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+					dataFieldName="displacements" />
+			</component>
+		</residual>
+		<output index="1">
+			<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<aitken initialRelaxationFactor="1.0" />
+	</couplingAlgorithm>
+	
+	<extrapolator name="extrapolator1" type="linearExtrapolator">
+		<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+			dataFieldName="displacements" />
+	</extrapolator>
+
+	<connection name="set initial value">
+		<sequence>
+			<filter type="scalingFilter">
+				<inputAndOutput>
+					<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</inputAndOutput>
+				<scalingFilter factor="0.0" />
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="GS step 1: send displacements">
+		<output>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="IGAMortar1" />
+				</mappingFilter>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="displacements" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="IGAMortar3" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="GS step 2: transfer forces">
+		<input>
+			<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+				dataFieldName="tractionsElem" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+				dataFieldName="forces" />
+		</output>
+		<sequence>
+			<filter type="locationFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsElem" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsNode" />
+				</output>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="OpenFOAM" meshName="myMesh1"
+						dataFieldName="tractionsNode" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="IGAMortar4" />
+				</mappingFilter>
+			</filter>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="caratIGA" meshName="myMesh1"
+						dataFieldName="forces" />
+				</input>
+				<output>
+					<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+						dataFieldName="forces" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="IGAMortar2" />
+				</mappingFilter>
+			</filter>
+		</sequence>
+	</connection>
+
+	<connection name="GS step 3: receive displacements">
+		<input>
+			<dataFieldRef clientCodeName="caratFEM" meshName="myMesh1"
+				dataFieldName="displacements" />
+		</input>
+	</connection>
+
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="connection">
+				<connectionRef connectionName="set initial value" />
+			</couplingLogic>
+			<couplingLogic type="timeStepLoop">
+				<timeStepLoop numTimeSteps="1000">
+					<dataOutputRef dataOutputName="output1" />
+					<extrapolatorRef extrapolatorName="extrapolator1"/>
+				</timeStepLoop>
+				<sequence>
+					<couplingLogic type="iterativeCouplingLoop">
+						<iterativeCouplingLoop>
+							<convergenceChecker maxNumOfIterations="6">
+								<checkResidual relativeTolerance="1E-6"
+									absoluteTolerance="1E-07">
+									<residualRef couplingAlgorithmName="AitkenRelaxation" index="1" />
+								</checkResidual>
+							</convergenceChecker>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="caratFEM" />
+							</convergenceObserver>
+							<convergenceObserver>
+								<clientCodeRef clientCodeName="OpenFOAM" />
+							</convergenceObserver>
+							<couplingAlgorithmRef couplingAlgorithmName="AitkenRelaxation" />
+						</iterativeCouplingLoop>
+						<sequence>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="GS step 1: send displacements" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="GS step 2: transfer forces" />
+							</couplingLogic>
+							<couplingLogic type="connection">
+								<connectionRef connectionName="GS step 3: receive displacements" />
+							</couplingLogic>
+						</sequence>
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>INFO</verbosity>
+		<!--<verbosity>DEBUG</verbosity>-->
+	</general>
+</EMPEROR>

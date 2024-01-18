@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="meshClientA">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<curveSurfaceMapping>true</curveSurfaceMapping>
+		<GiDMeshFile>beam.msh</GiDMeshFile>
+		<GiDResFile>beam.res</GiDResFile>
+		<dataFieldName>dispRot</dataFieldName>
+		<analysisName>EMPIRE_CoSimulation</analysisName>
+		<stepNum>1</stepNum>
+		<numTimeSteps>5</numTimeSteps>
+		<couplingType>iterativeCoupling</couplingType>
+	</userDefined>
+</EMPIRE>

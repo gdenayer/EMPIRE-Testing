@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="dummyCSM">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<testCase>normal</testCase>
+		<GiDMeshFile>mesh/output1_OpenFOAM_myMesh1.msh</GiDMeshFile>
+		<numTimeSteps>1</numTimeSteps>
+		<couplingType>iterativeCoupling</couplingType>
+	</userDefined>
+</EMPIRE>

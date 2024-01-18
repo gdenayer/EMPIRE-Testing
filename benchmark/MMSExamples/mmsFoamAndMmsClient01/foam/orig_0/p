@@ -1,0 +1,68 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.6.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "12";
+    object      p;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include        "../initialConditions"
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform $pressure;
+
+boundaryField
+{
+
+    inlet
+    {
+        type                groovyBC;
+        value               uniform $pressure; 
+	valueExpression     "sin(50.*pi*time())*cos(pi*(1.-pos().y))";
+	gradientExpression  "-sin(50.*pi*time())*sin(pi*(1.-pos().y))*pi*(1.-pos().y)";
+	fractionExpression  "1";//"(time() % 2 == 0) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+    }
+    outlet
+    {
+        type                groovyBC;
+        value               uniform $pressure; 
+	valueExpression     "sin(50.*pi*time())";
+	gradientExpression  "0.";
+	fractionExpression  "0";//"(time() % 2 == 0) ? 0 : 1"; // 1: Dirichlet 2: Neumann
+    }
+    top
+    {
+        type                groovyBC;
+        value               uniform $pressure; 
+	valueExpression     "sin(50.*pi*time())";
+	gradientExpression  "0.";
+	fractionExpression  "0";//"(time() % 2 == 0) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+    }
+    bottom
+    {
+        type                groovyBC;
+        value               uniform $pressure; 
+	valueExpression     "sin(50.*pi*time())*cos(pi*(1.-pos().x))";
+	gradientExpression  "-sin(50.*pi*time())*sin(pi*(1.-pos().x))*pi*(1.-pos().x)";
+	fractionExpression  "1";//"(time() % 2 == 0) ? 0 : 1"; // 1: Dirichlet 0: Neumann
+	
+    }
+    frontback
+    {
+    type  empty;
+    }
+    //#include "frontBackUpperPatches"
+}
+
+
+
+// ************************************************************************* //

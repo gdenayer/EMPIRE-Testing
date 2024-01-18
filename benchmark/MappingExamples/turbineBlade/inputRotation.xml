@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<testMapper>
+	<mapper name="mortarRotationEnforce" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="turbineBladeA.msh" />
+		<meshB GiDMesh="turbineBladeB.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="true" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldBRef>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldARef format="function">
+				<function name="constant"/>
+			</dataFieldARef>
+			<dataFieldB format="function">
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortarRotation" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="turbineBladeA.msh" />
+		<meshB GiDMesh="turbineBladeB.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldBRef>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldARef format="function">
+				<function name="constant"/>
+			</dataFieldARef>
+			<dataFieldB format="function">
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="NERotation" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="turbineBladeA.msh" />
+		<meshB GiDMesh="turbineBladeB.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldBRef>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldARef format="function">
+				<function name="constant"/>
+			</dataFieldARef>
+			<dataFieldB format="function">
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="NNRotation" type="nearestNeighborMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="turbineBladeA.msh" />
+		<meshB GiDMesh="turbineBladeB.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_bladeRotation90"/>
+			</dataFieldBRef>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldARef format="function">
+				<function name="constant"/>
+			</dataFieldARef>
+			<dataFieldB format="function">
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+</testMapper>
+
+
+
+

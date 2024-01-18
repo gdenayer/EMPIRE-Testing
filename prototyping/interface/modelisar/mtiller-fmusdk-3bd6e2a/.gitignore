@@ -1,0 +1,8 @@
+*~
+*.fmu
+fmu
+*.o
+*.so
+source/fmusim/fmusim
+result.csv
+

@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<testMapper>
+	<!-- ============================================================================================================
+	mortar1
+	============================================================================================================= -->
+	<mapper name="mortar1" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.1.msh" />
+		<meshB GiDMesh="sphere11.1.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortar1_consistentMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.1.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_conservativeMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.1.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_meshA.res" resultName="conservativeMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_pressure" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.1.msh" />
+		<meshB GiDMesh="sphere5.1.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_pressureError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.1.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	
+	<!-- ============================================================================================================
+	mortar2
+	============================================================================================================= -->
+	<mapper name="mortar2" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.2.msh" />
+		<meshB GiDMesh="sphere11.2.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortar2_consistentMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.2.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar2_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar2_conservativeMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.2.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar2_meshA.res" resultName="conservativeMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar2_pressure" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.2.msh" />
+		<meshB GiDMesh="sphere5.2.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar2_pressureError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.2.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar2_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	
+	
+	
+	
+	<!-- ============================================================================================================
+	mortar3
+	============================================================================================================= -->
+	<mapper name="mortar3" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.4.msh" />
+		<meshB GiDMesh="sphere11.4.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortar3_consistentMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.4.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar3_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar3_conservativeMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.4.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar3_meshA.res" resultName="conservativeMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>	
+	<mapper name="mortar3_pressure" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere11.4.msh" />
+		<meshB GiDMesh="sphere5.4.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldA>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar3_pressureError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="sphere5.4.msh" />
+		<meshB GiDMesh="sphere2000.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar3_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<function name="EmperorMapperTest_sphere_sin3xy"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>	
+	
+	
+	<!-- ============================================================================================================
+	conservationAnalysis1
+	============================================================================================================= -->
+	<conservationAnalysis name="conservationAnalysis1" displacementsATypeOfQuantity="field" forcesATypeOfQuantity="field" displacementsBTypeOfQuantity="field" forcesBTypeOfQuantity="field">
+		<meshA GiDMesh="sphere5.1.msh" />
+		<meshB GiDMesh="sphere11.1.msh" />
+		<displacementsA format="GiDResult">
+			<GiDResult file="mortar1_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</displacementsA>
+		<forcesA format="GiDResult">
+			<GiDResult file="mortar1_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</forcesA>
+		<displacementsB format="GiDResult">
+			<GiDResult file="mortar1_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</displacementsB>
+		<forcesB format="GiDResult">
+			<GiDResult file="mortar1_pressure_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</forcesB>
+	</conservationAnalysis>
+	
+	
+	
+	<!-- ============================================================================================================
+	conservationAnalysis2
+	============================================================================================================= -->
+	<conservationAnalysis name="conservationAnalysis2" displacementsATypeOfQuantity="field" forcesATypeOfQuantity="field" displacementsBTypeOfQuantity="field" forcesBTypeOfQuantity="field">
+		<meshA GiDMesh="sphere5.2.msh" />
+		<meshB GiDMesh="sphere11.2.msh" />
+		<displacementsA format="GiDResult">
+			<GiDResult file="mortar2_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</displacementsA>
+		<forcesA format="GiDResult">
+			<GiDResult file="mortar2_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</forcesA>
+		<displacementsB format="GiDResult">
+			<GiDResult file="mortar2_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</displacementsB>
+		<forcesB format="GiDResult">
+			<GiDResult file="mortar2_pressure_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</forcesB>
+	</conservationAnalysis>
+	
+	
+	
+	<!-- ============================================================================================================
+	conservationAnalysis3
+	============================================================================================================= -->
+	<conservationAnalysis name="conservationAnalysis3" displacementsATypeOfQuantity="field" forcesATypeOfQuantity="field" displacementsBTypeOfQuantity="field" forcesBTypeOfQuantity="field">
+		<meshA GiDMesh="sphere5.4.msh" />
+		<meshB GiDMesh="sphere11.4.msh" />
+		<displacementsA format="GiDResult">
+			<GiDResult file="mortar3_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</displacementsA>
+		<forcesA format="GiDResult">
+			<GiDResult file="mortar3_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</forcesA>
+		<displacementsB format="GiDResult">
+			<GiDResult file="mortar3_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+		</displacementsB>
+		<forcesB format="GiDResult">
+			<GiDResult file="mortar3_pressure_meshA.res" resultName="consistentMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+		</forcesB>
+	</conservationAnalysis>
+</testMapper>
+
+
+

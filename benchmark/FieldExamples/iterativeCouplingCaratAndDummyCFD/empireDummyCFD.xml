@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="dummyCFD">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<GiDMeshFile>mesh/cbm_dynamic_nonlinear_newmark_shell8.msh</GiDMeshFile>
+		<numTimeSteps>500</numTimeSteps>
+		<couplingType>iterativeCoupling</couplingType>
+
+		<startTime>0.0</startTime>
+		<timeStepLength>0.01</timeStepLength>
+
+		<loadCurveFile>loadCurve/loadCurve.txt</loadCurveFile>
+		<loadNodeIDs>9 10</loadNodeIDs>
+		<loadDirection>1</loadDirection>
+	</userDefined>
+</EMPIRE>

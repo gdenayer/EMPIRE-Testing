@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EMPIRE input file -->
+<EMPIRE>
+	<code name="meshClientB">
+		<type>field</type>
+	</code>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity>DEBUG</verbosity>
+	</general>
+	<userDefined>
+		<GiDMeshFile>blade.msh</GiDMeshFile>
+		<curveSurfaceMapping>true</curveSurfaceMapping>
+		<numSections>101</numSections>
+		<numRootSectionNodes>56</numRootSectionNodes>
+		<numNormalSectionNodes>20</numNormalSectionNodes>
+		<numTipSectionNodes>23</numTipSectionNodes>
+		<numTimeSteps>5</numTimeSteps>
+		<couplingType>iterativeCoupling</couplingType>
+	</userDefined>
+</EMPIRE>

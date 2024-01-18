@@ -1,0 +1,1 @@
+./../binICC/testMapper ../inputFiles/diffBound.xml

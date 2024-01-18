@@ -1,0 +1,2699 @@
+!###############################################################################
+!####                             PC-BLOCK                                  ####
+!###############################################################################
+!===============================================================================
+PC-PROBLEM
+  MASTERJOB = OPT-CTR 1
+!===============================================================================
+
+!===============================================================================
+PC-ANALYSIS 1: EMPIRE_Opt_CoSimulation  
+  DOMAIN   = EL-DOMAIN 1
+  COSIMULATION_INTERFACE = SURFACE 1
+  REGULARIZATION = EL-REGULARIZATION 1
+  EMPIRE_INPUT_FILE = empireCarat.xml
+!===============================================================================  
+
+!===============================================================================
+PC-SOLVER 1: CROUT_SKYLINE
+  BANDWITH = CUTHILL_MCKEE
+!===============================================================================
+
+!===============================================================================
+PC-OUT 1: GID
+  GEOM=1
+  DISP=0
+  STRESS=0
+  !PREC=0
+  SUPPORT_FORCE=0
+!===============================================================================
+!###############################################################################
+!####                             ND-BLOCK                                  ####
+!###############################################################################
+!===============================================================================
+ND-COOR 
+         NODE        1 X    1 Y    1 Z    0
+        NODE        2 X    1 Y    1 Z    0.1
+        NODE        3 X    1.1 Y    1 Z    0.1
+        NODE        4 X    1.1 Y    1 Z    0
+        NODE        5 X    1 Y    1 Z    0.2
+        NODE        6 X    1.1 Y    1 Z    0.2
+        NODE        7 X    1 Y    1 Z    0.3
+        NODE        8 X    1.1 Y    1 Z    0.3
+        NODE        9 X    1 Y    1 Z    0.4
+        NODE        10 X    1.1 Y    1 Z    0.4
+        NODE        11 X    1 Y    1 Z    0.5
+        NODE        12 X    1.1 Y    1 Z    0.5
+        NODE        13 X    1 Y    1 Z    0.6
+        NODE        14 X    1.1 Y    1 Z    0.6
+        NODE        15 X    1 Y    1 Z    0.7
+        NODE        16 X    1.1 Y    1 Z    0.7
+        NODE        17 X    1 Y    1 Z    0.8
+        NODE        18 X    1.1 Y    1 Z    0.8
+        NODE        19 X    1 Y    1 Z    0.9
+        NODE        20 X    1.1 Y    1 Z    0.9
+        NODE        21 X    1 Y    1 Z    1
+        NODE        22 X    1.1 Y    1 Z    1
+        NODE        23 X    1 Y    1 Z    1.1
+        NODE        24 X    1.1 Y    1 Z    1.1
+        NODE        25 X    1 Y    1 Z    1.2
+        NODE        26 X    1.1 Y    1 Z    1.2
+        NODE        27 X    1 Y    1 Z    1.3
+        NODE        28 X    1.1 Y    1 Z    1.3
+        NODE        29 X    1 Y    1 Z    1.4
+        NODE        30 X    1.1 Y    1 Z    1.4
+        NODE        31 X    1 Y    1 Z    1.5
+        NODE        32 X    1.1 Y    1 Z    1.5
+        NODE        33 X    1 Y    1 Z    1.6
+        NODE        34 X    1.1 Y    1 Z    1.6
+        NODE        35 X    1 Y    1 Z    1.7
+        NODE        36 X    1.1 Y    1 Z    1.7
+        NODE        37 X    1 Y    1 Z    1.8
+        NODE        38 X    1.1 Y    1 Z    1.8
+        NODE        39 X    1 Y    1 Z    1.9
+        NODE        40 X    1.1 Y    1 Z    1.9
+        NODE        41 X    1 Y    1 Z    2
+        NODE        42 X    1.1 Y    1 Z    2
+        NODE        43 X    1 Y    1 Z    2.1
+        NODE        44 X    1.1 Y    1 Z    2.1
+        NODE        45 X    1 Y    1 Z    2.2
+        NODE        46 X    1.1 Y    1 Z    2.2
+        NODE        47 X    1 Y    1 Z    2.3
+        NODE        48 X    1.1 Y    1 Z    2.3
+        NODE        49 X    1 Y    1 Z    2.4
+        NODE        50 X    1.1 Y    1 Z    2.4
+        NODE        51 X    1 Y    1 Z    2.5
+        NODE        52 X    1.1 Y    1 Z    2.5
+        NODE        53 X    1.2 Y    1 Z    0.1
+        NODE        54 X    1.2 Y    1 Z    0
+        NODE        55 X    1.2 Y    1 Z    0.2
+        NODE        56 X    1.2 Y    1 Z    0.3
+        NODE        57 X    1.2 Y    1 Z    0.4
+        NODE        58 X    1.2 Y    1 Z    0.5
+        NODE        59 X    1.2 Y    1 Z    0.6
+        NODE        60 X    1.2 Y    1 Z    0.7
+        NODE        61 X    1.2 Y    1 Z    0.8
+        NODE        62 X    1.2 Y    1 Z    0.9
+        NODE        63 X    1.2 Y    1 Z    1
+        NODE        64 X    1.2 Y    1 Z    1.1
+        NODE        65 X    1.2 Y    1 Z    1.2
+        NODE        66 X    1.2 Y    1 Z    1.3
+        NODE        67 X    1.2 Y    1 Z    1.4
+        NODE        68 X    1.2 Y    1 Z    1.5
+        NODE        69 X    1.2 Y    1 Z    1.6
+        NODE        70 X    1.2 Y    1 Z    1.7
+        NODE        71 X    1.2 Y    1 Z    1.8
+        NODE        72 X    1.2 Y    1 Z    1.9
+        NODE        73 X    1.2 Y    1 Z    2
+        NODE        74 X    1.2 Y    1 Z    2.1
+        NODE        75 X    1.2 Y    1 Z    2.2
+        NODE        76 X    1.2 Y    1 Z    2.3
+        NODE        77 X    1.2 Y    1 Z    2.4
+        NODE        78 X    1.2 Y    1 Z    2.5
+        NODE        79 X    1.3 Y    1 Z    0.1
+        NODE        80 X    1.3 Y    1 Z    0
+        NODE        81 X    1.3 Y    1 Z    0.2
+        NODE        82 X    1.3 Y    1 Z    0.3
+        NODE        83 X    1.3 Y    1 Z    0.4
+        NODE        84 X    1.3 Y    1 Z    0.5
+        NODE        85 X    1.3 Y    1 Z    0.6
+        NODE        86 X    1.3 Y    1 Z    0.7
+        NODE        87 X    1.3 Y    1 Z    0.8
+        NODE        88 X    1.3 Y    1 Z    0.9
+        NODE        89 X    1.3 Y    1 Z    1
+        NODE        90 X    1.3 Y    1 Z    1.1
+        NODE        91 X    1.3 Y    1 Z    1.2
+        NODE        92 X    1.3 Y    1 Z    1.3
+        NODE        93 X    1.3 Y    1 Z    1.4
+        NODE        94 X    1.3 Y    1 Z    1.5
+        NODE        95 X    1.3 Y    1 Z    1.6
+        NODE        96 X    1.3 Y    1 Z    1.7
+        NODE        97 X    1.3 Y    1 Z    1.8
+        NODE        98 X    1.3 Y    1 Z    1.9
+        NODE        99 X    1.3 Y    1 Z    2
+        NODE        100 X    1.3 Y    1 Z    2.1
+        NODE        101 X    1.3 Y    1 Z    2.2
+        NODE        102 X    1.3 Y    1 Z    2.3
+        NODE        103 X    1.3 Y    1 Z    2.4
+        NODE        104 X    1.3 Y    1 Z    2.5
+        NODE        105 X    1.4 Y    1 Z    0.1
+        NODE        106 X    1.4 Y    1 Z    0
+        NODE        107 X    1.4 Y    1 Z    0.2
+        NODE        108 X    1.4 Y    1 Z    0.3
+        NODE        109 X    1.4 Y    1 Z    0.4
+        NODE        110 X    1.4 Y    1 Z    0.5
+        NODE        111 X    1.4 Y    1 Z    0.6
+        NODE        112 X    1.4 Y    1 Z    0.7
+        NODE        113 X    1.4 Y    1 Z    0.8
+        NODE        114 X    1.4 Y    1 Z    0.9
+        NODE        115 X    1.4 Y    1 Z    1
+        NODE        116 X    1.4 Y    1 Z    1.1
+        NODE        117 X    1.4 Y    1 Z    1.2
+        NODE        118 X    1.4 Y    1 Z    1.3
+        NODE        119 X    1.4 Y    1 Z    1.4
+        NODE        120 X    1.4 Y    1 Z    1.5
+        NODE        121 X    1.4 Y    1 Z    1.6
+        NODE        122 X    1.4 Y    1 Z    1.7
+        NODE        123 X    1.4 Y    1 Z    1.8
+        NODE        124 X    1.4 Y    1 Z    1.9
+        NODE        125 X    1.4 Y    1 Z    2
+        NODE        126 X    1.4 Y    1 Z    2.1
+        NODE        127 X    1.4 Y    1 Z    2.2
+        NODE        128 X    1.4 Y    1 Z    2.3
+        NODE        129 X    1.4 Y    1 Z    2.4
+        NODE        130 X    1.4 Y    1 Z    2.5
+        NODE        131 X    1.5 Y    1 Z    0.1
+        NODE        132 X    1.5 Y    1 Z    0
+        NODE        133 X    1.5 Y    1 Z    0.2
+        NODE        134 X    1.5 Y    1 Z    0.3
+        NODE        135 X    1.5 Y    1 Z    0.4
+        NODE        136 X    1.5 Y    1 Z    0.5
+        NODE        137 X    1.5 Y    1 Z    0.6
+        NODE        138 X    1.5 Y    1 Z    0.7
+        NODE        139 X    1.5 Y    1 Z    0.8
+        NODE        140 X    1.5 Y    1 Z    0.9
+        NODE        141 X    1.5 Y    1 Z    1
+        NODE        142 X    1.5 Y    1 Z    1.1
+        NODE        143 X    1.5 Y    1 Z    1.2
+        NODE        144 X    1.5 Y    1 Z    1.3
+        NODE        145 X    1.5 Y    1 Z    1.4
+        NODE        146 X    1.5 Y    1 Z    1.5
+        NODE        147 X    1.5 Y    1 Z    1.6
+        NODE        148 X    1.5 Y    1 Z    1.7
+        NODE        149 X    1.5 Y    1 Z    1.8
+        NODE        150 X    1.5 Y    1 Z    1.9
+        NODE        151 X    1.5 Y    1 Z    2
+        NODE        152 X    1.5 Y    1 Z    2.1
+        NODE        153 X    1.5 Y    1 Z    2.2
+        NODE        154 X    1.5 Y    1 Z    2.3
+        NODE        155 X    1.5 Y    1 Z    2.4
+        NODE        156 X    1.5 Y    1 Z    2.5
+        NODE        157 X    1.6 Y    1 Z    0.1
+        NODE        158 X    1.6 Y    1 Z    0
+        NODE        159 X    1.6 Y    1 Z    0.2
+        NODE        160 X    1.6 Y    1 Z    0.3
+        NODE        161 X    1.6 Y    1 Z    0.4
+        NODE        162 X    1.6 Y    1 Z    0.5
+        NODE        163 X    1.6 Y    1 Z    0.6
+        NODE        164 X    1.6 Y    1 Z    0.7
+        NODE        165 X    1.6 Y    1 Z    0.8
+        NODE        166 X    1.6 Y    0.999215 Z    0.9
+        NODE        167 X    1.6 Y    0.997115 Z    1
+        NODE        168 X    1.6 Y    0.994922 Z    1.1
+        NODE        169 X    1.6 Y    0.993573 Z    1.2
+        NODE        170 X    1.6 Y    0.993573 Z    1.3
+        NODE        171 X    1.6 Y    0.994922 Z    1.4
+        NODE        172 X    1.6 Y    0.997115 Z    1.5
+        NODE        173 X    1.6 Y    0.999215 Z    1.6
+        NODE        174 X    1.6 Y    1 Z    1.7
+        NODE        175 X    1.6 Y    1 Z    1.8
+        NODE        176 X    1.6 Y    1 Z    1.9
+        NODE        177 X    1.6 Y    1 Z    2
+        NODE        178 X    1.6 Y    1 Z    2.1
+        NODE        179 X    1.6 Y    1 Z    2.2
+        NODE        180 X    1.6 Y    1 Z    2.3
+        NODE        181 X    1.6 Y    1 Z    2.4
+        NODE        182 X    1.6 Y    1 Z    2.5
+        NODE        183 X    1.7 Y    1 Z    0.1
+        NODE        184 X    1.7 Y    1 Z    0
+        NODE        185 X    1.7 Y    1 Z    0.2
+        NODE        186 X    1.7 Y    1 Z    0.3
+        NODE        187 X    1.7 Y    1 Z    0.4
+        NODE        188 X    1.7 Y    1 Z    0.5
+        NODE        189 X    1.7 Y    1 Z    0.6
+        NODE        190 X    1.7 Y    0.999433 Z    0.7
+        NODE        191 X    1.7 Y    0.995532 Z    0.8
+        NODE        192 X    1.7 Y    0.989432 Z    0.9
+        NODE        193 X    1.7 Y    0.982922 Z    1
+        NODE        194 X    1.7 Y    0.977587 Z    1.1
+        NODE        195 X    1.7 Y    0.974605 Z    1.2
+        NODE        196 X    1.7 Y    0.974605 Z    1.3
+        NODE        197 X    1.7 Y    0.977587 Z    1.4
+        NODE        198 X    1.7 Y    0.982922 Z    1.5
+        NODE        199 X    1.7 Y    0.989432 Z    1.6
+        NODE        200 X    1.7 Y    0.995532 Z    1.7
+        NODE        201 X    1.7 Y    0.999433 Z    1.8
+        NODE        202 X    1.7 Y    1 Z    1.9
+        NODE        203 X    1.7 Y    1 Z    2
+        NODE        204 X    1.7 Y    1 Z    2.1
+        NODE        205 X    1.7 Y    1 Z    2.2
+        NODE        206 X    1.7 Y    1 Z    2.3
+        NODE        207 X    1.7 Y    1 Z    2.4
+        NODE        208 X    1.7 Y    1 Z    2.5
+        NODE        209 X    1.8 Y    1 Z    0.1
+        NODE        210 X    1.8 Y    1 Z    0
+        NODE        211 X    1.8 Y    1 Z    0.2
+        NODE        212 X    1.8 Y    1 Z    0.3
+        NODE        213 X    1.8 Y    1 Z    0.4
+        NODE        214 X    1.8 Y    1 Z    0.5
+        NODE        215 X    1.8 Y    0.998668 Z    0.6
+        NODE        216 X    1.8 Y    0.992051 Z    0.7
+        NODE        217 X    1.8 Y    0.981665 Z    0.8
+        NODE        218 X    1.8 Y    0.969725 Z    0.9
+        NODE        219 X    1.8 Y    0.95843 Z    1
+        NODE        220 X    1.8 Y    0.949702 Z    1.1
+        NODE        221 X    1.8 Y    0.944962 Z    1.2
+        NODE        222 X    1.8 Y    0.944962 Z    1.3
+        NODE        223 X    1.8 Y    0.949702 Z    1.4
+        NODE        224 X    1.8 Y    0.95843 Z    1.5
+        NODE        225 X    1.8 Y    0.969725 Z    1.6
+        NODE        226 X    1.8 Y    0.981665 Z    1.7
+        NODE        227 X    1.8 Y    0.992051 Z    1.8
+        NODE        228 X    1.8 Y    0.998668 Z    1.9
+        NODE        229 X    1.8 Y    1 Z    2
+        NODE        230 X    1.8 Y    1 Z    2.1
+        NODE        231 X    1.8 Y    1 Z    2.2
+        NODE        232 X    1.8 Y    1 Z    2.3
+        NODE        233 X    1.8 Y    1 Z    2.4
+        NODE        234 X    1.8 Y    1 Z    2.5
+        NODE        235 X    1.9 Y    1 Z    0.1
+        NODE        236 X    1.9 Y    1 Z    0
+        NODE        237 X    1.9 Y    1 Z    0.2
+        NODE        238 X    1.9 Y    1 Z    0.3
+        NODE        239 X    1.9 Y    1 Z    0.4
+        NODE        240 X    1.9 Y    0.99896 Z    0.5
+        NODE        241 X    1.9 Y    0.991223 Z    0.6
+        NODE        242 X    1.9 Y    0.977587 Z    0.7
+        NODE        243 X    1.9 Y    0.960459 Z    0.8
+        NODE        244 X    1.9 Y    0.942495 Z    0.9
+        NODE        245 X    1.9 Y    0.926289 Z    1
+        NODE        246 X    1.9 Y    0.914091 Z    1.1
+        NODE        247 X    1.9 Y    0.907555 Z    1.2
+        NODE        248 X    1.9 Y    0.907555 Z    1.3
+        NODE        249 X    1.9 Y    0.914091 Z    1.4
+        NODE        250 X    1.9 Y    0.926289 Z    1.5
+        NODE        251 X    1.9 Y    0.942495 Z    1.6
+        NODE        252 X    1.9 Y    0.960459 Z    1.7
+        NODE        253 X    1.9 Y    0.977587 Z    1.8
+        NODE        254 X    1.9 Y    0.991223 Z    1.9
+        NODE        255 X    1.9 Y    0.99896 Z    2
+        NODE        256 X    1.9 Y    1 Z    2.1
+        NODE        257 X    1.9 Y    1 Z    2.2
+        NODE        258 X    1.9 Y    1 Z    2.3
+        NODE        259 X    1.9 Y    1 Z    2.4
+        NODE        260 X    1.9 Y    1 Z    2.5
+        NODE        261 X    2 Y    1 Z    0.1
+        NODE        262 X    2 Y    1 Z    0
+        NODE        263 X    2 Y    1 Z    0.2
+        NODE        264 X    2 Y    1 Z    0.3
+        NODE        265 X    2 Y    0.999872 Z    0.4
+        NODE        266 X    2 Y    0.993573 Z    0.5
+        NODE        267 X    2 Y    0.978998 Z    0.6
+        NODE        268 X    2 Y    0.95843 Z    0.7
+        NODE        269 X    2 Y    0.934697 Z    0.8
+        NODE        270 X    2 Y    0.91086 Z    0.9
+        NODE        271 X    2 Y    0.889887 Z    1
+        NODE        272 X    2 Y    0.87433 Z    1.1
+        NODE        273 X    2 Y    0.866058 Z    1.2
+        NODE        274 X    2 Y    0.866058 Z    1.3
+        NODE        275 X    2 Y    0.87433 Z    1.4
+        NODE        276 X    2 Y    0.889887 Z    1.5
+        NODE        277 X    2 Y    0.91086 Z    1.6
+        NODE        278 X    2 Y    0.934697 Z    1.7
+        NODE        279 X    2 Y    0.95843 Z    1.8
+        NODE        280 X    2 Y    0.978998 Z    1.9
+        NODE        281 X    2 Y    0.993573 Z    2
+        NODE        282 X    2 Y    0.999872 Z    2.1
+        NODE        283 X    2 Y    1 Z    2.2
+        NODE        284 X    2 Y    1 Z    2.3
+        NODE        285 X    2 Y    1 Z    2.4
+        NODE        286 X    2 Y    1 Z    2.5
+        NODE        287 X    2.1 Y    1 Z    0.1
+        NODE        288 X    2.1 Y    1 Z    0
+        NODE        289 X    2.1 Y    1 Z    0.2
+        NODE        290 X    2.1 Y    1 Z    0.3
+        NODE        291 X    2.1 Y    0.997562 Z    0.4
+        NODE        292 X    2.1 Y    0.985286 Z    0.5
+        NODE        293 X    2.1 Y    0.96434 Z    0.6
+        NODE        294 X    2.1 Y    0.937363 Z    0.7
+        NODE        295 X    2.1 Y    0.907555 Z    0.8
+        NODE        296 X    2.1 Y    0.878341 Z    0.9
+        NODE        297 X    2.1 Y    0.853013 Z    1
+        NODE        298 X    2.1 Y    0.834393 Z    1.1
+        NODE        299 X    2.1 Y    0.82454 Z    1.2
+        NODE        300 X    2.1 Y    0.82454 Z    1.3
+        NODE        301 X    2.1 Y    0.834393 Z    1.4
+        NODE        302 X    2.1 Y    0.853013 Z    1.5
+        NODE        303 X    2.1 Y    0.878341 Z    1.6
+        NODE        304 X    2.1 Y    0.907555 Z    1.7
+        NODE        305 X    2.1 Y    0.937363 Z    1.8
+        NODE        306 X    2.1 Y    0.96434 Z    1.9
+        NODE        307 X    2.1 Y    0.985286 Z    2
+        NODE        308 X    2.1 Y    0.997562 Z    2.1
+        NODE        309 X    2.1 Y    1 Z    2.2
+        NODE        310 X    2.1 Y    1 Z    2.3
+        NODE        311 X    2.1 Y    1 Z    2.4
+        NODE        312 X    2.1 Y    1 Z    2.5
+        NODE        313 X    2.2 Y    1 Z    0.1
+        NODE        314 X    2.2 Y    1 Z    0
+        NODE        315 X    2.2 Y    1 Z    0.2
+        NODE        316 X    2.2 Y    0.999991 Z    0.3
+        NODE        317 X    2.2 Y    0.993573 Z    0.4
+        NODE        318 X    2.2 Y    0.976123 Z    0.5
+        NODE        319 X    2.2 Y    0.949702 Z    0.6
+        NODE        320 X    2.2 Y    0.917249 Z    0.7
+        NODE        321 X    2.2 Y    0.88227 Z    0.8
+        NODE        322 X    2.2 Y    0.848491 Z    0.9
+        NODE        323 X    2.2 Y    0.819475 Z    1
+        NODE        324 X    2.2 Y    0.798264 Z    1.1
+        NODE        325 X    2.2 Y    0.787076 Z    1.2
+        NODE        326 X    2.2 Y    0.787076 Z    1.3
+        NODE        327 X    2.2 Y    0.798264 Z    1.4
+        NODE        328 X    2.2 Y    0.819475 Z    1.5
+        NODE        329 X    2.2 Y    0.848491 Z    1.6
+        NODE        330 X    2.2 Y    0.88227 Z    1.7
+        NODE        331 X    2.2 Y    0.917249 Z    1.8
+        NODE        332 X    2.2 Y    0.949702 Z    1.9
+        NODE        333 X    2.2 Y    0.976123 Z    2
+        NODE        334 X    2.2 Y    0.993573 Z    2.1
+        NODE        335 X    2.2 Y    0.999991 Z    2.2
+        NODE        336 X    2.2 Y    1 Z    2.3
+        NODE        337 X    2.2 Y    1 Z    2.4
+        NODE        338 X    2.2 Y    1 Z    2.5
+        NODE        339 X    2.3 Y    1 Z    0.1
+        NODE        340 X    2.3 Y    1 Z    0
+        NODE        341 X    2.3 Y    1 Z    0.2
+        NODE        342 X    2.3 Y    0.999433 Z    0.3
+        NODE        343 X    2.3 Y    0.989432 Z    0.4
+        NODE        344 X    2.3 Y    0.967987 Z    0.5
+        NODE        345 X    2.3 Y    0.937363 Z    0.6
+        NODE        346 X    2.3 Y    0.900719 Z    0.7
+        NODE        347 X    2.3 Y    0.861795 Z    0.8
+        NODE        348 X    2.3 Y    0.82454 Z    0.9
+        NODE        349 X    2.3 Y    0.792719 Z    1
+        NODE        350 X    2.3 Y    0.769541 Z    1.1
+        NODE        351 X    2.3 Y    0.757337 Z    1.2
+        NODE        352 X    2.3 Y    0.757337 Z    1.3
+        NODE        353 X    2.3 Y    0.769541 Z    1.4
+        NODE        354 X    2.3 Y    0.792719 Z    1.5
+        NODE        355 X    2.3 Y    0.82454 Z    1.6
+        NODE        356 X    2.3 Y    0.861795 Z    1.7
+        NODE        357 X    2.3 Y    0.900719 Z    1.8
+        NODE        358 X    2.3 Y    0.937363 Z    1.9
+        NODE        359 X    2.3 Y    0.967987 Z    2
+        NODE        360 X    2.3 Y    0.989432 Z    2.1
+        NODE        361 X    2.3 Y    0.999433 Z    2.2
+        NODE        362 X    2.3 Y    1 Z    2.3
+        NODE        363 X    2.3 Y    1 Z    2.4
+        NODE        364 X    2.3 Y    1 Z    2.5
+        NODE        365 X    2.4 Y    1 Z    0.1
+        NODE        366 X    2.4 Y    1 Z    0
+        NODE        367 X    2.4 Y    1 Z    0.2
+        NODE        368 X    2.4 Y    0.998668 Z    0.3
+        NODE        369 X    2.4 Y    0.986394 Z    0.4
+        NODE        370 X    2.4 Y    0.962429 Z    0.5
+        NODE        371 X    2.4 Y    0.929161 Z    0.6
+        NODE        372 X    2.4 Y    0.889887 Z    0.7
+        NODE        373 X    2.4 Y    0.848491 Z    0.8
+        NODE        374 X    2.4 Y    0.809061 Z    0.9
+        NODE        375 X    2.4 Y    0.775487 Z    1
+        NODE        376 X    2.4 Y    0.751079 Z    1.1
+        NODE        377 X    2.4 Y    0.738242 Z    1.2
+        NODE        378 X    2.4 Y    0.738242 Z    1.3
+        NODE        379 X    2.4 Y    0.751079 Z    1.4
+        NODE        380 X    2.4 Y    0.775487 Z    1.5
+        NODE        381 X    2.4 Y    0.809061 Z    1.6
+        NODE        382 X    2.4 Y    0.848491 Z    1.7
+        NODE        383 X    2.4 Y    0.889887 Z    1.8
+        NODE        384 X    2.4 Y    0.929161 Z    1.9
+        NODE        385 X    2.4 Y    0.962429 Z    2
+        NODE        386 X    2.4 Y    0.986394 Z    2.1
+        NODE        387 X    2.4 Y    0.998668 Z    2.2
+        NODE        388 X    2.4 Y    1 Z    2.3
+        NODE        389 X    2.4 Y    1 Z    2.4
+        NODE        390 X    2.4 Y    1 Z    2.5
+        NODE        391 X    2.5 Y    1 Z    0.1
+        NODE        392 X    2.5 Y    1 Z    0
+        NODE        393 X    2.5 Y    1 Z    0.2
+        NODE        394 X    2.5 Y    0.998338 Z    0.3
+        NODE        395 X    2.5 Y    0.985286 Z    0.4
+        NODE        396 X    2.5 Y    0.960459 Z    0.5
+        NODE        397 X    2.5 Y    0.926289 Z    0.6
+        NODE        398 X    2.5 Y    0.886119 Z    0.7
+        NODE        399 X    2.5 Y    0.843881 Z    0.8
+        NODE        400 X    2.5 Y    0.803711 Z    0.9
+        NODE        401 X    2.5 Y    0.769541 Z    1
+        NODE        402 X    2.5 Y    0.744714 Z    1.1
+        NODE        403 X    2.5 Y    0.731662 Z    1.2
+        NODE        404 X    2.5 Y    0.731662 Z    1.3
+        NODE        405 X    2.5 Y    0.744714 Z    1.4
+        NODE        406 X    2.5 Y    0.769541 Z    1.5
+        NODE        407 X    2.5 Y    0.803711 Z    1.6
+        NODE        408 X    2.5 Y    0.843881 Z    1.7
+        NODE        409 X    2.5 Y    0.886119 Z    1.8
+        NODE        410 X    2.5 Y    0.926289 Z    1.9
+        NODE        411 X    2.5 Y    0.960459 Z    2
+        NODE        412 X    2.5 Y    0.985286 Z    2.1
+        NODE        413 X    2.5 Y    0.998338 Z    2.2
+        NODE        414 X    2.5 Y    1 Z    2.3
+        NODE        415 X    2.5 Y    1 Z    2.4
+        NODE        416 X    2.5 Y    1 Z    2.5
+        NODE        417 X    2.6 Y    1 Z    0.1
+        NODE        418 X    2.6 Y    1 Z    0
+        NODE        419 X    2.6 Y    1 Z    0.2
+        NODE        420 X    2.6 Y    0.998668 Z    0.3
+        NODE        421 X    2.6 Y    0.986394 Z    0.4
+        NODE        422 X    2.6 Y    0.962429 Z    0.5
+        NODE        423 X    2.6 Y    0.929161 Z    0.6
+        NODE        424 X    2.6 Y    0.889887 Z    0.7
+        NODE        425 X    2.6 Y    0.848491 Z    0.8
+        NODE        426 X    2.6 Y    0.809061 Z    0.9
+        NODE        427 X    2.6 Y    0.775487 Z    1
+        NODE        428 X    2.6 Y    0.751079 Z    1.1
+        NODE        429 X    2.6 Y    0.738242 Z    1.2
+        NODE        430 X    2.6 Y    0.738242 Z    1.3
+        NODE        431 X    2.6 Y    0.751079 Z    1.4
+        NODE        432 X    2.6 Y    0.775487 Z    1.5
+        NODE        433 X    2.6 Y    0.809061 Z    1.6
+        NODE        434 X    2.6 Y    0.848491 Z    1.7
+        NODE        435 X    2.6 Y    0.889887 Z    1.8
+        NODE        436 X    2.6 Y    0.929161 Z    1.9
+        NODE        437 X    2.6 Y    0.962429 Z    2
+        NODE        438 X    2.6 Y    0.986394 Z    2.1
+        NODE        439 X    2.6 Y    0.998668 Z    2.2
+        NODE        440 X    2.6 Y    1 Z    2.3
+        NODE        441 X    2.6 Y    1 Z    2.4
+        NODE        442 X    2.6 Y    1 Z    2.5
+        NODE        443 X    2.7 Y    1 Z    0.1
+        NODE        444 X    2.7 Y    1 Z    0
+        NODE        445 X    2.7 Y    1 Z    0.2
+        NODE        446 X    2.7 Y    0.999433 Z    0.3
+        NODE        447 X    2.7 Y    0.989432 Z    0.4
+        NODE        448 X    2.7 Y    0.967987 Z    0.5
+        NODE        449 X    2.7 Y    0.937363 Z    0.6
+        NODE        450 X    2.7 Y    0.900719 Z    0.7
+        NODE        451 X    2.7 Y    0.861795 Z    0.8
+        NODE        452 X    2.7 Y    0.82454 Z    0.9
+        NODE        453 X    2.7 Y    0.792719 Z    1
+        NODE        454 X    2.7 Y    0.769541 Z    1.1
+        NODE        455 X    2.7 Y    0.757337 Z    1.2
+        NODE        456 X    2.7 Y    0.757337 Z    1.3
+        NODE        457 X    2.7 Y    0.769541 Z    1.4
+        NODE        458 X    2.7 Y    0.792719 Z    1.5
+        NODE        459 X    2.7 Y    0.82454 Z    1.6
+        NODE        460 X    2.7 Y    0.861795 Z    1.7
+        NODE        461 X    2.7 Y    0.900719 Z    1.8
+        NODE        462 X    2.7 Y    0.937363 Z    1.9
+        NODE        463 X    2.7 Y    0.967987 Z    2
+        NODE        464 X    2.7 Y    0.989432 Z    2.1
+        NODE        465 X    2.7 Y    0.999433 Z    2.2
+        NODE        466 X    2.7 Y    1 Z    2.3
+        NODE        467 X    2.7 Y    1 Z    2.4
+        NODE        468 X    2.7 Y    1 Z    2.5
+        NODE        469 X    2.8 Y    1 Z    0.1
+        NODE        470 X    2.8 Y    1 Z    0
+        NODE        471 X    2.8 Y    1 Z    0.2
+        NODE        472 X    2.8 Y    0.999991 Z    0.3
+        NODE        473 X    2.8 Y    0.993573 Z    0.4
+        NODE        474 X    2.8 Y    0.976123 Z    0.5
+        NODE        475 X    2.8 Y    0.949702 Z    0.6
+        NODE        476 X    2.8 Y    0.917249 Z    0.7
+        NODE        477 X    2.8 Y    0.88227 Z    0.8
+        NODE        478 X    2.8 Y    0.848491 Z    0.9
+        NODE        479 X    2.8 Y    0.819475 Z    1
+        NODE        480 X    2.8 Y    0.798264 Z    1.1
+        NODE        481 X    2.8 Y    0.787076 Z    1.2
+        NODE        482 X    2.8 Y    0.787076 Z    1.3
+        NODE        483 X    2.8 Y    0.798264 Z    1.4
+        NODE        484 X    2.8 Y    0.819475 Z    1.5
+        NODE        485 X    2.8 Y    0.848491 Z    1.6
+        NODE        486 X    2.8 Y    0.88227 Z    1.7
+        NODE        487 X    2.8 Y    0.917249 Z    1.8
+        NODE        488 X    2.8 Y    0.949702 Z    1.9
+        NODE        489 X    2.8 Y    0.976123 Z    2
+        NODE        490 X    2.8 Y    0.993573 Z    2.1
+        NODE        491 X    2.8 Y    0.999991 Z    2.2
+        NODE        492 X    2.8 Y    1 Z    2.3
+        NODE        493 X    2.8 Y    1 Z    2.4
+        NODE        494 X    2.8 Y    1 Z    2.5
+        NODE        495 X    2.9 Y    1 Z    0.1
+        NODE        496 X    2.9 Y    1 Z    0
+        NODE        497 X    2.9 Y    1 Z    0.2
+        NODE        498 X    2.9 Y    1 Z    0.3
+        NODE        499 X    2.9 Y    0.997562 Z    0.4
+        NODE        500 X    2.9 Y    0.985286 Z    0.5
+        NODE        501 X    2.9 Y    0.96434 Z    0.6
+        NODE        502 X    2.9 Y    0.937363 Z    0.7
+        NODE        503 X    2.9 Y    0.907555 Z    0.8
+        NODE        504 X    2.9 Y    0.878341 Z    0.9
+        NODE        505 X    2.9 Y    0.853013 Z    1
+        NODE        506 X    2.9 Y    0.834393 Z    1.1
+        NODE        507 X    2.9 Y    0.82454 Z    1.2
+        NODE        508 X    2.9 Y    0.82454 Z    1.3
+        NODE        509 X    2.9 Y    0.834393 Z    1.4
+        NODE        510 X    2.9 Y    0.853013 Z    1.5
+        NODE        511 X    2.9 Y    0.878341 Z    1.6
+        NODE        512 X    2.9 Y    0.907555 Z    1.7
+        NODE        513 X    2.9 Y    0.937363 Z    1.8
+        NODE        514 X    2.9 Y    0.96434 Z    1.9
+        NODE        515 X    2.9 Y    0.985286 Z    2
+        NODE        516 X    2.9 Y    0.997562 Z    2.1
+        NODE        517 X    2.9 Y    1 Z    2.2
+        NODE        518 X    2.9 Y    1 Z    2.3
+        NODE        519 X    2.9 Y    1 Z    2.4
+        NODE        520 X    2.9 Y    1 Z    2.5
+        NODE        521 X    3 Y    1 Z    0.1
+        NODE        522 X    3 Y    1 Z    0
+        NODE        523 X    3 Y    1 Z    0.2
+        NODE        524 X    3 Y    1 Z    0.3
+        NODE        525 X    3 Y    0.999872 Z    0.4
+        NODE        526 X    3 Y    0.993573 Z    0.5
+        NODE        527 X    3 Y    0.978998 Z    0.6
+        NODE        528 X    3 Y    0.95843 Z    0.7
+        NODE        529 X    3 Y    0.934697 Z    0.8
+        NODE        530 X    3 Y    0.91086 Z    0.9
+        NODE        531 X    3 Y    0.889887 Z    1
+        NODE        532 X    3 Y    0.87433 Z    1.1
+        NODE        533 X    3 Y    0.866058 Z    1.2
+        NODE        534 X    3 Y    0.866058 Z    1.3
+        NODE        535 X    3 Y    0.87433 Z    1.4
+        NODE        536 X    3 Y    0.889887 Z    1.5
+        NODE        537 X    3 Y    0.91086 Z    1.6
+        NODE        538 X    3 Y    0.934697 Z    1.7
+        NODE        539 X    3 Y    0.95843 Z    1.8
+        NODE        540 X    3 Y    0.978998 Z    1.9
+        NODE        541 X    3 Y    0.993573 Z    2
+        NODE        542 X    3 Y    0.999872 Z    2.1
+        NODE        543 X    3 Y    1 Z    2.2
+        NODE        544 X    3 Y    1 Z    2.3
+        NODE        545 X    3 Y    1 Z    2.4
+        NODE        546 X    3 Y    1 Z    2.5
+        NODE        547 X    3.1 Y    1 Z    0.1
+        NODE        548 X    3.1 Y    1 Z    0
+        NODE        549 X    3.1 Y    1 Z    0.2
+        NODE        550 X    3.1 Y    1 Z    0.3
+        NODE        551 X    3.1 Y    1 Z    0.4
+        NODE        552 X    3.1 Y    0.99896 Z    0.5
+        NODE        553 X    3.1 Y    0.991223 Z    0.6
+        NODE        554 X    3.1 Y    0.977587 Z    0.7
+        NODE        555 X    3.1 Y    0.960459 Z    0.8
+        NODE        556 X    3.1 Y    0.942495 Z    0.9
+        NODE        557 X    3.1 Y    0.926289 Z    1
+        NODE        558 X    3.1 Y    0.914091 Z    1.1
+        NODE        559 X    3.1 Y    0.907555 Z    1.2
+        NODE        560 X    3.1 Y    0.907555 Z    1.3
+        NODE        561 X    3.1 Y    0.914091 Z    1.4
+        NODE        562 X    3.1 Y    0.926289 Z    1.5
+        NODE        563 X    3.1 Y    0.942495 Z    1.6
+        NODE        564 X    3.1 Y    0.960459 Z    1.7
+        NODE        565 X    3.1 Y    0.977587 Z    1.8
+        NODE        566 X    3.1 Y    0.991223 Z    1.9
+        NODE        567 X    3.1 Y    0.99896 Z    2
+        NODE        568 X    3.1 Y    1 Z    2.1
+        NODE        569 X    3.1 Y    1 Z    2.2
+        NODE        570 X    3.1 Y    1 Z    2.3
+        NODE        571 X    3.1 Y    1 Z    2.4
+        NODE        572 X    3.1 Y    1 Z    2.5
+        NODE        573 X    3.2 Y    1 Z    0.1
+        NODE        574 X    3.2 Y    1 Z    0
+        NODE        575 X    3.2 Y    1 Z    0.2
+        NODE        576 X    3.2 Y    1 Z    0.3
+        NODE        577 X    3.2 Y    1 Z    0.4
+        NODE        578 X    3.2 Y    1 Z    0.5
+        NODE        579 X    3.2 Y    0.998668 Z    0.6
+        NODE        580 X    3.2 Y    0.992051 Z    0.7
+        NODE        581 X    3.2 Y    0.981665 Z    0.8
+        NODE        582 X    3.2 Y    0.969725 Z    0.9
+        NODE        583 X    3.2 Y    0.95843 Z    1
+        NODE        584 X    3.2 Y    0.949702 Z    1.1
+        NODE        585 X    3.2 Y    0.944962 Z    1.2
+        NODE        586 X    3.2 Y    0.944962 Z    1.3
+        NODE        587 X    3.2 Y    0.949702 Z    1.4
+        NODE        588 X    3.2 Y    0.95843 Z    1.5
+        NODE        589 X    3.2 Y    0.969725 Z    1.6
+        NODE        590 X    3.2 Y    0.981665 Z    1.7
+        NODE        591 X    3.2 Y    0.992051 Z    1.8
+        NODE        592 X    3.2 Y    0.998668 Z    1.9
+        NODE        593 X    3.2 Y    1 Z    2
+        NODE        594 X    3.2 Y    1 Z    2.1
+        NODE        595 X    3.2 Y    1 Z    2.2
+        NODE        596 X    3.2 Y    1 Z    2.3
+        NODE        597 X    3.2 Y    1 Z    2.4
+        NODE        598 X    3.2 Y    1 Z    2.5
+        NODE        599 X    3.3 Y    1 Z    0.1
+        NODE        600 X    3.3 Y    1 Z    0
+        NODE        601 X    3.3 Y    1 Z    0.2
+        NODE        602 X    3.3 Y    1 Z    0.3
+        NODE        603 X    3.3 Y    1 Z    0.4
+        NODE        604 X    3.3 Y    1 Z    0.5
+        NODE        605 X    3.3 Y    1 Z    0.6
+        NODE        606 X    3.3 Y    0.999433 Z    0.7
+        NODE        607 X    3.3 Y    0.995532 Z    0.8
+        NODE        608 X    3.3 Y    0.989432 Z    0.9
+        NODE        609 X    3.3 Y    0.982922 Z    1
+        NODE        610 X    3.3 Y    0.977587 Z    1.1
+        NODE        611 X    3.3 Y    0.974605 Z    1.2
+        NODE        612 X    3.3 Y    0.974605 Z    1.3
+        NODE        613 X    3.3 Y    0.977587 Z    1.4
+        NODE        614 X    3.3 Y    0.982922 Z    1.5
+        NODE        615 X    3.3 Y    0.989432 Z    1.6
+        NODE        616 X    3.3 Y    0.995532 Z    1.7
+        NODE        617 X    3.3 Y    0.999433 Z    1.8
+        NODE        618 X    3.3 Y    1 Z    1.9
+        NODE        619 X    3.3 Y    1 Z    2
+        NODE        620 X    3.3 Y    1 Z    2.1
+        NODE        621 X    3.3 Y    1 Z    2.2
+        NODE        622 X    3.3 Y    1 Z    2.3
+        NODE        623 X    3.3 Y    1 Z    2.4
+        NODE        624 X    3.3 Y    1 Z    2.5
+        NODE        625 X    3.4 Y    1 Z    0.1
+        NODE        626 X    3.4 Y    1 Z    0
+        NODE        627 X    3.4 Y    1 Z    0.2
+        NODE        628 X    3.4 Y    1 Z    0.3
+        NODE        629 X    3.4 Y    1 Z    0.4
+        NODE        630 X    3.4 Y    1 Z    0.5
+        NODE        631 X    3.4 Y    1 Z    0.6
+        NODE        632 X    3.4 Y    1 Z    0.7
+        NODE        633 X    3.4 Y    1 Z    0.8
+        NODE        634 X    3.4 Y    0.999215 Z    0.9
+        NODE        635 X    3.4 Y    0.997115 Z    1
+        NODE        636 X    3.4 Y    0.994922 Z    1.1
+        NODE        637 X    3.4 Y    0.993573 Z    1.2
+        NODE        638 X    3.4 Y    0.993573 Z    1.3
+        NODE        639 X    3.4 Y    0.994922 Z    1.4
+        NODE        640 X    3.4 Y    0.997115 Z    1.5
+        NODE        641 X    3.4 Y    0.999215 Z    1.6
+        NODE        642 X    3.4 Y    1 Z    1.7
+        NODE        643 X    3.4 Y    1 Z    1.8
+        NODE        644 X    3.4 Y    1 Z    1.9
+        NODE        645 X    3.4 Y    1 Z    2
+        NODE        646 X    3.4 Y    1 Z    2.1
+        NODE        647 X    3.4 Y    1 Z    2.2
+        NODE        648 X    3.4 Y    1 Z    2.3
+        NODE        649 X    3.4 Y    1 Z    2.4
+        NODE        650 X    3.4 Y    1 Z    2.5
+        NODE        651 X    3.5 Y    1 Z    0.1
+        NODE        652 X    3.5 Y    1 Z    0
+        NODE        653 X    3.5 Y    1 Z    0.2
+        NODE        654 X    3.5 Y    1 Z    0.3
+        NODE        655 X    3.5 Y    1 Z    0.4
+        NODE        656 X    3.5 Y    1 Z    0.5
+        NODE        657 X    3.5 Y    1 Z    0.6
+        NODE        658 X    3.5 Y    1 Z    0.7
+        NODE        659 X    3.5 Y    1 Z    0.8
+        NODE        660 X    3.5 Y    1 Z    0.9
+        NODE        661 X    3.5 Y    1 Z    1
+        NODE        662 X    3.5 Y    1 Z    1.1
+        NODE        663 X    3.5 Y    1 Z    1.2
+        NODE        664 X    3.5 Y    1 Z    1.3
+        NODE        665 X    3.5 Y    1 Z    1.4
+        NODE        666 X    3.5 Y    1 Z    1.5
+        NODE        667 X    3.5 Y    1 Z    1.6
+        NODE        668 X    3.5 Y    1 Z    1.7
+        NODE        669 X    3.5 Y    1 Z    1.8
+        NODE        670 X    3.5 Y    1 Z    1.9
+        NODE        671 X    3.5 Y    1 Z    2
+        NODE        672 X    3.5 Y    1 Z    2.1
+        NODE        673 X    3.5 Y    1 Z    2.2
+        NODE        674 X    3.5 Y    1 Z    2.3
+        NODE        675 X    3.5 Y    1 Z    2.4
+        NODE        676 X    3.5 Y    1 Z    2.5
+        NODE        677 X    3.6 Y    1 Z    0.1
+        NODE        678 X    3.6 Y    1 Z    0
+        NODE        679 X    3.6 Y    1 Z    0.2
+        NODE        680 X    3.6 Y    1 Z    0.3
+        NODE        681 X    3.6 Y    1 Z    0.4
+        NODE        682 X    3.6 Y    1 Z    0.5
+        NODE        683 X    3.6 Y    1 Z    0.6
+        NODE        684 X    3.6 Y    1 Z    0.7
+        NODE        685 X    3.6 Y    1 Z    0.8
+        NODE        686 X    3.6 Y    1 Z    0.9
+        NODE        687 X    3.6 Y    1 Z    1
+        NODE        688 X    3.6 Y    1 Z    1.1
+        NODE        689 X    3.6 Y    1 Z    1.2
+        NODE        690 X    3.6 Y    1 Z    1.3
+        NODE        691 X    3.6 Y    1 Z    1.4
+        NODE        692 X    3.6 Y    1 Z    1.5
+        NODE        693 X    3.6 Y    1 Z    1.6
+        NODE        694 X    3.6 Y    1 Z    1.7
+        NODE        695 X    3.6 Y    1 Z    1.8
+        NODE        696 X    3.6 Y    1 Z    1.9
+        NODE        697 X    3.6 Y    1 Z    2
+        NODE        698 X    3.6 Y    1 Z    2.1
+        NODE        699 X    3.6 Y    1 Z    2.2
+        NODE        700 X    3.6 Y    1 Z    2.3
+        NODE        701 X    3.6 Y    1 Z    2.4
+        NODE        702 X    3.6 Y    1 Z    2.5
+        NODE        703 X    3.7 Y    1 Z    0.1
+        NODE        704 X    3.7 Y    1 Z    0
+        NODE        705 X    3.7 Y    1 Z    0.2
+        NODE        706 X    3.7 Y    1 Z    0.3
+        NODE        707 X    3.7 Y    1 Z    0.4
+        NODE        708 X    3.7 Y    1 Z    0.5
+        NODE        709 X    3.7 Y    1 Z    0.6
+        NODE        710 X    3.7 Y    1 Z    0.7
+        NODE        711 X    3.7 Y    1 Z    0.8
+        NODE        712 X    3.7 Y    1 Z    0.9
+        NODE        713 X    3.7 Y    1 Z    1
+        NODE        714 X    3.7 Y    1 Z    1.1
+        NODE        715 X    3.7 Y    1 Z    1.2
+        NODE        716 X    3.7 Y    1 Z    1.3
+        NODE        717 X    3.7 Y    1 Z    1.4
+        NODE        718 X    3.7 Y    1 Z    1.5
+        NODE        719 X    3.7 Y    1 Z    1.6
+        NODE        720 X    3.7 Y    1 Z    1.7
+        NODE        721 X    3.7 Y    1 Z    1.8
+        NODE        722 X    3.7 Y    1 Z    1.9
+        NODE        723 X    3.7 Y    1 Z    2
+        NODE        724 X    3.7 Y    1 Z    2.1
+        NODE        725 X    3.7 Y    1 Z    2.2
+        NODE        726 X    3.7 Y    1 Z    2.3
+        NODE        727 X    3.7 Y    1 Z    2.4
+        NODE        728 X    3.7 Y    1 Z    2.5
+        NODE        729 X    3.8 Y    1 Z    0.1
+        NODE        730 X    3.8 Y    1 Z    0
+        NODE        731 X    3.8 Y    1 Z    0.2
+        NODE        732 X    3.8 Y    1 Z    0.3
+        NODE        733 X    3.8 Y    1 Z    0.4
+        NODE        734 X    3.8 Y    1 Z    0.5
+        NODE        735 X    3.8 Y    1 Z    0.6
+        NODE        736 X    3.8 Y    1 Z    0.7
+        NODE        737 X    3.8 Y    1 Z    0.8
+        NODE        738 X    3.8 Y    1 Z    0.9
+        NODE        739 X    3.8 Y    1 Z    1
+        NODE        740 X    3.8 Y    1 Z    1.1
+        NODE        741 X    3.8 Y    1 Z    1.2
+        NODE        742 X    3.8 Y    1 Z    1.3
+        NODE        743 X    3.8 Y    1 Z    1.4
+        NODE        744 X    3.8 Y    1 Z    1.5
+        NODE        745 X    3.8 Y    1 Z    1.6
+        NODE        746 X    3.8 Y    1 Z    1.7
+        NODE        747 X    3.8 Y    1 Z    1.8
+        NODE        748 X    3.8 Y    1 Z    1.9
+        NODE        749 X    3.8 Y    1 Z    2
+        NODE        750 X    3.8 Y    1 Z    2.1
+        NODE        751 X    3.8 Y    1 Z    2.2
+        NODE        752 X    3.8 Y    1 Z    2.3
+        NODE        753 X    3.8 Y    1 Z    2.4
+        NODE        754 X    3.8 Y    1 Z    2.5
+        NODE        755 X    3.9 Y    1 Z    0.1
+        NODE        756 X    3.9 Y    1 Z    0
+        NODE        757 X    3.9 Y    1 Z    0.2
+        NODE        758 X    3.9 Y    1 Z    0.3
+        NODE        759 X    3.9 Y    1 Z    0.4
+        NODE        760 X    3.9 Y    1 Z    0.5
+        NODE        761 X    3.9 Y    1 Z    0.6
+        NODE        762 X    3.9 Y    1 Z    0.7
+        NODE        763 X    3.9 Y    1 Z    0.8
+        NODE        764 X    3.9 Y    1 Z    0.9
+        NODE        765 X    3.9 Y    1 Z    1
+        NODE        766 X    3.9 Y    1 Z    1.1
+        NODE        767 X    3.9 Y    1 Z    1.2
+        NODE        768 X    3.9 Y    1 Z    1.3
+        NODE        769 X    3.9 Y    1 Z    1.4
+        NODE        770 X    3.9 Y    1 Z    1.5
+        NODE        771 X    3.9 Y    1 Z    1.6
+        NODE        772 X    3.9 Y    1 Z    1.7
+        NODE        773 X    3.9 Y    1 Z    1.8
+        NODE        774 X    3.9 Y    1 Z    1.9
+        NODE        775 X    3.9 Y    1 Z    2
+        NODE        776 X    3.9 Y    1 Z    2.1
+        NODE        777 X    3.9 Y    1 Z    2.2
+        NODE        778 X    3.9 Y    1 Z    2.3
+        NODE        779 X    3.9 Y    1 Z    2.4
+        NODE        780 X    3.9 Y    1 Z    2.5
+        NODE        781 X    4 Y    1 Z    0.1
+        NODE        782 X    4 Y    1 Z    0
+        NODE        783 X    4 Y    1 Z    0.2
+        NODE        784 X    4 Y    1 Z    0.3
+        NODE        785 X    4 Y    1 Z    0.4
+        NODE        786 X    4 Y    1 Z    0.5
+        NODE        787 X    4 Y    1 Z    0.6
+        NODE        788 X    4 Y    1 Z    0.7
+        NODE        789 X    4 Y    1 Z    0.8
+        NODE        790 X    4 Y    1 Z    0.9
+        NODE        791 X    4 Y    1 Z    1
+        NODE        792 X    4 Y    1 Z    1.1
+        NODE        793 X    4 Y    1 Z    1.2
+        NODE        794 X    4 Y    1 Z    1.3
+        NODE        795 X    4 Y    1 Z    1.4
+        NODE        796 X    4 Y    1 Z    1.5
+        NODE        797 X    4 Y    1 Z    1.6
+        NODE        798 X    4 Y    1 Z    1.7
+        NODE        799 X    4 Y    1 Z    1.8
+        NODE        800 X    4 Y    1 Z    1.9
+        NODE        801 X    4 Y    1 Z    2
+        NODE        802 X    4 Y    1 Z    2.1
+        NODE        803 X    4 Y    1 Z    2.2
+        NODE        804 X    4 Y    1 Z    2.3
+        NODE        805 X    4 Y    1 Z    2.4
+        NODE        806 X    4 Y    1 Z    2.5
+!===============================================================================
+BC-DIRICHLET 1 : SPC-ZERO 
+NODE 1  DISP_X ,DISP_Y ,DISP_Z 
+NODE 2  DISP_Z 
+NODE 3  DISP_Z 
+NODE 4  DISP_Z 
+NODE 5  DISP_Z 
+NODE 6  DISP_Z 
+NODE 7  DISP_Z 
+NODE 8  DISP_Z 
+NODE 9  DISP_Z 
+NODE 10  DISP_Z 
+NODE 11  DISP_Z 
+NODE 12  DISP_X ,DISP_Y ,DISP_Z 
+NODE 13  DISP_Z 
+NODE 14  DISP_Z 
+NODE 15  DISP_Z 
+NODE 16  DISP_Z 
+NODE 17  DISP_Z 
+NODE 18  DISP_Z 
+NODE 19  DISP_Z 
+NODE 20  DISP_Z 
+NODE 21  DISP_Z 
+NODE 22  DISP_Z 
+NODE 23  DISP_Z 
+NODE 24  DISP_Z 
+NODE 25  DISP_Z 
+NODE 26  DISP_Z 
+NODE 27  DISP_Z 
+NODE 28  DISP_Z 
+NODE 29  DISP_Z 
+NODE 30  DISP_Z 
+NODE 31  DISP_Z 
+NODE 32  DISP_Z 
+NODE 33  DISP_Z 
+NODE 34  DISP_Z 
+NODE 35  DISP_Z 
+NODE 36  DISP_Z 
+NODE 37  DISP_Z 
+NODE 38  DISP_Z 
+NODE 39  DISP_Z 
+NODE 40  DISP_Z 
+NODE 41  DISP_Z 
+NODE 42  DISP_Z 
+NODE 43  DISP_Z 
+NODE 44  DISP_Z 
+NODE 45  DISP_Z 
+NODE 46  DISP_Z 
+NODE 47  DISP_Z 
+NODE 48  DISP_Z 
+NODE 49  DISP_Z 
+NODE 50  DISP_Z 
+NODE 51  DISP_Z 
+NODE 52  DISP_Z 
+NODE 53  DISP_Z 
+NODE 54  DISP_Z 
+NODE 55  DISP_Z 
+NODE 56  DISP_Z 
+NODE 57  DISP_Z 
+NODE 58  DISP_Z 
+NODE 59  DISP_Z 
+NODE 60  DISP_Z 
+NODE 61  DISP_Z 
+NODE 62  DISP_Z 
+NODE 63  DISP_Z 
+NODE 64  DISP_Z 
+NODE 65  DISP_Z 
+NODE 66  DISP_Z 
+NODE 67  DISP_Z 
+NODE 68  DISP_Z 
+NODE 69  DISP_Z 
+NODE 70  DISP_Z 
+NODE 71  DISP_Z 
+NODE 72  DISP_Z 
+NODE 73  DISP_Z 
+NODE 74  DISP_Z 
+NODE 75  DISP_Z 
+NODE 76  DISP_Z 
+NODE 77  DISP_Z 
+NODE 78  DISP_Z 
+NODE 79  DISP_Z 
+NODE 80  DISP_Z 
+NODE 81  DISP_Z 
+NODE 82  DISP_Z 
+NODE 83  DISP_Z 
+NODE 84  DISP_Z 
+NODE 85  DISP_Z 
+NODE 86  DISP_Z 
+NODE 87  DISP_Z 
+NODE 88  DISP_Z 
+NODE 89  DISP_Z 
+NODE 90  DISP_Z 
+NODE 91  DISP_Z 
+NODE 92  DISP_Z 
+NODE 93  DISP_Z 
+NODE 94  DISP_Z 
+NODE 95  DISP_Z 
+NODE 96  DISP_Z 
+NODE 97  DISP_Z 
+NODE 98  DISP_Z 
+NODE 99  DISP_Z 
+NODE 100  DISP_Z 
+NODE 101  DISP_Z 
+NODE 102  DISP_Z 
+NODE 103  DISP_Z 
+NODE 104  DISP_Z 
+NODE 105  DISP_Z 
+NODE 106  DISP_Z 
+NODE 107  DISP_Z 
+NODE 108  DISP_Z 
+NODE 109  DISP_Z 
+NODE 110  DISP_Z 
+NODE 111  DISP_Z 
+NODE 112  DISP_Z 
+NODE 113  DISP_Z 
+NODE 114  DISP_Z 
+NODE 115  DISP_Z 
+NODE 116  DISP_Z 
+NODE 117  DISP_Z 
+NODE 118  DISP_Z 
+NODE 119  DISP_Z 
+NODE 120  DISP_Z 
+NODE 121  DISP_Z 
+NODE 122  DISP_Z 
+NODE 123  DISP_Z 
+NODE 124  DISP_Z 
+NODE 125  DISP_Z 
+NODE 126  DISP_Z 
+NODE 127  DISP_Z 
+NODE 128  DISP_Z 
+NODE 129  DISP_Z 
+NODE 130  DISP_Z 
+NODE 131  DISP_Z 
+NODE 132  DISP_Z 
+NODE 133  DISP_Z 
+NODE 134  DISP_Z 
+NODE 135  DISP_Z 
+NODE 136  DISP_Z 
+NODE 137  DISP_Z 
+NODE 138  DISP_Z 
+NODE 139  DISP_Z 
+NODE 140  DISP_Z 
+NODE 141  DISP_Z 
+NODE 142  DISP_Z 
+NODE 143  DISP_Z 
+NODE 144  DISP_Z 
+NODE 145  DISP_Z 
+NODE 146  DISP_Z 
+NODE 147  DISP_Z 
+NODE 148  DISP_Z 
+NODE 149  DISP_Z 
+NODE 150  DISP_Z 
+NODE 151  DISP_Z 
+NODE 152  DISP_Z 
+NODE 153  DISP_Z 
+NODE 154  DISP_Z 
+NODE 155  DISP_Z 
+NODE 156  DISP_Z 
+NODE 157  DISP_Z 
+NODE 158  DISP_Z 
+NODE 159  DISP_Z 
+NODE 160  DISP_Z 
+NODE 161  DISP_Z 
+NODE 162  DISP_Z 
+NODE 163  DISP_Z 
+NODE 164  DISP_Z 
+NODE 165  DISP_Z 
+NODE 166  DISP_Z 
+NODE 167  DISP_Z 
+NODE 168  DISP_Z 
+NODE 169  DISP_Z 
+NODE 170  DISP_Z 
+NODE 171  DISP_Z 
+NODE 172  DISP_Z 
+NODE 173  DISP_Z 
+NODE 174  DISP_Z 
+NODE 175  DISP_Z 
+NODE 176  DISP_Z 
+NODE 177  DISP_Z 
+NODE 178  DISP_Z 
+NODE 179  DISP_Z 
+NODE 180  DISP_Z 
+NODE 181  DISP_Z 
+NODE 182  DISP_Z 
+NODE 183  DISP_Z 
+NODE 184  DISP_Z 
+NODE 185  DISP_Z 
+NODE 186  DISP_Z 
+NODE 187  DISP_Z 
+NODE 188  DISP_Z 
+NODE 189  DISP_Z 
+NODE 190  DISP_Z 
+NODE 191  DISP_Z 
+NODE 192  DISP_Z 
+NODE 193  DISP_Z 
+NODE 194  DISP_Z 
+NODE 195  DISP_Z 
+NODE 196  DISP_Z 
+NODE 197  DISP_Z 
+NODE 198  DISP_Z 
+NODE 199  DISP_Z 
+NODE 200  DISP_Z 
+NODE 201  DISP_X ,DISP_Y ,DISP_Z 
+NODE 202  DISP_X ,DISP_Y ,DISP_Z 
+!===============================================================================
+
+!###############################################################################
+!####                          SURFACE-BLOCK                                ####
+!###############################################################################
+
+!===============================================================================
+SURFACE 1 : ELEMENT
+ 1, S1
+ 2, S1
+ 3, S1
+ 4, S1
+ 5, S1
+ 6, S1
+ 7, S1
+ 8, S1
+ 9, S1
+ 10, S1
+ 11, S1
+ 12, S1
+ 13, S1
+ 14, S1
+ 15, S1
+ 16, S1
+ 17, S1
+ 18, S1
+ 19, S1
+ 20, S1
+ 21, S1
+ 22, S1
+ 23, S1
+ 24, S1
+ 25, S1
+ 26, S1
+ 27, S1
+ 28, S1
+ 29, S1
+ 30, S1
+ 31, S1
+ 32, S1
+ 33, S1
+ 34, S1
+ 35, S1
+ 36, S1
+ 37, S1
+ 38, S1
+ 39, S1
+ 40, S1
+ 41, S1
+ 42, S1
+ 43, S1
+ 44, S1
+ 45, S1
+ 46, S1
+ 47, S1
+ 48, S1
+ 49, S1
+ 50, S1
+ 51, S1
+ 52, S1
+ 53, S1
+ 54, S1
+ 55, S1
+ 56, S1
+ 57, S1
+ 58, S1
+ 59, S1
+ 60, S1
+ 61, S1
+ 62, S1
+ 63, S1
+ 64, S1
+ 65, S1
+ 66, S1
+ 67, S1
+ 68, S1
+ 69, S1
+ 70, S1
+ 71, S1
+ 72, S1
+ 73, S1
+ 74, S1
+ 75, S1
+ 76, S1
+ 77, S1
+ 78, S1
+ 79, S1
+ 80, S1
+ 81, S1
+ 82, S1
+ 83, S1
+ 84, S1
+ 85, S1
+ 86, S1
+ 87, S1
+ 88, S1
+ 89, S1
+ 90, S1
+ 91, S1
+ 92, S1
+ 93, S1
+ 94, S1
+ 95, S1
+ 96, S1
+ 97, S1
+ 98, S1
+ 99, S1
+ 100, S1
+ 101, S1
+ 102, S1
+ 103, S1
+ 104, S1
+ 105, S1
+ 106, S1
+ 107, S1
+ 108, S1
+ 109, S1
+ 110, S1
+ 111, S1
+ 112, S1
+ 113, S1
+ 114, S1
+ 115, S1
+ 116, S1
+ 117, S1
+ 118, S1
+ 119, S1
+ 120, S1
+ 121, S1
+ 122, S1
+ 123, S1
+ 124, S1
+ 125, S1
+ 126, S1
+ 127, S1
+ 128, S1
+ 129, S1
+ 130, S1
+ 131, S1
+ 132, S1
+ 133, S1
+ 134, S1
+ 135, S1
+ 136, S1
+ 137, S1
+ 138, S1
+ 139, S1
+ 140, S1
+ 141, S1
+ 142, S1
+ 143, S1
+ 144, S1
+ 145, S1
+ 146, S1
+ 147, S1
+ 148, S1
+ 149, S1
+ 150, S1
+ 151, S1
+ 152, S1
+ 153, S1
+ 154, S1
+ 155, S1
+ 156, S1
+ 157, S1
+ 158, S1
+ 159, S1
+ 160, S1
+ 161, S1
+ 162, S1
+ 163, S1
+ 164, S1
+ 165, S1
+ 166, S1
+ 167, S1
+ 168, S1
+ 169, S1
+ 170, S1
+ 171, S1
+ 172, S1
+ 173, S1
+ 174, S1
+ 175, S1
+ 176, S1
+ 177, S1
+ 178, S1
+ 179, S1
+ 180, S1
+ 181, S1
+ 182, S1
+ 183, S1
+ 184, S1
+ 185, S1
+ 186, S1
+ 187, S1
+ 188, S1
+ 189, S1
+ 190, S1
+ 191, S1
+ 192, S1
+ 193, S1
+ 194, S1
+ 195, S1
+ 196, S1
+ 197, S1
+ 198, S1
+ 199, S1
+ 200, S1
+ 201, S1
+ 202, S1
+ 203, S1
+ 204, S1
+ 205, S1
+ 206, S1
+ 207, S1
+ 208, S1
+ 209, S1
+ 210, S1
+ 211, S1
+ 212, S1
+ 213, S1
+ 214, S1
+ 215, S1
+ 216, S1
+ 217, S1
+ 218, S1
+ 219, S1
+ 220, S1
+ 221, S1
+ 222, S1
+ 223, S1
+ 224, S1
+ 225, S1
+ 226, S1
+ 227, S1
+ 228, S1
+ 229, S1
+ 230, S1
+ 231, S1
+ 232, S1
+ 233, S1
+ 234, S1
+ 235, S1
+ 236, S1
+ 237, S1
+ 238, S1
+ 239, S1
+ 240, S1
+ 241, S1
+ 242, S1
+ 243, S1
+ 244, S1
+ 245, S1
+ 246, S1
+ 247, S1
+ 248, S1
+ 249, S1
+ 250, S1
+ 251, S1
+ 252, S1
+ 253, S1
+ 254, S1
+ 255, S1
+ 256, S1
+ 257, S1
+ 258, S1
+ 259, S1
+ 260, S1
+ 261, S1
+ 262, S1
+ 263, S1
+ 264, S1
+ 265, S1
+ 266, S1
+ 267, S1
+ 268, S1
+ 269, S1
+ 270, S1
+ 271, S1
+ 272, S1
+ 273, S1
+ 274, S1
+ 275, S1
+ 276, S1
+ 277, S1
+ 278, S1
+ 279, S1
+ 280, S1
+ 281, S1
+ 282, S1
+ 283, S1
+ 284, S1
+ 285, S1
+ 286, S1
+ 287, S1
+ 288, S1
+ 289, S1
+ 290, S1
+ 291, S1
+ 292, S1
+ 293, S1
+ 294, S1
+ 295, S1
+ 296, S1
+ 297, S1
+ 298, S1
+ 299, S1
+ 300, S1
+ 301, S1
+ 302, S1
+ 303, S1
+ 304, S1
+ 305, S1
+ 306, S1
+ 307, S1
+ 308, S1
+ 309, S1
+ 310, S1
+ 311, S1
+ 312, S1
+ 313, S1
+ 314, S1
+ 315, S1
+ 316, S1
+ 317, S1
+ 318, S1
+ 319, S1
+ 320, S1
+ 321, S1
+ 322, S1
+ 323, S1
+ 324, S1
+ 325, S1
+ 326, S1
+ 327, S1
+ 328, S1
+ 329, S1
+ 330, S1
+ 331, S1
+ 332, S1
+ 333, S1
+ 334, S1
+ 335, S1
+ 336, S1
+ 337, S1
+ 338, S1
+ 339, S1
+ 340, S1
+ 341, S1
+ 342, S1
+ 343, S1
+ 344, S1
+ 345, S1
+ 346, S1
+ 347, S1
+ 348, S1
+ 349, S1
+ 350, S1
+ 351, S1
+ 352, S1
+ 353, S1
+ 354, S1
+ 355, S1
+ 356, S1
+ 357, S1
+ 358, S1
+ 359, S1
+ 360, S1
+ 361, S1
+ 362, S1
+ 363, S1
+ 364, S1
+ 365, S1
+ 366, S1
+ 367, S1
+ 368, S1
+ 369, S1
+ 370, S1
+ 371, S1
+ 372, S1
+ 373, S1
+ 374, S1
+ 375, S1
+ 376, S1
+ 377, S1
+ 378, S1
+ 379, S1
+ 380, S1
+ 381, S1
+ 382, S1
+ 383, S1
+ 384, S1
+ 385, S1
+ 386, S1
+ 387, S1
+ 388, S1
+ 389, S1
+ 390, S1
+ 391, S1
+ 392, S1
+ 393, S1
+ 394, S1
+ 395, S1
+ 396, S1
+ 397, S1
+ 398, S1
+ 399, S1
+ 400, S1
+ 401, S1
+ 402, S1
+ 403, S1
+ 404, S1
+ 405, S1
+ 406, S1
+ 407, S1
+ 408, S1
+ 409, S1
+ 410, S1
+ 411, S1
+ 412, S1
+ 413, S1
+ 414, S1
+ 415, S1
+ 416, S1
+ 417, S1
+ 418, S1
+ 419, S1
+ 420, S1
+ 421, S1
+ 422, S1
+ 423, S1
+ 424, S1
+ 425, S1
+ 426, S1
+ 427, S1
+ 428, S1
+ 429, S1
+ 430, S1
+ 431, S1
+ 432, S1
+ 433, S1
+ 434, S1
+ 435, S1
+ 436, S1
+ 437, S1
+ 438, S1
+ 439, S1
+ 440, S1
+ 441, S1
+ 442, S1
+ 443, S1
+ 444, S1
+ 445, S1
+ 446, S1
+ 447, S1
+ 448, S1
+ 449, S1
+ 450, S1
+ 451, S1
+ 452, S1
+ 453, S1
+ 454, S1
+ 455, S1
+ 456, S1
+ 457, S1
+ 458, S1
+ 459, S1
+ 460, S1
+ 461, S1
+ 462, S1
+ 463, S1
+ 464, S1
+ 465, S1
+ 466, S1
+ 467, S1
+ 468, S1
+ 469, S1
+ 470, S1
+ 471, S1
+ 472, S1
+ 473, S1
+ 474, S1
+ 475, S1
+ 476, S1
+ 477, S1
+ 478, S1
+ 479, S1
+ 480, S1
+ 481, S1
+ 482, S1
+ 483, S1
+ 484, S1
+ 485, S1
+ 486, S1
+ 487, S1
+ 488, S1
+ 489, S1
+ 490, S1
+ 491, S1
+ 492, S1
+ 493, S1
+ 494, S1
+ 495, S1
+ 496, S1
+ 497, S1
+ 498, S1
+ 499, S1
+ 500, S1
+ 501, S1
+ 502, S1
+ 503, S1
+ 504, S1
+ 505, S1
+ 506, S1
+ 507, S1
+ 508, S1
+ 509, S1
+ 510, S1
+ 511, S1
+ 512, S1
+ 513, S1
+ 514, S1
+ 515, S1
+ 516, S1
+ 517, S1
+ 518, S1
+ 519, S1
+ 520, S1
+ 521, S1
+ 522, S1
+ 523, S1
+ 524, S1
+ 525, S1
+ 526, S1
+ 527, S1
+ 528, S1
+ 529, S1
+ 530, S1
+ 531, S1
+ 532, S1
+ 533, S1
+ 534, S1
+ 535, S1
+ 536, S1
+ 537, S1
+ 538, S1
+ 539, S1
+ 540, S1
+ 541, S1
+ 542, S1
+ 543, S1
+ 544, S1
+ 545, S1
+ 546, S1
+ 547, S1
+ 548, S1
+ 549, S1
+ 550, S1
+ 551, S1
+ 552, S1
+ 553, S1
+ 554, S1
+ 555, S1
+ 556, S1
+ 557, S1
+ 558, S1
+ 559, S1
+ 560, S1
+ 561, S1
+ 562, S1
+ 563, S1
+ 564, S1
+ 565, S1
+ 566, S1
+ 567, S1
+ 568, S1
+ 569, S1
+ 570, S1
+ 571, S1
+ 572, S1
+ 573, S1
+ 574, S1
+ 575, S1
+ 576, S1
+ 577, S1
+ 578, S1
+ 579, S1
+ 580, S1
+ 581, S1
+ 582, S1
+ 583, S1
+ 584, S1
+ 585, S1
+ 586, S1
+ 587, S1
+ 588, S1
+ 589, S1
+ 590, S1
+ 591, S1
+ 592, S1
+ 593, S1
+ 594, S1
+ 595, S1
+ 596, S1
+ 597, S1
+ 598, S1
+ 599, S1
+ 600, S1
+ 601, S1
+ 602, S1
+ 603, S1
+ 604, S1
+ 605, S1
+ 606, S1
+ 607, S1
+ 608, S1
+ 609, S1
+ 610, S1
+ 611, S1
+ 612, S1
+ 613, S1
+ 614, S1
+ 615, S1
+ 616, S1
+ 617, S1
+ 618, S1
+ 619, S1
+ 620, S1
+ 621, S1
+ 622, S1
+ 623, S1
+ 624, S1
+ 625, S1
+ 626, S1
+ 627, S1
+ 628, S1
+ 629, S1
+ 630, S1
+ 631, S1
+ 632, S1
+ 633, S1
+ 634, S1
+ 635, S1
+ 636, S1
+ 637, S1
+ 638, S1
+ 639, S1
+ 640, S1
+ 641, S1
+ 642, S1
+ 643, S1
+ 644, S1
+ 645, S1
+ 646, S1
+ 647, S1
+ 648, S1
+ 649, S1
+ 650, S1
+ 651, S1
+ 652, S1
+ 653, S1
+ 654, S1
+ 655, S1
+ 656, S1
+ 657, S1
+ 658, S1
+ 659, S1
+ 660, S1
+ 661, S1
+ 662, S1
+ 663, S1
+ 664, S1
+ 665, S1
+ 666, S1
+ 667, S1
+ 668, S1
+ 669, S1
+ 670, S1
+ 671, S1
+ 672, S1
+ 673, S1
+ 674, S1
+ 675, S1
+ 676, S1
+ 677, S1
+ 678, S1
+ 679, S1
+ 680, S1
+ 681, S1
+ 682, S1
+ 683, S1
+ 684, S1
+ 685, S1
+ 686, S1
+ 687, S1
+ 688, S1
+ 689, S1
+ 690, S1
+ 691, S1
+ 692, S1
+ 693, S1
+ 694, S1
+ 695, S1
+ 696, S1
+ 697, S1
+ 698, S1
+ 699, S1
+ 700, S1
+ 701, S1
+ 702, S1
+ 703, S1
+ 704, S1
+ 705, S1
+ 706, S1
+ 707, S1
+ 708, S1
+ 709, S1
+ 710, S1
+ 711, S1
+ 712, S1
+ 713, S1
+ 714, S1
+ 715, S1
+ 716, S1
+ 717, S1
+ 718, S1
+ 719, S1
+ 720, S1
+ 721, S1
+ 722, S1
+ 723, S1
+ 724, S1
+ 725, S1
+ 726, S1
+ 727, S1
+ 728, S1
+ 729, S1
+ 730, S1
+ 731, S1
+ 732, S1
+ 733, S1
+ 734, S1
+ 735, S1
+ 736, S1
+ 737, S1
+ 738, S1
+ 739, S1
+ 740, S1
+ 741, S1
+ 742, S1
+ 743, S1
+ 744, S1
+ 745, S1
+ 746, S1
+ 747, S1
+ 748, S1
+ 749, S1
+ 750, S1
+
+!===============================================================================
+!===============================================================================
+!###############################################################################
+!####                             EL-BLOCK                                  ####
+!###############################################################################
+!===============================================================================
+EL-PART 1   NAME=Shell
+!===============================================================================
+
+!===============================================================================
+EL-MAT 1 : LIN_ELAST_ISOTROPIC
+ EMOD=210E09 ALPHAT=0.0  DENS=7810.0 NUE=0.3
+!===============================================================================
+
+!===============================================================================
+EL-PROP 1 : SHELL8
+MAT=EL-MAT 1
+THICKNESS=0.08
+INT_TYPE_SHELL8 = FULL
+SDC=1.0
+EAS =0,0,0,2,0
+ANS =NONE
+FORCE = RST_ORTHO
+!===============================================================================
+!===============================================================================
+EL-TOP 1
+!         ID   PART   PROP   NODE NUMBERS
+NEL        1      1      1      1      2      3      4      
+NEL        2      1      1      2      5      6      3      
+NEL        3      1      1      5      7      8      6      
+NEL        4      1      1      7      9      10      8      
+NEL        5      1      1      9      11      12      10      
+NEL        6      1      1      11      13      14      12      
+NEL        7      1      1      13      15      16      14      
+NEL        8      1      1      15      17      18      16      
+NEL        9      1      1      17      19      20      18      
+NEL        10      1      1      19      21      22      20      
+NEL        11      1      1      21      23      24      22      
+NEL        12      1      1      23      25      26      24      
+NEL        13      1      1      25      27      28      26      
+NEL        14      1      1      27      29      30      28      
+NEL        15      1      1      29      31      32      30      
+NEL        16      1      1      31      33      34      32      
+NEL        17      1      1      33      35      36      34      
+NEL        18      1      1      35      37      38      36      
+NEL        19      1      1      37      39      40      38      
+NEL        20      1      1      39      41      42      40      
+NEL        21      1      1      41      43      44      42      
+NEL        22      1      1      43      45      46      44      
+NEL        23      1      1      45      47      48      46      
+NEL        24      1      1      47      49      50      48      
+NEL        25      1      1      49      51      52      50      
+NEL        26      1      1      4      3      53      54      
+NEL        27      1      1      3      6      55      53      
+NEL        28      1      1      6      8      56      55      
+NEL        29      1      1      8      10      57      56      
+NEL        30      1      1      10      12      58      57      
+NEL        31      1      1      12      14      59      58      
+NEL        32      1      1      14      16      60      59      
+NEL        33      1      1      16      18      61      60      
+NEL        34      1      1      18      20      62      61      
+NEL        35      1      1      20      22      63      62      
+NEL        36      1      1      22      24      64      63      
+NEL        37      1      1      24      26      65      64      
+NEL        38      1      1      26      28      66      65      
+NEL        39      1      1      28      30      67      66      
+NEL        40      1      1      30      32      68      67      
+NEL        41      1      1      32      34      69      68      
+NEL        42      1      1      34      36      70      69      
+NEL        43      1      1      36      38      71      70      
+NEL        44      1      1      38      40      72      71      
+NEL        45      1      1      40      42      73      72      
+NEL        46      1      1      42      44      74      73      
+NEL        47      1      1      44      46      75      74      
+NEL        48      1      1      46      48      76      75      
+NEL        49      1      1      48      50      77      76      
+NEL        50      1      1      50      52      78      77      
+NEL        51      1      1      54      53      79      80      
+NEL        52      1      1      53      55      81      79      
+NEL        53      1      1      55      56      82      81      
+NEL        54      1      1      56      57      83      82      
+NEL        55      1      1      57      58      84      83      
+NEL        56      1      1      58      59      85      84      
+NEL        57      1      1      59      60      86      85      
+NEL        58      1      1      60      61      87      86      
+NEL        59      1      1      61      62      88      87      
+NEL        60      1      1      62      63      89      88      
+NEL        61      1      1      63      64      90      89      
+NEL        62      1      1      64      65      91      90      
+NEL        63      1      1      65      66      92      91      
+NEL        64      1      1      66      67      93      92      
+NEL        65      1      1      67      68      94      93      
+NEL        66      1      1      68      69      95      94      
+NEL        67      1      1      69      70      96      95      
+NEL        68      1      1      70      71      97      96      
+NEL        69      1      1      71      72      98      97      
+NEL        70      1      1      72      73      99      98      
+NEL        71      1      1      73      74      100      99      
+NEL        72      1      1      74      75      101      100      
+NEL        73      1      1      75      76      102      101      
+NEL        74      1      1      76      77      103      102      
+NEL        75      1      1      77      78      104      103      
+NEL        76      1      1      80      79      105      106      
+NEL        77      1      1      79      81      107      105      
+NEL        78      1      1      81      82      108      107      
+NEL        79      1      1      82      83      109      108      
+NEL        80      1      1      83      84      110      109      
+NEL        81      1      1      84      85      111      110      
+NEL        82      1      1      85      86      112      111      
+NEL        83      1      1      86      87      113      112      
+NEL        84      1      1      87      88      114      113      
+NEL        85      1      1      88      89      115      114      
+NEL        86      1      1      89      90      116      115      
+NEL        87      1      1      90      91      117      116      
+NEL        88      1      1      91      92      118      117      
+NEL        89      1      1      92      93      119      118      
+NEL        90      1      1      93      94      120      119      
+NEL        91      1      1      94      95      121      120      
+NEL        92      1      1      95      96      122      121      
+NEL        93      1      1      96      97      123      122      
+NEL        94      1      1      97      98      124      123      
+NEL        95      1      1      98      99      125      124      
+NEL        96      1      1      99      100      126      125      
+NEL        97      1      1      100      101      127      126      
+NEL        98      1      1      101      102      128      127      
+NEL        99      1      1      102      103      129      128      
+NEL        100      1      1      103      104      130      129      
+NEL        101      1      1      106      105      131      132      
+NEL        102      1      1      105      107      133      131      
+NEL        103      1      1      107      108      134      133      
+NEL        104      1      1      108      109      135      134      
+NEL        105      1      1      109      110      136      135      
+NEL        106      1      1      110      111      137      136      
+NEL        107      1      1      111      112      138      137      
+NEL        108      1      1      112      113      139      138      
+NEL        109      1      1      113      114      140      139      
+NEL        110      1      1      114      115      141      140      
+NEL        111      1      1      115      116      142      141      
+NEL        112      1      1      116      117      143      142      
+NEL        113      1      1      117      118      144      143      
+NEL        114      1      1      118      119      145      144      
+NEL        115      1      1      119      120      146      145      
+NEL        116      1      1      120      121      147      146      
+NEL        117      1      1      121      122      148      147      
+NEL        118      1      1      122      123      149      148      
+NEL        119      1      1      123      124      150      149      
+NEL        120      1      1      124      125      151      150      
+NEL        121      1      1      125      126      152      151      
+NEL        122      1      1      126      127      153      152      
+NEL        123      1      1      127      128      154      153      
+NEL        124      1      1      128      129      155      154      
+NEL        125      1      1      129      130      156      155      
+NEL        126      1      1      132      131      157      158      
+NEL        127      1      1      131      133      159      157      
+NEL        128      1      1      133      134      160      159      
+NEL        129      1      1      134      135      161      160      
+NEL        130      1      1      135      136      162      161      
+NEL        131      1      1      136      137      163      162      
+NEL        132      1      1      137      138      164      163      
+NEL        133      1      1      138      139      165      164      
+NEL        134      1      1      139      140      166      165      
+NEL        135      1      1      140      141      167      166      
+NEL        136      1      1      141      142      168      167      
+NEL        137      1      1      142      143      169      168      
+NEL        138      1      1      143      144      170      169      
+NEL        139      1      1      144      145      171      170      
+NEL        140      1      1      145      146      172      171      
+NEL        141      1      1      146      147      173      172      
+NEL        142      1      1      147      148      174      173      
+NEL        143      1      1      148      149      175      174      
+NEL        144      1      1      149      150      176      175      
+NEL        145      1      1      150      151      177      176      
+NEL        146      1      1      151      152      178      177      
+NEL        147      1      1      152      153      179      178      
+NEL        148      1      1      153      154      180      179      
+NEL        149      1      1      154      155      181      180      
+NEL        150      1      1      155      156      182      181      
+NEL        151      1      1      158      157      183      184      
+NEL        152      1      1      157      159      185      183      
+NEL        153      1      1      159      160      186      185      
+NEL        154      1      1      160      161      187      186      
+NEL        155      1      1      161      162      188      187      
+NEL        156      1      1      162      163      189      188      
+NEL        157      1      1      163      164      190      189      
+NEL        158      1      1      164      165      191      190      
+NEL        159      1      1      165      166      192      191      
+NEL        160      1      1      166      167      193      192      
+NEL        161      1      1      167      168      194      193      
+NEL        162      1      1      168      169      195      194      
+NEL        163      1      1      169      170      196      195      
+NEL        164      1      1      170      171      197      196      
+NEL        165      1      1      171      172      198      197      
+NEL        166      1      1      172      173      199      198      
+NEL        167      1      1      173      174      200      199      
+NEL        168      1      1      174      175      201      200      
+NEL        169      1      1      175      176      202      201      
+NEL        170      1      1      176      177      203      202      
+NEL        171      1      1      177      178      204      203      
+NEL        172      1      1      178      179      205      204      
+NEL        173      1      1      179      180      206      205      
+NEL        174      1      1      180      181      207      206      
+NEL        175      1      1      181      182      208      207      
+NEL        176      1      1      184      183      209      210      
+NEL        177      1      1      183      185      211      209      
+NEL        178      1      1      185      186      212      211      
+NEL        179      1      1      186      187      213      212      
+NEL        180      1      1      187      188      214      213      
+NEL        181      1      1      188      189      215      214      
+NEL        182      1      1      189      190      216      215      
+NEL        183      1      1      190      191      217      216      
+NEL        184      1      1      191      192      218      217      
+NEL        185      1      1      192      193      219      218      
+NEL        186      1      1      193      194      220      219      
+NEL        187      1      1      194      195      221      220      
+NEL        188      1      1      195      196      222      221      
+NEL        189      1      1      196      197      223      222      
+NEL        190      1      1      197      198      224      223      
+NEL        191      1      1      198      199      225      224      
+NEL        192      1      1      199      200      226      225      
+NEL        193      1      1      200      201      227      226      
+NEL        194      1      1      201      202      228      227      
+NEL        195      1      1      202      203      229      228      
+NEL        196      1      1      203      204      230      229      
+NEL        197      1      1      204      205      231      230      
+NEL        198      1      1      205      206      232      231      
+NEL        199      1      1      206      207      233      232      
+NEL        200      1      1      207      208      234      233      
+NEL        201      1      1      210      209      235      236      
+NEL        202      1      1      209      211      237      235      
+NEL        203      1      1      211      212      238      237      
+NEL        204      1      1      212      213      239      238      
+NEL        205      1      1      213      214      240      239      
+NEL        206      1      1      214      215      241      240      
+NEL        207      1      1      215      216      242      241      
+NEL        208      1      1      216      217      243      242      
+NEL        209      1      1      217      218      244      243      
+NEL        210      1      1      218      219      245      244      
+NEL        211      1      1      219      220      246      245      
+NEL        212      1      1      220      221      247      246      
+NEL        213      1      1      221      222      248      247      
+NEL        214      1      1      222      223      249      248      
+NEL        215      1      1      223      224      250      249      
+NEL        216      1      1      224      225      251      250      
+NEL        217      1      1      225      226      252      251      
+NEL        218      1      1      226      227      253      252      
+NEL        219      1      1      227      228      254      253      
+NEL        220      1      1      228      229      255      254      
+NEL        221      1      1      229      230      256      255      
+NEL        222      1      1      230      231      257      256      
+NEL        223      1      1      231      232      258      257      
+NEL        224      1      1      232      233      259      258      
+NEL        225      1      1      233      234      260      259      
+NEL        226      1      1      236      235      261      262      
+NEL        227      1      1      235      237      263      261      
+NEL        228      1      1      237      238      264      263      
+NEL        229      1      1      238      239      265      264      
+NEL        230      1      1      239      240      266      265      
+NEL        231      1      1      240      241      267      266      
+NEL        232      1      1      241      242      268      267      
+NEL        233      1      1      242      243      269      268      
+NEL        234      1      1      243      244      270      269      
+NEL        235      1      1      244      245      271      270      
+NEL        236      1      1      245      246      272      271      
+NEL        237      1      1      246      247      273      272      
+NEL        238      1      1      247      248      274      273      
+NEL        239      1      1      248      249      275      274      
+NEL        240      1      1      249      250      276      275      
+NEL        241      1      1      250      251      277      276      
+NEL        242      1      1      251      252      278      277      
+NEL        243      1      1      252      253      279      278      
+NEL        244      1      1      253      254      280      279      
+NEL        245      1      1      254      255      281      280      
+NEL        246      1      1      255      256      282      281      
+NEL        247      1      1      256      257      283      282      
+NEL        248      1      1      257      258      284      283      
+NEL        249      1      1      258      259      285      284      
+NEL        250      1      1      259      260      286      285      
+NEL        251      1      1      262      261      287      288      
+NEL        252      1      1      261      263      289      287      
+NEL        253      1      1      263      264      290      289      
+NEL        254      1      1      264      265      291      290      
+NEL        255      1      1      265      266      292      291      
+NEL        256      1      1      266      267      293      292      
+NEL        257      1      1      267      268      294      293      
+NEL        258      1      1      268      269      295      294      
+NEL        259      1      1      269      270      296      295      
+NEL        260      1      1      270      271      297      296      
+NEL        261      1      1      271      272      298      297      
+NEL        262      1      1      272      273      299      298      
+NEL        263      1      1      273      274      300      299      
+NEL        264      1      1      274      275      301      300      
+NEL        265      1      1      275      276      302      301      
+NEL        266      1      1      276      277      303      302      
+NEL        267      1      1      277      278      304      303      
+NEL        268      1      1      278      279      305      304      
+NEL        269      1      1      279      280      306      305      
+NEL        270      1      1      280      281      307      306      
+NEL        271      1      1      281      282      308      307      
+NEL        272      1      1      282      283      309      308      
+NEL        273      1      1      283      284      310      309      
+NEL        274      1      1      284      285      311      310      
+NEL        275      1      1      285      286      312      311      
+NEL        276      1      1      288      287      313      314      
+NEL        277      1      1      287      289      315      313      
+NEL        278      1      1      289      290      316      315      
+NEL        279      1      1      290      291      317      316      
+NEL        280      1      1      291      292      318      317      
+NEL        281      1      1      292      293      319      318      
+NEL        282      1      1      293      294      320      319      
+NEL        283      1      1      294      295      321      320      
+NEL        284      1      1      295      296      322      321      
+NEL        285      1      1      296      297      323      322      
+NEL        286      1      1      297      298      324      323      
+NEL        287      1      1      298      299      325      324      
+NEL        288      1      1      299      300      326      325      
+NEL        289      1      1      300      301      327      326      
+NEL        290      1      1      301      302      328      327      
+NEL        291      1      1      302      303      329      328      
+NEL        292      1      1      303      304      330      329      
+NEL        293      1      1      304      305      331      330      
+NEL        294      1      1      305      306      332      331      
+NEL        295      1      1      306      307      333      332      
+NEL        296      1      1      307      308      334      333      
+NEL        297      1      1      308      309      335      334      
+NEL        298      1      1      309      310      336      335      
+NEL        299      1      1      310      311      337      336      
+NEL        300      1      1      311      312      338      337      
+NEL        301      1      1      314      313      339      340      
+NEL        302      1      1      313      315      341      339      
+NEL        303      1      1      315      316      342      341      
+NEL        304      1      1      316      317      343      342      
+NEL        305      1      1      317      318      344      343      
+NEL        306      1      1      318      319      345      344      
+NEL        307      1      1      319      320      346      345      
+NEL        308      1      1      320      321      347      346      
+NEL        309      1      1      321      322      348      347      
+NEL        310      1      1      322      323      349      348      
+NEL        311      1      1      323      324      350      349      
+NEL        312      1      1      324      325      351      350      
+NEL        313      1      1      325      326      352      351      
+NEL        314      1      1      326      327      353      352      
+NEL        315      1      1      327      328      354      353      
+NEL        316      1      1      328      329      355      354      
+NEL        317      1      1      329      330      356      355      
+NEL        318      1      1      330      331      357      356      
+NEL        319      1      1      331      332      358      357      
+NEL        320      1      1      332      333      359      358      
+NEL        321      1      1      333      334      360      359      
+NEL        322      1      1      334      335      361      360      
+NEL        323      1      1      335      336      362      361      
+NEL        324      1      1      336      337      363      362      
+NEL        325      1      1      337      338      364      363      
+NEL        326      1      1      340      339      365      366      
+NEL        327      1      1      339      341      367      365      
+NEL        328      1      1      341      342      368      367      
+NEL        329      1      1      342      343      369      368      
+NEL        330      1      1      343      344      370      369      
+NEL        331      1      1      344      345      371      370      
+NEL        332      1      1      345      346      372      371      
+NEL        333      1      1      346      347      373      372      
+NEL        334      1      1      347      348      374      373      
+NEL        335      1      1      348      349      375      374      
+NEL        336      1      1      349      350      376      375      
+NEL        337      1      1      350      351      377      376      
+NEL        338      1      1      351      352      378      377      
+NEL        339      1      1      352      353      379      378      
+NEL        340      1      1      353      354      380      379      
+NEL        341      1      1      354      355      381      380      
+NEL        342      1      1      355      356      382      381      
+NEL        343      1      1      356      357      383      382      
+NEL        344      1      1      357      358      384      383      
+NEL        345      1      1      358      359      385      384      
+NEL        346      1      1      359      360      386      385      
+NEL        347      1      1      360      361      387      386      
+NEL        348      1      1      361      362      388      387      
+NEL        349      1      1      362      363      389      388      
+NEL        350      1      1      363      364      390      389      
+NEL        351      1      1      366      365      391      392      
+NEL        352      1      1      365      367      393      391      
+NEL        353      1      1      367      368      394      393      
+NEL        354      1      1      368      369      395      394      
+NEL        355      1      1      369      370      396      395      
+NEL        356      1      1      370      371      397      396      
+NEL        357      1      1      371      372      398      397      
+NEL        358      1      1      372      373      399      398      
+NEL        359      1      1      373      374      400      399      
+NEL        360      1      1      374      375      401      400      
+NEL        361      1      1      375      376      402      401      
+NEL        362      1      1      376      377      403      402      
+NEL        363      1      1      377      378      404      403      
+NEL        364      1      1      378      379      405      404      
+NEL        365      1      1      379      380      406      405      
+NEL        366      1      1      380      381      407      406      
+NEL        367      1      1      381      382      408      407      
+NEL        368      1      1      382      383      409      408      
+NEL        369      1      1      383      384      410      409      
+NEL        370      1      1      384      385      411      410      
+NEL        371      1      1      385      386      412      411      
+NEL        372      1      1      386      387      413      412      
+NEL        373      1      1      387      388      414      413      
+NEL        374      1      1      388      389      415      414      
+NEL        375      1      1      389      390      416      415      
+NEL        376      1      1      392      391      417      418      
+NEL        377      1      1      391      393      419      417      
+NEL        378      1      1      393      394      420      419      
+NEL        379      1      1      394      395      421      420      
+NEL        380      1      1      395      396      422      421      
+NEL        381      1      1      396      397      423      422      
+NEL        382      1      1      397      398      424      423      
+NEL        383      1      1      398      399      425      424      
+NEL        384      1      1      399      400      426      425      
+NEL        385      1      1      400      401      427      426      
+NEL        386      1      1      401      402      428      427      
+NEL        387      1      1      402      403      429      428      
+NEL        388      1      1      403      404      430      429      
+NEL        389      1      1      404      405      431      430      
+NEL        390      1      1      405      406      432      431      
+NEL        391      1      1      406      407      433      432      
+NEL        392      1      1      407      408      434      433      
+NEL        393      1      1      408      409      435      434      
+NEL        394      1      1      409      410      436      435      
+NEL        395      1      1      410      411      437      436      
+NEL        396      1      1      411      412      438      437      
+NEL        397      1      1      412      413      439      438      
+NEL        398      1      1      413      414      440      439      
+NEL        399      1      1      414      415      441      440      
+NEL        400      1      1      415      416      442      441      
+NEL        401      1      1      418      417      443      444      
+NEL        402      1      1      417      419      445      443      
+NEL        403      1      1      419      420      446      445      
+NEL        404      1      1      420      421      447      446      
+NEL        405      1      1      421      422      448      447      
+NEL        406      1      1      422      423      449      448      
+NEL        407      1      1      423      424      450      449      
+NEL        408      1      1      424      425      451      450      
+NEL        409      1      1      425      426      452      451      
+NEL        410      1      1      426      427      453      452      
+NEL        411      1      1      427      428      454      453      
+NEL        412      1      1      428      429      455      454      
+NEL        413      1      1      429      430      456      455      
+NEL        414      1      1      430      431      457      456      
+NEL        415      1      1      431      432      458      457      
+NEL        416      1      1      432      433      459      458      
+NEL        417      1      1      433      434      460      459      
+NEL        418      1      1      434      435      461      460      
+NEL        419      1      1      435      436      462      461      
+NEL        420      1      1      436      437      463      462      
+NEL        421      1      1      437      438      464      463      
+NEL        422      1      1      438      439      465      464      
+NEL        423      1      1      439      440      466      465      
+NEL        424      1      1      440      441      467      466      
+NEL        425      1      1      441      442      468      467      
+NEL        426      1      1      444      443      469      470      
+NEL        427      1      1      443      445      471      469      
+NEL        428      1      1      445      446      472      471      
+NEL        429      1      1      446      447      473      472      
+NEL        430      1      1      447      448      474      473      
+NEL        431      1      1      448      449      475      474      
+NEL        432      1      1      449      450      476      475      
+NEL        433      1      1      450      451      477      476      
+NEL        434      1      1      451      452      478      477      
+NEL        435      1      1      452      453      479      478      
+NEL        436      1      1      453      454      480      479      
+NEL        437      1      1      454      455      481      480      
+NEL        438      1      1      455      456      482      481      
+NEL        439      1      1      456      457      483      482      
+NEL        440      1      1      457      458      484      483      
+NEL        441      1      1      458      459      485      484      
+NEL        442      1      1      459      460      486      485      
+NEL        443      1      1      460      461      487      486      
+NEL        444      1      1      461      462      488      487      
+NEL        445      1      1      462      463      489      488      
+NEL        446      1      1      463      464      490      489      
+NEL        447      1      1      464      465      491      490      
+NEL        448      1      1      465      466      492      491      
+NEL        449      1      1      466      467      493      492      
+NEL        450      1      1      467      468      494      493      
+NEL        451      1      1      470      469      495      496      
+NEL        452      1      1      469      471      497      495      
+NEL        453      1      1      471      472      498      497      
+NEL        454      1      1      472      473      499      498      
+NEL        455      1      1      473      474      500      499      
+NEL        456      1      1      474      475      501      500      
+NEL        457      1      1      475      476      502      501      
+NEL        458      1      1      476      477      503      502      
+NEL        459      1      1      477      478      504      503      
+NEL        460      1      1      478      479      505      504      
+NEL        461      1      1      479      480      506      505      
+NEL        462      1      1      480      481      507      506      
+NEL        463      1      1      481      482      508      507      
+NEL        464      1      1      482      483      509      508      
+NEL        465      1      1      483      484      510      509      
+NEL        466      1      1      484      485      511      510      
+NEL        467      1      1      485      486      512      511      
+NEL        468      1      1      486      487      513      512      
+NEL        469      1      1      487      488      514      513      
+NEL        470      1      1      488      489      515      514      
+NEL        471      1      1      489      490      516      515      
+NEL        472      1      1      490      491      517      516      
+NEL        473      1      1      491      492      518      517      
+NEL        474      1      1      492      493      519      518      
+NEL        475      1      1      493      494      520      519      
+NEL        476      1      1      496      495      521      522      
+NEL        477      1      1      495      497      523      521      
+NEL        478      1      1      497      498      524      523      
+NEL        479      1      1      498      499      525      524      
+NEL        480      1      1      499      500      526      525      
+NEL        481      1      1      500      501      527      526      
+NEL        482      1      1      501      502      528      527      
+NEL        483      1      1      502      503      529      528      
+NEL        484      1      1      503      504      530      529      
+NEL        485      1      1      504      505      531      530      
+NEL        486      1      1      505      506      532      531      
+NEL        487      1      1      506      507      533      532      
+NEL        488      1      1      507      508      534      533      
+NEL        489      1      1      508      509      535      534      
+NEL        490      1      1      509      510      536      535      
+NEL        491      1      1      510      511      537      536      
+NEL        492      1      1      511      512      538      537      
+NEL        493      1      1      512      513      539      538      
+NEL        494      1      1      513      514      540      539      
+NEL        495      1      1      514      515      541      540      
+NEL        496      1      1      515      516      542      541      
+NEL        497      1      1      516      517      543      542      
+NEL        498      1      1      517      518      544      543      
+NEL        499      1      1      518      519      545      544      
+NEL        500      1      1      519      520      546      545      
+NEL        501      1      1      522      521      547      548      
+NEL        502      1      1      521      523      549      547      
+NEL        503      1      1      523      524      550      549      
+NEL        504      1      1      524      525      551      550      
+NEL        505      1      1      525      526      552      551      
+NEL        506      1      1      526      527      553      552      
+NEL        507      1      1      527      528      554      553      
+NEL        508      1      1      528      529      555      554      
+NEL        509      1      1      529      530      556      555      
+NEL        510      1      1      530      531      557      556      
+NEL        511      1      1      531      532      558      557      
+NEL        512      1      1      532      533      559      558      
+NEL        513      1      1      533      534      560      559      
+NEL        514      1      1      534      535      561      560      
+NEL        515      1      1      535      536      562      561      
+NEL        516      1      1      536      537      563      562      
+NEL        517      1      1      537      538      564      563      
+NEL        518      1      1      538      539      565      564      
+NEL        519      1      1      539      540      566      565      
+NEL        520      1      1      540      541      567      566      
+NEL        521      1      1      541      542      568      567      
+NEL        522      1      1      542      543      569      568      
+NEL        523      1      1      543      544      570      569      
+NEL        524      1      1      544      545      571      570      
+NEL        525      1      1      545      546      572      571      
+NEL        526      1      1      548      547      573      574      
+NEL        527      1      1      547      549      575      573      
+NEL        528      1      1      549      550      576      575      
+NEL        529      1      1      550      551      577      576      
+NEL        530      1      1      551      552      578      577      
+NEL        531      1      1      552      553      579      578      
+NEL        532      1      1      553      554      580      579      
+NEL        533      1      1      554      555      581      580      
+NEL        534      1      1      555      556      582      581      
+NEL        535      1      1      556      557      583      582      
+NEL        536      1      1      557      558      584      583      
+NEL        537      1      1      558      559      585      584      
+NEL        538      1      1      559      560      586      585      
+NEL        539      1      1      560      561      587      586      
+NEL        540      1      1      561      562      588      587      
+NEL        541      1      1      562      563      589      588      
+NEL        542      1      1      563      564      590      589      
+NEL        543      1      1      564      565      591      590      
+NEL        544      1      1      565      566      592      591      
+NEL        545      1      1      566      567      593      592      
+NEL        546      1      1      567      568      594      593      
+NEL        547      1      1      568      569      595      594      
+NEL        548      1      1      569      570      596      595      
+NEL        549      1      1      570      571      597      596      
+NEL        550      1      1      571      572      598      597      
+NEL        551      1      1      574      573      599      600      
+NEL        552      1      1      573      575      601      599      
+NEL        553      1      1      575      576      602      601      
+NEL        554      1      1      576      577      603      602      
+NEL        555      1      1      577      578      604      603      
+NEL        556      1      1      578      579      605      604      
+NEL        557      1      1      579      580      606      605      
+NEL        558      1      1      580      581      607      606      
+NEL        559      1      1      581      582      608      607      
+NEL        560      1      1      582      583      609      608      
+NEL        561      1      1      583      584      610      609      
+NEL        562      1      1      584      585      611      610      
+NEL        563      1      1      585      586      612      611      
+NEL        564      1      1      586      587      613      612      
+NEL        565      1      1      587      588      614      613      
+NEL        566      1      1      588      589      615      614      
+NEL        567      1      1      589      590      616      615      
+NEL        568      1      1      590      591      617      616      
+NEL        569      1      1      591      592      618      617      
+NEL        570      1      1      592      593      619      618      
+NEL        571      1      1      593      594      620      619      
+NEL        572      1      1      594      595      621      620      
+NEL        573      1      1      595      596      622      621      
+NEL        574      1      1      596      597      623      622      
+NEL        575      1      1      597      598      624      623      
+NEL        576      1      1      600      599      625      626      
+NEL        577      1      1      599      601      627      625      
+NEL        578      1      1      601      602      628      627      
+NEL        579      1      1      602      603      629      628      
+NEL        580      1      1      603      604      630      629      
+NEL        581      1      1      604      605      631      630      
+NEL        582      1      1      605      606      632      631      
+NEL        583      1      1      606      607      633      632      
+NEL        584      1      1      607      608      634      633      
+NEL        585      1      1      608      609      635      634      
+NEL        586      1      1      609      610      636      635      
+NEL        587      1      1      610      611      637      636      
+NEL        588      1      1      611      612      638      637      
+NEL        589      1      1      612      613      639      638      
+NEL        590      1      1      613      614      640      639      
+NEL        591      1      1      614      615      641      640      
+NEL        592      1      1      615      616      642      641      
+NEL        593      1      1      616      617      643      642      
+NEL        594      1      1      617      618      644      643      
+NEL        595      1      1      618      619      645      644      
+NEL        596      1      1      619      620      646      645      
+NEL        597      1      1      620      621      647      646      
+NEL        598      1      1      621      622      648      647      
+NEL        599      1      1      622      623      649      648      
+NEL        600      1      1      623      624      650      649      
+NEL        601      1      1      626      625      651      652      
+NEL        602      1      1      625      627      653      651      
+NEL        603      1      1      627      628      654      653      
+NEL        604      1      1      628      629      655      654      
+NEL        605      1      1      629      630      656      655      
+NEL        606      1      1      630      631      657      656      
+NEL        607      1      1      631      632      658      657      
+NEL        608      1      1      632      633      659      658      
+NEL        609      1      1      633      634      660      659      
+NEL        610      1      1      634      635      661      660      
+NEL        611      1      1      635      636      662      661      
+NEL        612      1      1      636      637      663      662      
+NEL        613      1      1      637      638      664      663      
+NEL        614      1      1      638      639      665      664      
+NEL        615      1      1      639      640      666      665      
+NEL        616      1      1      640      641      667      666      
+NEL        617      1      1      641      642      668      667      
+NEL        618      1      1      642      643      669      668      
+NEL        619      1      1      643      644      670      669      
+NEL        620      1      1      644      645      671      670      
+NEL        621      1      1      645      646      672      671      
+NEL        622      1      1      646      647      673      672      
+NEL        623      1      1      647      648      674      673      
+NEL        624      1      1      648      649      675      674      
+NEL        625      1      1      649      650      676      675      
+NEL        626      1      1      652      651      677      678      
+NEL        627      1      1      651      653      679      677      
+NEL        628      1      1      653      654      680      679      
+NEL        629      1      1      654      655      681      680      
+NEL        630      1      1      655      656      682      681      
+NEL        631      1      1      656      657      683      682      
+NEL        632      1      1      657      658      684      683      
+NEL        633      1      1      658      659      685      684      
+NEL        634      1      1      659      660      686      685      
+NEL        635      1      1      660      661      687      686      
+NEL        636      1      1      661      662      688      687      
+NEL        637      1      1      662      663      689      688      
+NEL        638      1      1      663      664      690      689      
+NEL        639      1      1      664      665      691      690      
+NEL        640      1      1      665      666      692      691      
+NEL        641      1      1      666      667      693      692      
+NEL        642      1      1      667      668      694      693      
+NEL        643      1      1      668      669      695      694      
+NEL        644      1      1      669      670      696      695      
+NEL        645      1      1      670      671      697      696      
+NEL        646      1      1      671      672      698      697      
+NEL        647      1      1      672      673      699      698      
+NEL        648      1      1      673      674      700      699      
+NEL        649      1      1      674      675      701      700      
+NEL        650      1      1      675      676      702      701      
+NEL        651      1      1      678      677      703      704      
+NEL        652      1      1      677      679      705      703      
+NEL        653      1      1      679      680      706      705      
+NEL        654      1      1      680      681      707      706      
+NEL        655      1      1      681      682      708      707      
+NEL        656      1      1      682      683      709      708      
+NEL        657      1      1      683      684      710      709      
+NEL        658      1      1      684      685      711      710      
+NEL        659      1      1      685      686      712      711      
+NEL        660      1      1      686      687      713      712      
+NEL        661      1      1      687      688      714      713      
+NEL        662      1      1      688      689      715      714      
+NEL        663      1      1      689      690      716      715      
+NEL        664      1      1      690      691      717      716      
+NEL        665      1      1      691      692      718      717      
+NEL        666      1      1      692      693      719      718      
+NEL        667      1      1      693      694      720      719      
+NEL        668      1      1      694      695      721      720      
+NEL        669      1      1      695      696      722      721      
+NEL        670      1      1      696      697      723      722      
+NEL        671      1      1      697      698      724      723      
+NEL        672      1      1      698      699      725      724      
+NEL        673      1      1      699      700      726      725      
+NEL        674      1      1      700      701      727      726      
+NEL        675      1      1      701      702      728      727      
+NEL        676      1      1      704      703      729      730      
+NEL        677      1      1      703      705      731      729      
+NEL        678      1      1      705      706      732      731      
+NEL        679      1      1      706      707      733      732      
+NEL        680      1      1      707      708      734      733      
+NEL        681      1      1      708      709      735      734      
+NEL        682      1      1      709      710      736      735      
+NEL        683      1      1      710      711      737      736      
+NEL        684      1      1      711      712      738      737      
+NEL        685      1      1      712      713      739      738      
+NEL        686      1      1      713      714      740      739      
+NEL        687      1      1      714      715      741      740      
+NEL        688      1      1      715      716      742      741      
+NEL        689      1      1      716      717      743      742      
+NEL        690      1      1      717      718      744      743      
+NEL        691      1      1      718      719      745      744      
+NEL        692      1      1      719      720      746      745      
+NEL        693      1      1      720      721      747      746      
+NEL        694      1      1      721      722      748      747      
+NEL        695      1      1      722      723      749      748      
+NEL        696      1      1      723      724      750      749      
+NEL        697      1      1      724      725      751      750      
+NEL        698      1      1      725      726      752      751      
+NEL        699      1      1      726      727      753      752      
+NEL        700      1      1      727      728      754      753      
+NEL        701      1      1      730      729      755      756      
+NEL        702      1      1      729      731      757      755      
+NEL        703      1      1      731      732      758      757      
+NEL        704      1      1      732      733      759      758      
+NEL        705      1      1      733      734      760      759      
+NEL        706      1      1      734      735      761      760      
+NEL        707      1      1      735      736      762      761      
+NEL        708      1      1      736      737      763      762      
+NEL        709      1      1      737      738      764      763      
+NEL        710      1      1      738      739      765      764      
+NEL        711      1      1      739      740      766      765      
+NEL        712      1      1      740      741      767      766      
+NEL        713      1      1      741      742      768      767      
+NEL        714      1      1      742      743      769      768      
+NEL        715      1      1      743      744      770      769      
+NEL        716      1      1      744      745      771      770      
+NEL        717      1      1      745      746      772      771      
+NEL        718      1      1      746      747      773      772      
+NEL        719      1      1      747      748      774      773      
+NEL        720      1      1      748      749      775      774      
+NEL        721      1      1      749      750      776      775      
+NEL        722      1      1      750      751      777      776      
+NEL        723      1      1      751      752      778      777      
+NEL        724      1      1      752      753      779      778      
+NEL        725      1      1      753      754      780      779      
+NEL        726      1      1      756      755      781      782      
+NEL        727      1      1      755      757      783      781      
+NEL        728      1      1      757      758      784      783      
+NEL        729      1      1      758      759      785      784      
+NEL        730      1      1      759      760      786      785      
+NEL        731      1      1      760      761      787      786      
+NEL        732      1      1      761      762      788      787      
+NEL        733      1      1      762      763      789      788      
+NEL        734      1      1      763      764      790      789      
+NEL        735      1      1      764      765      791      790      
+NEL        736      1      1      765      766      792      791      
+NEL        737      1      1      766      767      793      792      
+NEL        738      1      1      767      768      794      793      
+NEL        739      1      1      768      769      795      794      
+NEL        740      1      1      769      770      796      795      
+NEL        741      1      1      770      771      797      796      
+NEL        742      1      1      771      772      798      797      
+NEL        743      1      1      772      773      799      798      
+NEL        744      1      1      773      774      800      799      
+NEL        745      1      1      774      775      801      800      
+NEL        746      1      1      775      776      802      801      
+NEL        747      1      1      776      777      803      802      
+NEL        748      1      1      777      778      804      803      
+NEL        749      1      1      778      779      805      804      
+NEL        750      1      1      779      780      806      805      
+!===============================================================================
+!===================================================================
+EL-REGULARIZATION 1 : MSR
+ TEMPLATE=3
+ OUTPUT = PC-OUT 1
+ DOMAIN=EL-DOMAIN 1
+ SOLVER = PC-SOLVER 1
+ NMB_STEPS = 1
+ LINE_NODES_BC = FIXED
+ REL_TOLERANCE = 0.1 
+ OUTPUT_FREQUENCY=1
+!===================================================================
+!===============================================================================
+EL-DOMAIN 1
+  ELEMENTS = EL-TOP 1
+!===============================================================================
+!###############################################################################
+!####                             LD-BLOCK                                  ####
+!###############################################################################
+!===============================================================================
+LD-COM 1
+  TYPE=BC-DIRICHLET 1
+!===============================================================================
+!===================================================================
+
+!===================================================================
+
+!===================      Optimization    ==========================
+
+!===================================================================
+
+!===================================================================
+OPT-CTR 1 : FLUID_STEEPEST_DESCENT
+ OBJ= OPT-RESPONSE_FCT 1 : SENSITIVITY= OPT-SENSITIVITY 5
+ OUTPUT=PC-OUT 1
+ DOMAIN = EL-DOMAIN 1
+ SHAPE= OPT-SHAPE 1
+ LINE_SEARCH = OPT-LINE_SEARCH 1
+ CONVERGENCE_CONTROL = OPT-CONVERGENCE 1
+ OPTIMIZATION_STEPS=1000
+ STEP_SIZE=0.001
+! REGULARIZATION = EL-REGULARIZATION 1
+! REGULARIZATION_FREQUENCY = 1
+!===================================================================
+!==================================================================
+
+!===================================================================
+OPT-SENSITIVITY 5 
+ TYPE=EXTERNAL
+ METHOD=ADJOINT
+ FILTER=OPT-FILTER 1
+!===================================================================
+
+!===================================================================
+OPT-SHAPE 1 
+ TYPE=EXTERNAL
+ VARIABLES= OPT-VAR 1
+ FIXED_DISTANCE=0.008
+ DAMPING_DISTANCE=0.002
+! IRONING_RADIUS=0.007
+! IRONING_PERCENTAGE=0.04
+! REGULARIZATION = EL-REGULARIZATION 1
+ NODESEARCH=OPT-NODESEARCH 1
+! REGULARIZATION_FREQUENCY = 1
+!===================================================================
+
+!====================================================================
+OPT-RESPONSE_FCT 1 : FLUID-EMPIRE
+ ANALYSIS=PC-ANALYSIS 1 
+!====================================================================
+
+!===================================================================
+OPT-VAR 2
+ TYPE=FLUID-CONTROLLED SUBTYPE=FLUID-NODE  DOMAIN=EL-DOMAIN 1
+!===================================================================
+
+!===================================================================
+  OPT-VAR 1
+   TYPE=FLUID-CONTROLLED SUBTYPE=FLUID-NR-SPHERE
+   RADIUS=0.5 DOMAIN=EL-DOMAIN 1
+   NODESEARCH=OPT-NODESEARCH 1
+!===================================================================
+
+!===================================================================
+! OPT-VAR 1
+!  TYPE=FLUID-CONTROLLED SUBTYPE=FLUID-NR-LAYERS  
+!  LAYERS=25 DOMAIN=EL-DOMAIN 1
+!  NODESEARCH=OPT-NODESEARCH 1
+!===================================================================
+
+!===================================================================
+  OPT-NODESEARCH 2
+   TYPE=RECURSIVE  DOMAIN=EL-DOMAIN 1   
+!===================================================================
+
+!===================================================================
+  OPT-NODESEARCH 1
+   TYPE=KDTREE   DOMAIN=EL-DOMAIN 1 MAX_NEIGHBOUR=2000
+!===================================================================
+
+!===================================================================
+ OPT-FILTER 1 : TOPO
+ FUNCTIONS = OPT-LINKFUNC 1
+!===================================================================
+
+!===================================================================
+ OPT-LINKFUNC 1 : CIRC
+ SHAPE=LIN RADIUS=2.0
+!===================================================================
+
+!===================================================================
+OPT-LINE_SEARCH 1 : FIXED
+MAX_STEP_LENGTH = 0.01
+!===================================================================
+
+!===================================================================
+OPT-CONVERGENCE 1
+MAX_STEP = 10000
+!===================================================================

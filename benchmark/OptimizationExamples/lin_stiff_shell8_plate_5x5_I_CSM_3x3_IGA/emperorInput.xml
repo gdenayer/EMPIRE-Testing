@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Loose coupling with Ping Pong for 10 time steps. -->
+<EMPEROR xmlns="EmperorInput" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="EmperorInput http://empire.st.bv.tum.de/projects/empire/repository/revisions/master/raw/xmlSchema/emperorInput.xsd">
+	<!-- ================ define clientCodes ======================================== -->
+	<clientCode name="optClient">
+            <mesh name="morphingMesh" type="IGAMesh">
+			<dataField name="shapeUpdate" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+		</mesh>
+		<signal name="energyStrain" size="1" />
+	</clientCode>
+	<clientCode name="carat">
+		<mesh name="myMesh1">
+			<dataField name="shapeUpdate" location="atNode" dimension="vector"
+				typeOfQuantity="field" />
+		</mesh>
+		<signal name="energyStrain" size="1" />
+	</clientCode>
+	<!-- ================ define dataOutputs ======================================== -->
+	<dataOutput name="optimizationOutput" interval="1">
+		<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+			dataFieldName="shapeUpdate" />
+		<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+			dataFieldName="shapeUpdate" />
+		<signalRef clientCodeName="optClient" signalName="energyStrain" />
+                <signalRef clientCodeName="carat" signalName="energyStrain" />
+	</dataOutput>
+	<!-- ================ define mappers ======================================== -->
+	<mapper name="mortar1" type="IGAMortarMapper">
+		<meshA>
+			<meshRef clientCodeName="optClient" meshName="morphingMesh" />
+		</meshA>
+		<meshB>
+			<meshRef clientCodeName="carat" meshName="myMesh1" />
+		</meshB>
+                <IGAMortarMapper tolProjectionDistance="2e-1" numGPsTriangle="16" numGPsQuad="25"/>
+	</mapper>
+	<!-- ================ define connections ======================================== -->
+	<connection name="datafield connection">
+		<input>
+			<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+				dataFieldName="shapeUpdate" />
+		</input>
+		<output>
+			<dataFieldRef clientCodeName="carat" meshName="myMesh1"
+				dataFieldName="shapeUpdate" />
+		</output>
+		<sequence>
+			<filter type="mappingFilter">
+				<input>
+					<dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+						dataFieldName="shapeUpdate" />
+				</input>
+				<output>
+                                    <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+						dataFieldName="shapeUpdate" />
+				</output>
+				<mappingFilter>
+					<mapperRef mapperName="mortar1" />
+				</mappingFilter>
+			</filter>
+<!--                        <filter type="copyFilter">
+                            <input>
+                                <dataFieldRef clientCodeName="optClient" meshName="morphingMesh"
+                                    dataFieldName="shapeUpdate" />
+                                </input>
+                                <output>
+                                    <dataFieldRef clientCodeName="carat" meshName="myMesh1"
+                                        dataFieldName="shapeUpdate" />
+                                 </output>
+                        </filter>-->
+		</sequence>
+	</connection>
+	<connection name="signal connection">
+		<input>
+			<signalRef clientCodeName="carat" signalName="energyStrain" />
+		</input>
+		<output>
+			<signalRef clientCodeName="optClient" signalName="energyStrain" />
+		</output>
+		<sequence>
+			<filter type="copyFilter">
+				<input>
+					<signalRef clientCodeName="carat" signalName="energyStrain" />
+				</input>
+				<output>
+					<signalRef clientCodeName="optClient" signalName="energyStrain" />
+				</output>
+			</filter>
+		</sequence>
+	</connection>
+
+	<!-- ================ define coSimulation process ================================ -->
+	<coSimulation>
+		<sequence>
+			<couplingLogic type="optimizationLoop">
+				<optimizationLoop maxNumOfIterations="1000">
+					<convergenceSignalSender>
+						<clientCodeRef clientCodeName="optClient" />
+					</convergenceSignalSender>
+					<convergenceSignalReceiver>
+						<clientCodeRef clientCodeName="carat" />
+					</convergenceSignalReceiver>
+					<dataOutputRef dataOutputName="optimizationOutput" />
+				</optimizationLoop>
+				<sequence>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="datafield connection" />
+					</couplingLogic>
+					<couplingLogic type="connection">
+						<connectionRef connectionName="signal connection" />
+					</couplingLogic>
+				</sequence>
+			</couplingLogic>
+		</sequence>
+	</coSimulation>
+	<general>
+		<portFile>server.port</portFile>
+		<verbosity> info </verbosity>
+	</general>
+</EMPEROR>

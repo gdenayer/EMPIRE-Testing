@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<testMapper>
+	<!-- ============================================================================================================
+	mortar1: mortarMapper with enforceConsistency="false"
+	============================================================================================================= -->
+	<mapper name="mortar1" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidDefault.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortar1_consistentMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshFluidDefault.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_conservativeMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_meshA.res" resultName="conservativeMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_pressure" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshFluidDefault.msh" />
+		<meshB GiDMesh="meshStructure.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="false" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldA>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_pressureError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<!-- ============================================================================================================
+	mortar1_enforceConsistency: mortarMapper with enforceConsistency="true"
+	============================================================================================================= -->
+	<mapper name="mortar1_enforceConsistency" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidDefault.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="true" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldA>
+		</consistentMapping>
+		<conservativeMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldB format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldB>
+		</conservativeMapping>
+	</mapper>
+	<mapper name="mortar1_enforceConsistency_consistentMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshFluidDefault.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_enforceConsistency_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_enforceConsistency_conservativeMappingError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_enforceConsistency_meshA.res" resultName="conservativeMappingDataFieldA" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_enforceConsistency_pressure" type="mortarMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshFluidDefault.msh" />
+		<meshB GiDMesh="meshStructure.msh" />
+		<mortarMapper oppositeSurfaceNormal="false" dual="false"
+			enforceConsistency="true" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldA>
+		</consistentMapping>
+	</mapper>
+	<mapper name="mortar1_enforceConsistency_pressureError" type="nearestElementMapper">
+		<!-- mapping displacements from meshA to meshB, mapping forces from meshB 
+			to meshA. -->
+		<meshA GiDMesh="meshStructure.msh" />
+		<meshB GiDMesh="meshFluidRef.msh" />
+		<consistentMapping dataFieldATypeOfQuantity="field" dataFieldBTypeOfQuantity="field">
+			<dataFieldA format="GiDResult">
+				<GiDResult file="mortar1_enforceConsistency_pressure_meshB.res" resultName="consistentMappingDataFieldB" analysisName="testMapper" stepNum="1"/>
+			</dataFieldA>
+			<dataFieldBRef format="function">
+				<!-- <function name="EmperorMapperTest_sphere_sin3xy"/> -->
+				<function name="constant"/>
+			</dataFieldBRef>
+		</consistentMapping>
+	</mapper>
+</testMapper>

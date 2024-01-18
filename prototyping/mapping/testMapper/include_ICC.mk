@@ -13,6 +13,7 @@ LIBS += -L$(GID_HOME)/lib -lGiDParser
 LIBS += -L$(ANN_HOME)/lib -lANN 
 
 # using LAPACK
+#LIBS += -Wl,--start-group $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_intel_thread.a  $(MKLROOT)/lib/intel64/libmkl_core.a -Wl,--end-group -qopenmp -lpthread
 LIBS += -Wl,--start-group $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_intel_thread.a  $(MKLROOT)/lib/intel64/libmkl_core.a -Wl,--end-group -openmp -lpthread
 
 # All Includes

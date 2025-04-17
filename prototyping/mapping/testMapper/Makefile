@@ -15,11 +15,8 @@
 #
 # Stefan Sicklinger stefan.sicklinger@tum.de
 
-
-
-
 #TOOL CHAIN ICX|ICC|GCC
-TAG = ICC
+TAG ?= ICC
 
 ##CONFIGURE BUILD SYSTEM
 TARGET     = ./bin$(TAG)/testMapper

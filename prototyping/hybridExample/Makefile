@@ -97,26 +97,24 @@ $(BUILD_DIR)/%.o:  %.cc
 	@echo "===>  COMPILE cc $@"
 	$(Q)$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 	$(Q)$(CXX) $(CPPFLAGS) -MT $(@:.d=.o) -MM  $< > $(BUILD_DIR)/$*.d
-	
+
 $(BUILD_DIR)/%.s:  %.cc
 	@echo "===>  GENERATE ASM cc  $@"
 	$(Q)$(CXX) -S $(CPPFLAGS) $(CXXFLAGS) $< -o $@
-	
 
 $(BUILD_DIR)/%.o:  %.cpp
 	@echo "===>  COMPILE ccp  $@"
 	$(Q)$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 	$(Q)$(CXX) $(CPPFLAGS) -MT $(@:.d=.o) -MM  $< > $(BUILD_DIR)/$*.d
-	
+
 $(BUILD_DIR)/%.s:  %.cpp
 	@echo "===>  GENERATE ASM cpp  $@"
 	$(Q)$(CXX) -S $(CPPFLAGS) $(CXXFLAGS) $< -o $@
-	
 
 $(BUILD_DIR)/%.o:  %.f90
 	@echo "===>  COMPILE f90 $@"
 	$(Q)$(FC) -c  $(FCFLAGS) $< -o $@
-	
+
 $(BUILD_DIR)/%.s:  %.f90
 	@echo "===>  GENERATE ASM f90  $@"
 	$(Q)$(FC) -S $(FCFLAGS) $< -o $@
@@ -131,7 +129,6 @@ $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
 	mkdir $(EXE_DIR)
 	@$(foreach var,$(SUB_DIR), mkdir $(BUILD_DIR)/$(var);)
-	
 
 
 ifeq ($(findstring $(MAKECMDGOALS),clean),)
@@ -158,7 +155,7 @@ cleandoc:
 	@echo "===> CLEAN DOCUMENTATION"
 	@rm -rf doc/html
 	@rm -rf doc/latex	
-	
+
 ## Some hints
 #$@ The name of the target, which caused the rule to be processed.
 #$< The name of the first prerequisite.

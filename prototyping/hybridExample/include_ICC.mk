@@ -3,15 +3,10 @@ CXX = mpiicpc
 FC  = ifort
 LINKER = $(CXX)
 
-CFLAGS    = -g -xHost -O3 -openmp -std=c99
+CFLAGS    = -g -xHost -O3 -qopenmp -std=c99
 CXXFLAGS  = $(CFLAGS)
-FCFLAGS   = 
-LFLAGS    = -openmp
+FCFLAGS   =
+LFLAGS    = -qopenmp
 DEFINES   =
-INCLUDES  = 
-LIBS      = 
-
-
- 
-
-
+INCLUDES  =
+LIBS      =

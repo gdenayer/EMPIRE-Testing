@@ -4,7 +4,7 @@ import time
 
 
 libempire_api = cdll.LoadLibrary(os.environ['EMPIRE_API_LIBSO_ON_MACHINE'])
-print "This is the pong!" 
+print("This is the pong!" )
 
 libempire_api.EMPIRE_API_Connect("pong.xml");
 

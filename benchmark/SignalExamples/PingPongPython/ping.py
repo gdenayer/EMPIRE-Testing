@@ -8,16 +8,16 @@ libempire_api = cdll.LoadLibrary(os.environ['EMPIRE_API_LIBSO_ON_MACHINE'])
 
 # Define C function signatures
 libempire_api.EMPIRE_API_Connect.argtypes = [c_char_p]
-libempire_api.EMPIRE_API_Connect.restype = c_int
+libempire_api.EMPIRE_API_Connect.restype = None
 
 libempire_api.EMPIRE_API_Disconnect.argtypes = []
-libempire_api.EMPIRE_API_Disconnect.restype = c_int
+libempire_api.EMPIRE_API_Disconnect.restype = None
 
 libempire_api.EMPIRE_API_sendSignal_double.argtypes = [c_char_p, c_int, POINTER(c_double)]
-libempire_api.EMPIRE_API_sendSignal_double.restype = c_int
+libempire_api.EMPIRE_API_sendSignal_double.restype = None
 
 libempire_api.EMPIRE_API_recvSignal_double.argtypes = [c_char_p, c_int, POINTER(c_double)]
-libempire_api.EMPIRE_API_recvSignal_double.restype = c_int
+libempire_api.EMPIRE_API_recvSignal_double.restype = None
 
 EMPIRE_API_getUserDefinedText = libempire_api.EMPIRE_API_getUserDefinedText
 EMPIRE_API_getUserDefinedText.argtypes = [c_char_p]

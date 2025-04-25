@@ -9,16 +9,16 @@ print("This is the pong!")
 
 # Define the argument and return types
 libempire_api.EMPIRE_API_Connect.argtypes = [c_char_p]
-libempire_api.EMPIRE_API_Connect.restype = c_int
+libempire_api.EMPIRE_API_Connect.restype = None
 
 libempire_api.EMPIRE_API_Disconnect.argtypes = []
-libempire_api.EMPIRE_API_Disconnect.restype = c_int
+libempire_api.EMPIRE_API_Disconnect.restype = None
 
 libempire_api.EMPIRE_API_recvSignal_double.argtypes = [c_char_p, c_int, POINTER(c_double)]
-libempire_api.EMPIRE_API_recvSignal_double.restype = c_int
+libempire_api.EMPIRE_API_recvSignal_double.restype = None
 
 libempire_api.EMPIRE_API_sendSignal_double.argtypes = [c_char_p, c_int, POINTER(c_double)]
-libempire_api.EMPIRE_API_sendSignal_double.restype = c_int
+libempire_api.EMPIRE_API_sendSignal_double.restype = None
 
 # Connect to the API
 libempire_api.EMPIRE_API_Connect(b"pong.xml")

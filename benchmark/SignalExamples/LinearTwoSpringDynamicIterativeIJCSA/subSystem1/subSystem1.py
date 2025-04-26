@@ -2,11 +2,11 @@ import os
 from ctypes import *
 import time
 import matplotlib.pyplot as plt
-print 'subSystem 1'
+print('subSystem 1')
 ############################################################################
 # EMPIRE_API & connect
 libempire_api = cdll.LoadLibrary(os.environ['EMPIRE_API_LIBSO_ON_MACHINE'])
-libempire_api.EMPIRE_API_Connect("subSystem1.xml")
+libempire_api.EMPIRE_API_Connect(b"subSystem1.xml")
 ############################################################################
 # This is a linear mass-spring system integrated with BE 
 # A Dirichlet Neumann coupling of spring vs spring example
@@ -48,33 +48,33 @@ def goToNextTimeStep(u_n_p_1,u_n,u_n_m_1,u_history):
     return
 ############################################################################
 for i in range(1,timeSteps+1):
-      print '################## Current time step: {}'.format(i)
+      print('################## Current time step: {}'.format(i))
       while 1:
-         print '--------------Iteration: {}'.format(iter)
-         print 'Receiving ...' 
-         libempire_api.EMPIRE_API_recvSignal_double("interfaceForceU", size, interfaceForceU)
-         print 'Received interfaceForceU: {}'.format(interfaceForceU[0])
+         print('--------------Iteration: {}'.format(iter))
+         print('Receiving ...')
+         libempire_api.EMPIRE_API_recvSignal_double(b"interfaceForceU", size, interfaceForceU)
+         print('Received interfaceForceU: {}'.format(interfaceForceU[0]))
          io_history.append(interfaceForceU[0])
 
          interfaceDisplacementY[0] = doSolve(interfaceForceU[0],m,k,deltaT,u_n_p_1,u_n[0],u_n_m_1[0])
          interfaceDisplacementY[1] = doSolve(interfaceForceU[0],m,k,deltaT,u_n_p_1,u_n[0],u_n_m_1[0])
          interfaceDisplacementY[2] = doSolve(interfaceForceU[0],m,k,deltaT,u_n_p_1,u_n[0],u_n_m_1[0])
 
-         print 'Sending ...'
-         libempire_api.EMPIRE_API_sendSignal_double("interfaceDisplacementVecY", sizeVec, interfaceDisplacementY)
-         print 'Sent interfaceDisplacementY: {}'.format(interfaceDisplacementY[2])
+         print('Sending ...')
+         libempire_api.EMPIRE_API_sendSignal_double(b"interfaceDisplacementVecY", sizeVec, interfaceDisplacementY)
+         print('Sent interfaceDisplacementY: {}'.format(interfaceDisplacementY[2]))
          #io_history.append(interfaceDisplacementY[2])
          
          isConvergent=libempire_api.EMPIRE_API_recvConvergenceSignal()
-         print 'isConvergent: {}'.format(isConvergent)
+         print('isConvergent: {}'.format(isConvergent))
          if isConvergent!=0:
           break
          iter=iter+1       
       goToNextTimeStep(u_n_p_1,u_n,u_n_m_1,u_history);
       iter=1;
-      print 'u_n_p_1: %f' % u_n_p_1[0]
-      print 'u_n: %f' % u_n[0]
-      print 'u_n_m_1: %f' % u_n_m_1[0]
+      print('u_n_p_1: %f' % u_n_p_1[0])
+      print('u_n: %f' % u_n[0])
+      print('u_n_m_1: %f' % u_n_m_1[0])
 
 ############################################################################
 # Generate data for compare

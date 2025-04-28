@@ -16,20 +16,20 @@ libempire_api = cdll.LoadLibrary(os.environ['EMPIRE_API_LIBSO_ON_MACHINE'])
 # libempire_api = cdll.LoadLibrary("absolute/path/to/libEMPIRE_API.so")# In case you don't want to use os module in python
 
 # Connect to EMPIRE using an xml file
-libempire_api.EMPIRE_API_Connect("./recorderClientCarat.xml")
+libempire_api.EMPIRE_API_Connect(b"./recorderClientCaratIGA.xml")
 
 # Read attributes of the client from the xml file
 EMPIRE_API_getUserDefinedText = libempire_api.EMPIRE_API_getUserDefinedText
 EMPIRE_API_getUserDefinedText.restype = c_char_p
-resName = EMPIRE_API_getUserDefinedText('resName')
-resStep = EMPIRE_API_getUserDefinedText('resStep')
-noTimeSteps = int(EMPIRE_API_getUserDefinedText('noTimeSteps'))
-noTimeStepsScaling = int(EMPIRE_API_getUserDefinedText('noTimeStepsScaling'))
-geomFile = EMPIRE_API_getUserDefinedText('geomFile')
-resFile = EMPIRE_API_getUserDefinedText('resFile')
-nameCaratInput = EMPIRE_API_getUserDefinedText('nameCaratInput')
-caratDirectory = EMPIRE_API_getUserDefinedText('caratDirectory')
-phi = float(EMPIRE_API_getUserDefinedText('rotation'))
+resName = EMPIRE_API_getUserDefinedText(b'resName').decode()
+resStep = EMPIRE_API_getUserDefinedText(b'resStep').decode()
+noTimeSteps = int(EMPIRE_API_getUserDefinedText(b'noTimeSteps').decode())
+noTimeStepsScaling = int(EMPIRE_API_getUserDefinedText(b'noTimeStepsScaling').decode())
+geomFile = EMPIRE_API_getUserDefinedText(b'geomFile').decode()
+resFile = EMPIRE_API_getUserDefinedText(b'resFile').decode()
+nameCaratInput = EMPIRE_API_getUserDefinedText(b'nameCaratInput').decode()
+caratDirectory = EMPIRE_API_getUserDefinedText(b'caratDirectory').decode()
+phi = float(EMPIRE_API_getUserDefinedText(b'rotation').decode())
 
 # String to find
 stringToFind = 'Result "' + resName + '" "Eigenvector nmb." ' + resStep + ' Vector OnNodes'
@@ -42,7 +42,7 @@ stingToEnd = 'End Values'
 
 # Define the out.georhino.txt file where the output geometry is defined
 # geomFile = './dataRecorderClient/out.georhino.txt'
-print 'Reading geometry file ', geomFile
+print('Reading geometry file ', geomFile)
 
 # Initialize number of CPs in u- and v-directions
 noUCPs = []
@@ -67,7 +67,7 @@ noPatches = len(noUCPs)
 
 # Define the out.post.res to get the values of the field
 #resFile = './dataRecorderClient/out.post.res'
-print 'Reading results file ', resFile
+print('Reading results file ', resFile)
 
 # Initialize field at each Cartesian direction
 fieldX = []
@@ -106,12 +106,12 @@ if foundValues:
 if len(fieldX) != len(fieldY) or len(fieldX) != len(fieldZ) or len(fieldY) != len(fieldZ):
 	AssertionError('The results are not coherent')
 noCPs = len(fieldX)
-print '\tTotal number of interface CPs is ', noCPs
+print('\tTotal number of interface CPs is ', noCPs)
 
 ####
 #### Re-arranging the field values to comply with the numbering in Empire
 ####
-print 'Re-arranging the solution on the Control Points to match with the numbering in EMPIRE'
+print('Re-arranging the solution on the Control Points to match with the numbering in EMPIRE')
 
 # Initialize the re-arranged vectors containing the field values 
 fieldXRe = [None]*noCPs
@@ -152,7 +152,7 @@ for i in range(len(fieldX)):
 #### Rotating the field
 ####
 if phi != 0:
-	print 'Rotating the field by ', phi, 'degrees'
+	print('Rotating the field by ', phi, 'degrees')
 	phi = float(phi)*float(math.pi)/float(180)
 	for i in range(len(fieldX)):
 		fieldX = math.cos(phi)*field[3*i + 0] + math.sin(phi)*field[3*i + 1]
@@ -160,7 +160,7 @@ if phi != 0:
 		field[3*i + 0] = fieldX
 		field[3*i + 1] = fieldY
 		
-	print 'Rotating the geometry by ', phi, 'degrees'
+	print('Rotating the geometry by ', phi, 'degrees')
 	inputFilePrefix = caratDirectory+nameCaratInput
 	inputFileName = inputFilePrefix + '.txt'
 	isExistent = os.path.isfile(inputFileName)
@@ -193,7 +193,7 @@ if phi != 0:
 			
 		else:
 			output_lines.append(line)
-	print 'Input file with rotated Control Points written in ', inputFileRotated
+	print('Input file with rotated Control Points written in ', inputFileRotated)
 	outputFile.writelines(output_lines)
 	
 	# Close the files
@@ -206,7 +206,7 @@ invNormField = float(1.0)/float(normField)
 
 # Set a user specified initial scaling factor
 scalingInitial = float(1.0)/float(6.0)
-print 'Initial scaling factor equals ', scalingInitial
+print('Initial scaling factor equals ', scalingInitial)
 
 # Create the scaled field
 for i in range(noDOFs):
@@ -218,17 +218,17 @@ EMPIRE_Disp = (c_double*(noDOFs))(0.0)
 ####
 #### Loop over all time steps and send field to EMPIRE
 ####
-print 'time step loop' 										#### Comment out for no time step looping ###
+print('time step loop') 										#### Comment out for no time step looping ###
 for i in range(noTimeSteps): 									#### Comment out for no time step looping ###
-	print '\tTime step ', i									#### Comment out for no time step looping ###
+	print('\tTime step ', i)									#### Comment out for no time step looping ###
 	scaling = float(i)/float(noTimeStepsScaling) 				#### Comment out for no time step looping ###
 	if scaling > 1: 											#### Comment out for no time step looping ###
 		scaling = 1 											#### Comment out for no time step looping ###
-	print '\tScaling field to be sent to EMPIRE by ', scaling	#### Comment out for no time step looping ###
+	print('\tScaling field to be sent to EMPIRE by ', scaling)	#### Comment out for no time step looping ###
 # scaling = 1 													#### Comment in for time step looping ###
 for j in range(noDOFs): 									#### Comment out for no time step looping ###
 	EMPIRE_Disp[j] = scaling* field[j]						#### Comment out for no time step looping ###
-print '\tSending field to EMPIRE'
+print('\tSending field to EMPIRE')
 libempire_api.EMPIRE_API_sendDataField(" ", noDOFs, EMPIRE_Disp)
 
 ####

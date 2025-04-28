@@ -21,23 +21,23 @@ EMPIRE_API_sendMesh = libempire_api.EMPIRE_API_sendMesh
 EMPIRE_API_sendMesh.argtypes = [POINTER(c_char_p), c_int, c_int, POINTER(c_double), POINTER(c_int), POINTER(c_int), POINTER(c_int)]
 
 # Connect to EMPIRE using an xml file
-libempire_api.EMPIRE_API_Connect("./recorderClientCaratFEM.xml")
+libempire_api.EMPIRE_API_Connect(b"./recorderClientCaratFEM.xml")
 
 # Read attributes of the client from the xml file
-resName = EMPIRE_API_getUserDefinedText('resName')
-resStep = EMPIRE_API_getUserDefinedText('resStep')
-noTimeSteps = int(EMPIRE_API_getUserDefinedText('noTimeSteps'))
-noTimeStepsScaling = int(EMPIRE_API_getUserDefinedText('noTimeStepsScaling'))
-geomFile = EMPIRE_API_getUserDefinedText('geomFile')
-resFile = EMPIRE_API_getUserDefinedText('resFile')
-nameCaratInput = EMPIRE_API_getUserDefinedText('nameCaratInput')
-caratDirectory = EMPIRE_API_getUserDefinedText('caratDirectory')
-phi = float(EMPIRE_API_getUserDefinedText('rotation'))
+resName = EMPIRE_API_getUserDefinedText(b'resName').decode()
+resStep = EMPIRE_API_getUserDefinedText(b'resStep').decode()
+noTimeSteps = int(EMPIRE_API_getUserDefinedText(b'noTimeSteps').decode())
+noTimeStepsScaling = int(EMPIRE_API_getUserDefinedText(b'noTimeStepsScaling').decode())
+geomFile = EMPIRE_API_getUserDefinedText(b'geomFile').decode()
+resFile = EMPIRE_API_getUserDefinedText(b'resFile').decode()
+nameCaratInput = EMPIRE_API_getUserDefinedText(b'nameCaratInput').decode()
+caratDirectory = EMPIRE_API_getUserDefinedText(b'caratDirectory').decode()
+phi = float(EMPIRE_API_getUserDefinedText(b'rotation').decode())
 
 ####
 #### Read the mesh from the out.post.res file
 ####
-print 'Reading mesh file ', geomFile
+print('Reading mesh file ', geomFile)
 
 numNodes = 0
 numElems = 0
@@ -79,7 +79,7 @@ with open(geomFile) as geometryFile:
 #### Rotate the mesh nodes
 ####
 if phi != 0:
-	print 'Rotating mesh by ', phi, 'degrees'
+	print('Rotating mesh by ', phi, 'degrees')
 	phiRad = float(phi)*float(math.pi)/float(180)
 	for i in range(numNodes):
 		XRotated = math.cos(phiRad)*nodeCoors[3*i + 0] + math.sin(phiRad)*nodeCoors[3*i + 1]
@@ -90,7 +90,7 @@ if phi != 0:
 ####
 #### Rotate the mesh nodes
 ####
-print 'Sending mesh to Empire'
+print('Sending mesh to Empire')
 
 # Create the c type arrays
 EMPIRE_numNodes = c_int(numNodes)
@@ -108,8 +108,8 @@ EMPIRE_elemTable = (c_int*(len(elemTable)))(0)
 for i in range(len(elemTable)):
 	EMPIRE_elemTable[i] = elemTable[i]
 
-print EMPIRE_numNodes.value, len(EMPIRE_nodeCoors), len(EMPIRE_nodeIDs)
-print EMPIRE_numElems.value, len(EMPIRE_numNodesPerElem), len(elemTable)
+print(EMPIRE_numNodes.value, len(EMPIRE_nodeCoors), len(EMPIRE_nodeIDs))
+print(EMPIRE_numElems.value, len(EMPIRE_numNodesPerElem), len(elemTable))
 EMPIRE_meshName = c_char_p("myMesh1")
 EMPIRE_API_sendMesh(EMPIRE_meshName, EMPIRE_numNodes, EMPIRE_numElems, EMPIRE_nodeCoors, EMPIRE_nodeIDs, EMPIRE_numNodesPerElem, EMPIRE_elemTable)
 
@@ -119,7 +119,7 @@ EMPIRE_API_sendMesh(EMPIRE_meshName, EMPIRE_numNodes, EMPIRE_numElems, EMPIRE_no
 
 # Define the out.post.res to get the values of the field
 #resFile = './dataRecorderClient/out.post.res'
-print 'Reading results file ', resFile
+print('Reading results file ', resFile)
 
 # String to find
 stringToFind = 'Result "' + resName + '" "Eigenvector nmb." ' + resStep + ' Vector OnNodes'
@@ -163,7 +163,7 @@ if foundValues:
 if len(fieldX) != len(fieldY) or len(fieldX) != len(fieldZ) or len(fieldY) != len(fieldZ):
 	AssertionError('The results are not coherent')
 noCPs = len(fieldX)
-print '\tTotal number of interface nodes is ', noCPs
+print('\tTotal number of interface nodes is ', noCPs)
 			
 # Create the field to be sent
 noDOFs = 3*noCPs
@@ -180,7 +180,7 @@ for i in range(len(fieldX)):
 #### Rotating the mesh coordinates and the field
 ####
 if phi != 0:
-	print 'Rotating the field by ', phi, 'degrees'
+	print('Rotating the field by ', phi, 'degrees')
 	phiRad = float(phi)*float(math.pi)/float(180)
 	for i in range(len(fieldX)):
 		fieldX = math.cos(phiRad)*field[3*i + 0] + math.sin(phiRad)*field[3*i + 1]
@@ -194,7 +194,7 @@ if phi != 0:
 
 # Set a user specified initial scaling factor
 #scalingInitial = float(1.0)/float(6.0)
-#print 'Initial scaling factor equals ', scalingInitial
+#print('Initial scaling factor equals ', scalingInitial)
 
 # Create the scaled field
 #for i in range(noDOFs):
@@ -206,17 +206,17 @@ EMPIRE_Disp = (c_double*(noDOFs))(0.0)
 ####
 #### Loop over all time steps and send field to EMPIRE
 ####
-#print 'time step loop' 											#### Comment out for no time step looping ###
+#print('time step loop') 											#### Comment out for no time step looping ###
 #for i in range(noTimeSteps): 									#### Comment out for no time step looping ###
-	#print '\tTime step ', i										#### Comment out for no time step looping ###
+	#print('\tTime step ', i)										#### Comment out for no time step looping ###
 	#scaling = float(i)/float(noTimeStepsScaling) 				#### Comment out for no time step looping ###
 	#if scaling > 1: 											#### Comment out for no time step looping ###
 		#scaling = 1 											#### Comment out for no time step looping ###
-	#print '\tScaling field to be sent to EMPIRE by ', scaling	#### Comment out for no time step looping ###
+	#print('\tScaling field to be sent to EMPIRE by ', scaling)	#### Comment out for no time step looping ###
 scaling = 1 													#### Comment in for time step looping ###
 for j in range(noDOFs): 										#### Comment out for no time step looping ###
 	EMPIRE_Disp[j] = scaling* field[j]							#### Comment out for no time step looping ###
-print '\tSending field to EMPIRE'
+print('\tSending field to EMPIRE')
 libempire_api.EMPIRE_API_sendDataField(" ", noDOFs, EMPIRE_Disp)
 
 ####

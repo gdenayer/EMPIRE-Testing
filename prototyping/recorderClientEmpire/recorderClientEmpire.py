@@ -18,16 +18,16 @@ print('------------------------------------\n')
 libempire_api = cdll.LoadLibrary(os.environ['EMPIRE_API_LIBSO_ON_MACHINE'])
 
 # Connect to EMPIRE using an xml file
-libempire_api.EMPIRE_API_Connect("./recorderClientEmpire.xml")
+libempire_api.EMPIRE_API_Connect(b"./recorderClientEmpire.xml")
 
 # Read attributes of the client from the xml file
 EMPIRE_API_getUserDefinedText = libempire_api.EMPIRE_API_getUserDefinedText;
 EMPIRE_API_getUserDefinedText.restype = c_char_p
-resName = EMPIRE_API_getUserDefinedText('resName');
-resStep = EMPIRE_API_getUserDefinedText('resStep');
-noTimeSteps = int(EMPIRE_API_getUserDefinedText('noTimeSteps'));
-geomFile = EMPIRE_API_getUserDefinedText('geomFile');
-resFile = EMPIRE_API_getUserDefinedText('resFile');
+resName = EMPIRE_API_getUserDefinedText(b'resName').decode();
+resStep = EMPIRE_API_getUserDefinedText(b'resStep').decode();
+noTimeSteps = int(EMPIRE_API_getUserDefinedText(b'noTimeSteps').decode());
+geomFile = EMPIRE_API_getUserDefinedText(b'geomFile').decode();
+resFile = EMPIRE_API_getUserDefinedText(b'resFile').decode();
 
 # String to find
 stringToFind = 'Result "' + resName + '" "EMPIRE_CoSimulation" ' + resStep + ' vector OnNurbsSurface'
@@ -39,7 +39,7 @@ stingToEnd = 'End Values'
 ####
 
 ## Define the out.georhino.txt file where the output geometry is defined
-print 'Reading geometry file ', geomFile
+print('Reading geometry file ', geomFile)
 
 ## Initialize number of CPs in u- and v-directions
 noUCPs = []
@@ -69,14 +69,14 @@ with open(geomFile) as file:
 
 # Number of patches
 noPatches = len(noUCPs)
-print '\tNumber of patches is ', noPatches
+print('\tNumber of patches is ', noPatches)
 
 #####
 ##### Reading an out.post.res to get the values of the field
 #####
 
 # Define the out.post.res to get the values of the field
-print 'Reading results file ', resFile
+print('Reading results file ', resFile)
 
 # Initialize field at each Cartesian direction
 fieldX = []
@@ -122,12 +122,12 @@ if foundValues:
 if len(fieldX) != len(fieldY) or len(fieldX) != len(fieldZ) or len(fieldY) != len(fieldZ):
 	AssertionError('The results are not coherent')
 noCPs = len(fieldX)
-print '\tTotal number of interface CPs is ', noCPs
+print('\tTotal number of interface CPs is ', noCPs)
 
 #####
 ##### Re-arranging the field values to comply with the numbering in Empire
 #####
-print 'Re-arranging the solution on the Control Points to match with the numbering in EMPIRE'
+print('Re-arranging the solution on the Control Points to match with the numbering in EMPIRE')
 
 # Initialize the re-arranged vectors containing the field values 
 fieldXRe = [None]*noCPs
@@ -167,7 +167,7 @@ for i in range(noDOFs):
 ####
 #### Loop over all time steps and send field to EMPIRE
 ####
-print 'Sending the field to EMPIRE'
+print('Sending the field to EMPIRE')
 for i in range(noTimeSteps):
 	libempire_api.EMPIRE_API_sendDataField(" ", noDOFs,EMPIRE_Disp)
 

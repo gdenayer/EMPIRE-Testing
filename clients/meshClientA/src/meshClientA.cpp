@@ -63,11 +63,12 @@ int main(int argc, char **argv) {
     EMPIRE_API_Disconnect();
     return (0);
 }
+
 void curveSurfaceMapping() {
     bool todoIterativeCoupling = doIterativeCoupling(EMPIRE_API_getUserDefinedText("couplingType"));
     int numTimeSteps = getInteger(EMPIRE_API_getUserDefinedText("numTimeSteps"));
-
     string meshFile = EMPIRE_API_getUserDefinedText("GiDMeshFile");
+
     int numNodes = -1;
     int numElems = -1;
     double *nodeCoors;
@@ -75,10 +76,8 @@ void curveSurfaceMapping() {
     int *numNodesPerElem;
     int *elemTable;
     int *elemIDs;
-    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable, elemIDs);
-    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable);
+    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable, elemIDs);
+    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable);
 
     string resFile = EMPIRE_API_getUserDefinedText("GiDResFile");
     string dataFieldName = EMPIRE_API_getUserDefinedText("dataFieldName");
@@ -154,6 +153,7 @@ void curveSurfaceMapping() {
     delete[] dofsSend;
     delete[] dofsRecv;
 }
+
 void standardCoupling() {
     bool todoIterativeCoupling = doIterativeCoupling(EMPIRE_API_getUserDefinedText("couplingType"));
     string meshFile = EMPIRE_API_getUserDefinedText("GiDMeshFile");
@@ -166,10 +166,8 @@ void standardCoupling() {
     int *numNodesPerElem;
     int *elemTable;
     int *elemIDs;
-    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable, elemIDs);
-    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable);
+    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable, elemIDs);
+    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable);
 
     double *dofsSend = new double[numNodes * 3];
     for (int j = 0; j < numNodes * 3; j++)
@@ -178,8 +176,7 @@ void standardCoupling() {
     for (int j = 0; j < numNodes * 3; j++)
         dofsRecv[j] = 0.0;
 
-    FieldCreator *fc = new FieldCreator(numNodes, numElems, numNodesPerElem[0], nodeCoors, nodeIDs,
-            elemTable, "constant");
+    FieldCreator *fc = new FieldCreator(numNodes, numElems, numNodesPerElem[0], nodeCoors, nodeIDs, elemTable, "constant");
     for (int i = 1; i <= numTimeSteps; i++) {
         if (!todoIterativeCoupling) {
             /*for (int j = 0; j < numNodes; j++)
@@ -227,4 +224,3 @@ void standardCoupling() {
     delete[] dofsRecv;
     delete[] dofsSend;
 }
-

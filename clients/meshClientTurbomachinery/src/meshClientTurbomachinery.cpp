@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
     EMPIRE_API_Connect(argv[1]);
 
     bool todoIterativeCoupling = doIterativeCoupling(EMPIRE_API_getUserDefinedText("couplingType"));
-    string meshfile = EMPIRE_API_getUserDefinedText("GiDMeshFile");
+    string meshFile = EMPIRE_API_getUserDefinedText("GiDMeshFile");
     int numTimeSteps = getNumTimeSteps(EMPIRE_API_getUserDefinedText("numTimeSteps"));
 
     int numNodes = -1;
@@ -60,8 +60,7 @@ int main(int argc, char **argv) {
     int *numNodesPerElem;
     int *elemTable;
     int *elemIDs;
-    GiDFileIO::readDotMsh(meshfile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-				  elemTable,elemIDs);
+    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable,elemIDs);
     EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable);
 
     double *dofsSend = new double[numNodes * 3];
@@ -73,29 +72,28 @@ int main(int argc, char **argv) {
 
     FieldCreator *fc = new FieldCreator(numNodes, numElems, nodesPerElem, nodeCoors, nodeIDs, elemTable, "WindTurbine_Parabola");
     for (int i = 1; i <= numTimeSteps; i++) {
-	fc->create(dofsSend,i);
+        fc->create(dofsSend,i);
         if (!todoIterativeCoupling) {
-	  
-	    cout << "receiving ..." << endl;
-	    EMPIRE_API_recvDataField("defaultField", numNodes * 3, dofsRecv);
-            //EMPIRE_API_printDataField("-----receive-----", numNodes * 3, dofsRecv);
-	    
-	    cout << "sending ..." << endl;
+            cout << "sending ..." << endl;
             EMPIRE_API_sendDataField("defaultField", numNodes * 3, dofsSend);
             //EMPIRE_API_printDataField("-----send-----", numNodes * 3, dofsSend);
+
+            cout << "receiving ..." << endl;
+            EMPIRE_API_recvDataField("defaultField", numNodes * 3, dofsRecv);
+            //EMPIRE_API_printDataField("-----receive-----", numNodes * 3, dofsRecv);
 
             dummyUpdataPDE();
             dummySolvePDE();
         } else {
             do {
-                cout << "receiving ..." << endl;
-                EMPIRE_API_recvDataField("defaultField", numNodes * 3, dofsRecv);
-                //EMPIRE_API_printDataField("-----receive-----", numNodes * 3, dofsRecv);
-		
                 cout << "sending ..." << endl;
                 EMPIRE_API_sendDataField("defaultField", numNodes * 3, dofsSend);
                 //EMPIRE_API_printDataField("-----send-----", numNodes * 3, dofsSend);
-                
+
+                cout << "receiving ..." << endl;
+                EMPIRE_API_recvDataField("defaultField", numNodes * 3, dofsRecv);
+                //EMPIRE_API_printDataField("-----receive-----", numNodes * 3, dofsRecv);
+
             } while (EMPIRE_API_recvConvergenceSignal() == 0);
             /*std::cout << std::endl;
              std::cout << "Time step: " << i << ", no. of inner loop steps: " << count

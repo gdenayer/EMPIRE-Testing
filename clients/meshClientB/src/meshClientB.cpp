@@ -66,10 +66,11 @@ int main(int argc, char **argv) {
 }
 
 void curveSurfaceMapping() {
+
     bool todoIterativeCoupling = doIterativeCoupling(EMPIRE_API_getUserDefinedText("couplingType"));
     int numTimeSteps = getInteger(EMPIRE_API_getUserDefinedText("numTimeSteps"));
-
     string meshFile = EMPIRE_API_getUserDefinedText("GiDMeshFile");
+
     // surface mesh in Q
     int numNodes = -1;
     int numElems = -1;
@@ -78,8 +79,7 @@ void curveSurfaceMapping() {
     int *numNodesPerElem;
     int *elemTable;
     int *elemIDs;
-    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable, elemIDs);
+    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable, elemIDs);
 
     // section information
     string numSectionsString = EMPIRE_API_getUserDefinedText("numSections");
@@ -158,14 +158,11 @@ void standardCoupling() {
     int *elemTable;
     int *elemIDs;
 
-    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable, elemIDs);
+    GiDFileIO::readDotMsh(meshFile, numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable, elemIDs);
 
-    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem,
-            elemTable);
+    EMPIRE_API_sendMesh("defaultMesh", numNodes, numElems, nodeCoors, nodeIDs, numNodesPerElem, elemTable);
 
-    FluxCreator *fc = new FluxCreator(numNodes, numElems, numNodesPerElem[0], nodeCoors, nodeIDs,
-            elemTable, "constant", true);
+    FluxCreator *fc = new FluxCreator(numNodes, numElems, numNodesPerElem[0], nodeCoors, nodeIDs, elemTable, "constant", true);
 
     bool sendTractionElem = false;
     string sendDataField = EMPIRE_API_getUserDefinedText("sendDataField");
